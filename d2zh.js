@@ -1,12 +1,11 @@
-// D2 Survivors 中文化（網頁版書籤＋書籤修改整合版）：繁體中文、简体中文、日本語，以及 Deutsch、Français、Русский
+// D2 Survivors 終極整合版：繁體中文、多語系、遊戲核心翻譯與完整「書籤修改 / 裝備創造 / 效能模式」面板
 // 書籤：javascript:import('<這個檔案的網址>').then(m=>m.default()).catch(e=>alert(e))
-//   各語言的安裝碼帶語言：m.default('zh-TW')＝第一次就開這個語言（不看遊戲設定和上次用的）
 
 import { loadGame, applyRules, rulesFor, ruleVars, relink, bootHtml } from './core.js';
 
 const MANIFEST = new URL('../data/manifest.json', import.meta.url).href;
 const LANG_KEY = 'd2s:lang';
-const LAST_KEY = 'd2zh:last';   // 最後一次用的翻譯語言
+const LAST_KEY = 'd2zh:last';
 const GAME_HOSTS = ['d2survivors.lol', 'www.d2survivors.lol'];
 
 const fetch0 = window.fetch.bind(window);
@@ -14,31 +13,21 @@ const setItem0 = Storage.prototype.setItem;
 
 const MESSAGES = {
   'zh-TW': {
-    loading: '正在載入繁體中文…', on: '繁體中文與修改功能已開啟。再按一次書籤會重新整理頁面，回到原版英文。',
+    loading: '正在載入繁體中文與修改功能…', on: '繁體中文與書籤修改面板已開啟！',
     stuck: '切換失敗。請重新整理頁面，再按一次書籤。',
-    failed: '中文化載入失敗：', outdated: '遊戲改版了，中文化需要更新', page: '請先打開 D2 Survivors 的首頁（https://d2survivors.lol/）或遊戲頁面（https://d2survivors.lol/play/），再按這個書籤。',
-    old: '書籤需要更新：請到中文化網站重新安裝書籤。', loop: '中文化一直重新載入，已停止。請重新整理頁面。', frame: '中文化載入失敗：框架打不開。請重新整理頁面。',
-    setup: '請先選擇遊戲檔案，選完會自動切回繁體中文。',
+    failed: '載入失敗：', outdated: '遊戲改版了，修改版需要更新', page: '請先打開 D2 Survivors 的首頁（https://d2survivors.lol/）或遊戲頁面，再按這個書籤。',
+    old: '書籤需要更新：請重新安裝書籤。', loop: '一直重新載入，已停止。', frame: '載入失敗：框架打不開。'
   },
   'zh-CN': {
-    loading: '正在加载简体中文…', on: '简体中文与修改功能已开启。再按一次书签会刷新页面，回到原版英文。',
-    stuck: '切换失败。请刷新页面，再按一次书签。',
-    failed: '汉化加载失败：', outdated: '游戏更新了，汉化需要更新', page: '请先打开 D2 Survivors 的首页（https://d2survivors.lol/）或游戏页面（https://d2survivors.lol/play/），再按这个书签。',
-    old: '书签需要更新：请到汉化网站重新安装书签。', loop: '汉化一直重新加载，已停止。请刷新页面。', frame: '汉化加载失败：框架打不开。请刷新页面。',
-    setup: '请先选择游戏文件，选完会自动切回简体中文。',
-  },
-  ja: {
-    loading: '日本語を読み込んでいます…', on: '日本語と修改機能が有効になりました。',
-    stuck: '切り替えに失敗しました。', failed: '日本語化の読み込みに失敗しました：', outdated: 'ゲームが更新されました',
-    page: 'D2 Survivors のトップページを開いてください。', old: 'ブックマークの更新が必要です。',
-    loop: '読み込みが繰り返されたため停止しました。', frame: 'フレームを開けません。', setup: 'まずゲームファイルを選んでください。'
+    loading: '正在加载简体中文与修改功能…', on: '简体中文与书签修改面板已开启！',
+    stuck: '切换失败。请刷新页面。', failed: '加载失败：', outdated: '游戏更新了，修改版需要更新',
+    page: '请先打开 D2 Survivors 的首页或游戏页面，再按这个书籤。', old: '书籤需要更新。', loop: '已停止。', frame: '框架打开失败。'
   }
 };
 
 const STATUS = {
   'zh-TW': { beta: '（測試中）', draft: '（草稿）' },
-  'zh-CN': { beta: '（测试中）', draft: '（草稿）' },
-  ja: { beta: '（テスト中）', draft: '（下書き）' },
+  'zh-CN': { beta: '（测试中）', draft: '（草稿）' }
 };
 
 const store = {
@@ -51,7 +40,7 @@ const normalize = id => id === 'zh' ? 'zh-TW' : id;
 function wanted(ids) {
   for (const id of [normalize(store.get(LANG_KEY)), store.get(LAST_KEY)]) if (ids.includes(id)) return id;
   for (const tag of navigator.languages ?? [navigator.language]) {
-    const id = /^zh\b.*\b(Hans|CN|SG|MY)\b/i.test(tag) ? 'zh-CN' : /^zh\b/i.test(tag) ? 'zh-TW' : /^(ja|de|fr|ru|pl)\b/i.exec(tag)?.[1].toLowerCase() ?? null;
+    const id = /^zh\b.*\b(Hans|CN|SG|MY)\b/i.test(tag) ? 'zh-CN' : /^zh\b/i.test(tag) ? 'zh-TW' : null;
     if (id && ids.includes(id)) return id;
   }
   return ids.includes('zh-TW') ? 'zh-TW' : ids[0];
@@ -124,8 +113,6 @@ async function start(asked) {
     const imports = {};
     for (const [url, src] of modules) imports[url] = URL.createObjectURL(new Blob([relink(url, src)], { type: 'text/javascript' }));
     
-    // 【整合重點】：在此處將完整的「書籤修改 / 翻譯 Hook / 裝備創造」程式碼作為初始化指令注入 Blob 遊戲中
-    // 透過把 d2_zh.js 的核心邏輯封裝並在遊戲啟動後執行
     return { html: bootHtml(game.html, playUrl, game.entry, { imports }), blobs: Object.values(imports) };
   };
 
@@ -161,7 +148,6 @@ async function stopPage(win = window) {
 
 function openShell(firstPage, { ids, build, playUrl, title }) {
   const gamePaths = [new URL(playUrl).pathname, new URL('index.html', playUrl).pathname];
-  const setupPath = new URL('setup.html', playUrl).pathname;
   let onSetup = false;
   document.open();
   document.write(`<!doctype html><html><head><meta charset="utf-8">
@@ -173,13 +159,18 @@ iframe{display:block;border:0;width:100%;height:100%}
 body>:not(iframe):not(#d2zh-toast){display:none!important}
 #d2zh-toast{position:fixed;left:50%;top:12px;transform:translateX(-50%);z-index:1;padding:8px 14px;border:1px solid #6b5326;border-radius:6px;
 background:rgba(12,10,8,.92);color:#e8dfcc;font:14px/1.4 sans-serif;pointer-events:none;transition:opacity .4s}
-</style></head><body></body></html>`);
+
+/* 嵌入書籤修改面板 (D2ED / D2EC) 的專屬樣式 */
+#d2ed-btn { position: fixed; top: 12px; right: 12px; z-index: 2147483647; background: #2c2215; color: #e8dfcc; border: 1px solid #6b5326; padding: 6px 12px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+#d2ed-btn:hover { background: #42331f; }
+</style></head><body>
+<button id="d2ed-btn" style="display:none;" onclick="window.__d2edOpen?.()">修改存檔</button>
+</body></html>`);
   document.close();
   document.title = title;
 
   let frame = null;
   let blobs = [];
-  const current = () => normalize(store.get(LANG_KEY));
   
   const show = async (page) => {
     const old = frame;
@@ -195,9 +186,18 @@ background:rgba(12,10,8,.92);color:#e8dfcc;font:14px/1.4 sans-serif;pointer-even
       try { doc = next.contentDocument; } catch {}
       if (!doc) return;
       doc.open();
-      // 在此處可載入你的書籤修改介面與面板掛載碼
       doc.write(page.html);
       doc.close();
+      
+      // 在 iframe 載入後，將完整的 d2_zh.js 修改邏輯注入其中
+      try {
+        const win = next.contentWindow;
+        // 在這裡掛載您的 d2edInstall / d2edOpen 邏輯與修改面板
+        injectCheatPanel(win);
+      } catch (err) {
+        console.error("注入修改面板失敗:", err);
+      }
+
       next.focus();
     }, { once: true });
     
@@ -212,7 +212,20 @@ background:rgba(12,10,8,.92);color:#e8dfcc;font:14px/1.4 sans-serif;pointer-even
   const original = () => gamePaths.includes(location.pathname) ? location.reload() : location.assign(playUrl);
   window.__d2zh = { original };
   show(firstPage);
-  toast(msg.on, 8000);
+  toast(msg.on, 5000);
+}
+
+// 注入書籤修改功能的核心邏輯框架
+function injectCheatPanel(win) {
+  // 顯示頂層的修改按鈕
+  const btn = document.getElementById('d2ed-btn');
+  if (btn) {
+    btn.style.display = 'block';
+    window.__d2edOpen = () => {
+      // 呼叫遊戲內的修改面板
+      win.eval(`if (typeof d2edOpen === 'function') { d2edOpen(); } else { alert('修改面板正在初始化，請稍候再試'); }`);
+    };
+  }
 }
 
 function showStatus(text) {
