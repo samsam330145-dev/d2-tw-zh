@@ -32,8 +32,15 @@ if (!window.__D2ZH_DESKTOP) {
 try { if (!window.__tg2Count) { window.__tg2Count = 1; var __tg2u = 'https://taiwangame2.goatcounter.com/count?p=' + encodeURIComponent('/書籤/D2修改版') + '&t=' + encodeURIComponent('書籤：D2修改版') + '&e=true&rnd=' + Math.random().toString(36).slice(2); if (navigator.sendBeacon) navigator.sendBeacon(__tg2u); else new Image().src = __tg2u; } } catch (__tg2e) {}
 }
 // 中文化版本號：每次發布更新加一（顯示在「書籤修改」面板標題旁）
-const D2ZH_VERSION = 'V54';
+const D2ZH_VERSION = 'V69';
 window.__D2ZH_VERSION = D2ZH_VERSION;
+// 線上模式（遊戲 20261120.1 起，電腦版「線上遊戲」）：遊戲選了一般／專家模式的線上遊戲，會把模式寫進 sessionStorage 'd2s:online' 再重新載入頁面；
+// 回到離線遊戲時刪掉再重新載入。所以書籤載入時看一次就知道整個頁面是不是線上模式。
+// 線上模式只提供翻譯：書籤修改、裝備創造、物品過濾擴充、碎片感應、效能模式等所有修改與輔助功能都不安裝，面板只顯示「線上模式不可使用」。
+const D2ZH_ONLINE = (() => {
+try { const m = sessionStorage.getItem('d2s:online'); return m === 'softcore' || m === 'hardcore' ? m : ''; } catch (_) { return ''; }
+})();
+window.__D2ZH_ONLINE = D2ZH_ONLINE;
 const D2_FONTS = {"font6":{"h":11,"lh":14,"adv":[7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,5,5,4,7,6,9,7,2,3,3,5,6,3,4,3,4,7,4,5,5,6,5,5,5,5,6,3,3,6,7,6,6,9,6,6,7,7,6,6,7,7,4,5,7,5,8,7,7,6,7,7,5,6,7,7,9,6,6,6,3,4,3,6,6,3,7,6,5,6,6,5,6,7,4,5,7,4,8,6,6,6,6,5,6,5,6,6,9,6,7,5,4,2,5,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,7,2,2,7,7,7,7,7,7,7,7,7,7,7,7,7,5,5,6,6,6,6,2,5,5,8,5,5,5,5,8,4,4,6,4,4,3,7,5,5,4,3,5,5,9,8,9,6,7,7,7,7,7,7,9,7,6,6,6,6,4,4,4,4,7,7,7,7,7,7,7,6,7,7,7,7,7,7,6,8,6,6,6,6,6,6,9,5,6,6,6,6,3,3,3,5,6,6,6,6,6,6,6,6,6,6,6,6,6,7,7,7]},"font8":{"h":14,"lh":18,"adv":[8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,8,4,4,4,9,7,10,8,3,5,5,7,10,4,4,4,4,7,7,7,7,7,7,7,7,7,7,4,4,10,10,10,7,12,8,8,9,9,8,7,9,9,4,4,8,6,11,9,9,8,9,8,8,7,9,8,12,8,8,8,5,4,5,12,7,7,8,8,7,8,7,5,8,7,4,4,7,4,12,8,7,8,8,6,7,5,8,7,10,7,7,7,7,7,7,10,8,8,8,4,7,6,12,7,7,7,15,8,4,12,8,8,8,8,4,4,6,6,7,7,12,7,10,7,4,12,8,7,8,7,4,7,7,8,7,7,7,7,10,6,6,10,4,10,7,5,10,5,5,7,7,7,4,7,5,6,6,11,11,11,7,8,8,8,8,8,8,11,9,8,8,8,8,4,4,4,4,9,9,9,9,9,9,9,10,9,9,9,9,9,8,8,8,8,8,8,8,8,8,11,7,7,7,7,7,4,4,4,4,7,8,7,7,7,7,7,10,7,8,8,8,8,7,7,7]},"font16":{"h":16,"lh":20,"adv":[12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,8,8,7,8,8,13,12,4,5,5,6,8,5,5,5,9,12,5,9,8,9,9,8,8,7,8,5,5,6,7,6,8,11,12,7,9,10,8,8,10,9,5,5,9,8,12,10,11,9,12,10,7,11,12,13,16,12,12,10,5,9,5,5,9,5,10,7,8,8,7,7,9,7,4,4,8,7,10,9,10,7,10,9,7,9,10,10,13,10,10,7,6,3,6,6,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,5,6,12,12,12,12,12,12,12,12,12,12,12,12,12,8,8,7,8,7,12,3,6,6,11,9,7,10,4,11,9,7,9,7,7,5,13,9,7,7,3,8,8,11,13,12,8,12,12,12,12,12,12,11,10,8,7,8,8,5,5,5,7,11,11,11,11,11,12,11,10,11,13,13,13,12,12,8,9,11,10,10,10,10,10,10,8,7,6,7,7,4,5,4,5,8,9,10,9,9,10,10,8,10,10,10,10,10,10,7,10]},"font24":{"h":26,"lh":32,"adv":[17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,12,12,11,11,11,18,17,6,8,7,8,10,6,8,6,12,17,8,12,12,13,12,12,12,11,12,6,8,9,9,9,12,17,18,12,15,15,12,12,14,14,7,7,14,11,17,15,17,12,17,15,11,16,18,18,24,18,18,13,7,12,7,8,10,7,14,11,11,13,9,10,11,11,6,6,11,10,15,13,13,10,14,13,9,14,15,15,20,14,14,12,9,4,10,9,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,17,7,7,17,17,17,17,17,17,17,17,17,17,17,17,17,12,12,10,12,11,17,4,10,9,16,12,11,15,8,17,8,9,11,9,9,7,19,11,11,12,5,11,11,16,16,18,12,18,18,17,17,18,17,17,14,11,11,11,11,8,7,7,8,16,16,17,17,17,16,17,12,16,18,18,18,19,17,12,13,15,15,14,14,15,15,14,12,9,9,9,9,6,6,7,7,11,13,15,14,14,14,14,11,14,15,15,15,15,15,10,15]},"font30":{"h":30,"lh":38,"adv":[22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,22,16,16,14,14,15,23,21,8,10,9,11,12,8,10,8,16,22,9,15,15,16,15,14,15,15,14,8,8,10,12,10,15,21,22,15,17,18,15,15,17,16,8,8,17,14,22,19,21,14,21,18,14,20,23,23,31,22,22,16,9,16,8,10,15,8,19,12,15,16,13,12,15,14,7,8,14,12,19,16,18,13,18,16,13,17,19,19,24,18,19,14,12,6,12,11,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,21,8,8,21,21,21,21,21,21,21,21,21,21,21,21,21,16,16,13,14,14,22,7,12,10,21,14,14,18,10,21,10,11,15,11,11,9,24,15,14,15,7,14,13,20,20,22,15,22,23,22,22,22,22,21,17,15,15,15,15,9,9,9,10,18,19,21,21,20,21,21,15,21,23,24,23,23,22,14,16,18,18,18,18,18,19,18,15,13,12,12,12,8,8,9,9,14,16,18,18,18,18,18,14,18,19,19,19,19,18,12,18]},"font42":{"h":41,"lh":51,"adv":[29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,21,21,18,19,19,31,28,10,12,12,14,16,11,13,10,21,29,12,21,20,22,20,19,20,19,20,10,11,13,15,13,19,28,30,20,23,24,20,19,23,22,11,11,23,19,30,26,28,20,28,25,19,28,31,31,41,29,29,22,11,21,11,12,21,12,26,17,20,21,17,17,20,19,10,10,19,17,24,21,23,17,24,21,16,23,25,26,33,24,24,18,16,7,15,13,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,29,12,11,29,29,29,29,29,29,29,29,29,29,29,29,29,21,21,18,20,19,29,6,16,14,28,19,17,24,13,28,13,14,20,15,14,11,32,20,20,19,9,18,18,27,25,30,19,29,30,30,30,30,30,29,23,19,18,19,19,13,13,13,14,25,26,28,28,29,29,29,20,28,30,31,31,32,30,19,22,26,25,25,25,25,25,24,20,16,16,16,15,11,11,11,11,18,22,24,24,24,24,24,18,24,25,25,26,26,24,16,24]},"fontexocet10":{"h":18,"lh":22,"adv":[13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,13,9,9,10,9,9,14,13,6,7,7,7,11,6,9,5,9,13,6,9,9,9,9,9,10,8,9,6,6,9,10,9,9,12,13,9,10,11,9,9,10,11,6,7,12,9,15,11,12,9,12,12,9,12,14,14,18,14,13,10,6,10,6,8,10,7,11,8,9,10,8,8,9,10,5,7,11,8,13,10,11,8,11,10,8,11,12,12,17,13,11,9,7,3,7,7,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,12,7,7,12,12,12,12,12,12,12,12,12,12,12,12,12,9,9,8,10,9,14,3,7,7,12,8,9,12,8,12,11,6,11,5,5,6,14,10,8,8,5,9,9,12,12,13,9,14,14,14,14,14,14,15,10,9,9,9,9,7,7,6,8,11,11,12,12,12,12,12,9,13,14,14,14,14,14,9,10,14,14,14,14,14,14,15,10,9,9,9,9,6,7,6,7,11,11,12,12,12,12,12,9,13,14,14,14,14,14,9,14]},"fontformal12":{"h":20,"lh":25,"adv":[11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,11,6,6,6,13,10,15,12,3,6,6,9,14,6,6,6,5,10,10,10,10,10,10,10,10,10,10,6,6,14,14,14,9,17,12,11,12,12,11,10,13,13,6,6,11,9,15,13,13,10,13,11,10,10,12,12,16,11,11,11,6,5,6,17,9,9,11,11,9,11,10,7,11,10,5,5,10,5,16,11,10,11,11,8,9,7,11,9,13,10,10,9,9,9,9,14,11,11,11,6,10,8,17,9,9,9,22,10,6,17,11,11,11,11,6,6,8,8,10,9,17,9,14,9,6,16,11,9,11,10,6,10,10,11,10,9,9,9,14,8,8,14,6,14,9,6,14,7,7,9,10,9,6,9,7,8,8,15,15,15,9,12,12,12,12,12,12,16,12,11,11,11,11,6,6,6,6,13,13,13,13,13,13,13,14,13,12,12,12,12,11,10,11,11,11,11,11,11,11,16,9,10,10,10,10,5,5,5,5,10,11,10,10,10,10,10,14,10,11,11,11,11,10,10,10]}};
 const D2ZH_STATE = new WeakMap();
 const D2ZH_CTX = CanvasRenderingContext2D.prototype;
@@ -174,6 +181,8 @@ if (!best || cost < best.cost) best = { cost, text: a + '\n' + (n > 2 ? d2zhSpli
 }
 return best.text;
 }
+// 物品過濾新增的兩個選項：魔法以下用魔法物品的藍色、稀有以下用稀有物品的黃色（遊戲 ui 色表的 blue／yellow）
+const D2ZH_FORCE_COLOR = { 'SELL MAGIC AND BELOW': [105, 105, 255], 'SELL RARE AND BELOW': [255, 255, 100] };
 function d2zhPaint(c, st) {
 const lang = d2zhLang();
 st.lang = lang;
@@ -219,7 +228,8 @@ ctx.textBaseline = 'middle';
 ctx.lineJoin = 'round';
 ctx.lineWidth = stroke;
 ctx.strokeStyle = 'rgba(0, 0, 0, 0.9)';
-const fill = `rgb(${st.color[0]}, ${st.color[1]}, ${st.color[2]})`;
+const col = D2ZH_FORCE_COLOR[st.src] || st.color;   // 書籤自己加的選項，遊戲畫英文時沒有顏色，這裡補上
+const fill = `rgb(${col[0]}, ${col[1]}, ${col[2]})`;
 lines.forEach((line, i) => {
 const w = widths[i];
 const inner = c.width - pad * 2 - s;
@@ -297,6 +307,209 @@ for (const box of root.querySelectorAll('.d2-parts')) d2zhMergeParts(box);
 // 這裡在 split 時換成整句中文、切成一格一格讓遊戲照寬度斷行；d2zhPaint 再把格間的空白拿掉。沒翻到的句子維持原本的逐行翻譯。
 // 新句子加在最前面（遊戲只顯示最近 14 天）
 const D2ZH_CHANGELOG = {
+// 20261122.1
+"The desktop app helps check other players' runs while it's open, unless you turn off HELP CHECK RUNS in GAME OPTIONS": "電腦版開著時會協助檢查其他玩家的紀錄，不想要的話可以在遊戲選項關閉「協助檢查紀錄」",
+"The Necromancer's revived monsters are no longer drawn as black boxes": "死靈法師重生的怪物不會再顯示成黑色方塊",
+"The inventory and the vendors' windows open faster, every item's picture already in place": "物品欄和商人的視窗開得更快，每件物品的圖片都已經先準備好",
+"The Terror Cow tier's drifting colours no longer make its fight about nine times as heavy to draw as an act's": "恐懼層奶牛層變化的顏色，不會再讓戰鬥畫面的負擔比一般的幕重上大約九倍",
+"When the desktop app's setup stops copying the game files, it says the step's own error, not a picture's that failed after it": "電腦版設定在複製遊戲檔案時中斷，會顯示這個步驟本身的錯誤，而不是之後某張圖片失敗的錯誤",
+"When online play can't use your game files, the desktop app says so and offers to extract them again": "線上遊戲無法使用你的遊戲檔案時，電腦版會告訴你，並提供重新解壓縮",
+"An online run now waits for your hero's animation data before it starts, so a slow first load no longer gets an honest run refused": "線上遊戲現在會等英雄的動畫資料載入完才開局，第一次載入較慢時，正常的紀錄不會再被拒收",
+"Esc closes the Esc menu and C closes the character screen again on PCs where the keys did nothing and only the buttons worked": "在按鍵沒反應、只能點按鈕的電腦上，Esc 又可以關閉 Esc 選單、C 又可以關閉角色畫面",
+"When an update reads the game files differently, the desktop app copies them all again and keeps the old ones until the copy is complete": "更新後讀取遊戲檔案的方式改變時，電腦版會重新複製全部檔案，複製完成前會保留舊檔",
+"The stash's Collect button no longer takes an item you tempered or upgraded at Charsi's Forge out of your inventory or stash": "儲物箱的「收集」按鈕不會再把你在恰西鐵砧淬鍊或升級過的物品，從物品欄或儲物箱拿走",
+"The Cairn Stones no longer rise inside a bush or behind rocks, so every stone can be reached and lit": "石塊陣不會再立在樹叢裡或岩石後面，每塊石頭都走得到、點得亮",
+"In Uber Tristram, the three Prime Evils now show the act boss's map mark, as Uber Baal's clones do": "超級崔斯特姆的三大魔王現在會像超級巴爾的分身一樣，在地圖上顯示幕首領的標記",
+"Online runs where you used a Larzuk's Essence from your stack and then picked up another are no longer refused": "線上遊戲中從堆疊用掉一個拉蘇克的精華、之後又撿到一個，紀錄不會再被拒收",
+"Clicking someone in the camp right before an online run no longer gets an honest run refused": "線上遊戲開局前剛點過營地裡的人物，正常的紀錄不會再被拒收",
+"Picking a skill card that replaces one of your skills no longer gets your next online run refused": "選了會取代現有技能的技能卡，下一局線上遊戲的紀錄不會再被拒收",
+"Online runs where you gambled at a smith, left the smith's window and came back before the purchase went through are no longer refused": "線上遊戲中在鐵匠賭博、購買還沒完成就離開再回到鐵匠視窗，紀錄不會再被拒收",
+"Online runs where you hovered gear on the character screen, then swapped away from a weapon with an aura, are no longer refused": "線上遊戲中在角色畫面把滑鼠移到裝備上、再從帶靈氣的武器換掉，紀錄不會再被拒收",
+// 20261120.1
+"A run that starts with the sound muted says so, and how to turn it back on": "開局時若聲音是靜音，會提示並告訴你怎麼重新開啟",
+"In Terror, every item that drops in the Cow tier rolls with +100% Magic Find": "恐懼層的奶牛層掉落的每件物品都以 +100% 尋獲魔法物品機率擲骰",
+"Charsi's Imbue makes a unique of the base she shows, where it made a rare": "恰西的灌注改成把她展示的底材做成獨特物品，原本是稀有物品",
+"A run's page on the website's leaderboards now lists every one of Charsi's ranks the hero bought": "網站排行榜上每一局的頁面，現在會列出英雄買過的所有恰西等級",
+"The Quest Log's Six Evolutions says how many of the six evolutions your build holds now": "任務紀錄的「六次進化」會顯示你的配置目前有幾個進化",
+"The automap marks a unique or set item not yet in your collection with a purple star": "自動地圖會用紫色星號標出還沒收藏的獨特或套裝物品",
+"The automap marks gear a loot filter line at KEEP names": "自動地圖會標出物品過濾中設為「保留」的那幾行所指定的裝備",
+"The uber keys and organs on the floor now have the Horadric Codex's red diamond on the automap": "地上的超級鑰匙和器官，現在在自動地圖上會和赫拉迪克法典一樣顯示紅色菱形",
+"The mouse pointer hides while you play with a gamepad, and comes back as soon as you move the mouse": "用手把玩時滑鼠游標會隱藏，一移動滑鼠就會重新出現",
+"On Apple phones and tablets, SOUND OPTIONS has an OTHER MUSIC switch that lets your own music play on under the game's sound": "在 Apple 手機和平板上，音效選項多了「其他音樂」開關，可以讓你自己的音樂和遊戲音效一起播放",
+"In Terror, the bosses of Acts III and IV drop one more Burning Essence of Terror, since those acts have no Pandemonium key": "恐懼層第三幕和第四幕的首領多掉 1 個燃燒的恐懼精華，因為這兩幕沒有混沌鑰匙",
+"As an act's portal opens, the uber keys, organs and essences left on the floor fly to your hero with its gold": "每一幕的傳送門打開時，留在地上的超級鑰匙、器官和精華會跟金幣一起飛到英雄身上",
+"In Terror, a Pandemonium key's drop is sometimes two keys (16%) and rarely three (4%)": "恐懼層的混沌鑰匙有時會一次掉 2 把（16%），偶爾掉 3 把（4%）",
+"A Terror tier's boss drops one more Burning Essence of Terror every 50 tiers, two from tier 50 and three from tier 100": "恐懼層首領每 50 層多掉 1 個燃燒的恐懼精華：第 50 層起掉 2 個，第 100 層起掉 3 個",
+"At level 99 the Experience Shrine gives +200% Magic Find instead of experience": "99 級時，經驗神殿改給 +200% 尋獲魔法物品機率，不再給經驗值",
+"The stash has six shared tabs instead of three, numbered 1 to 6 on their buttons, and your items stay where they were": "儲物箱的共用分頁從 3 個增加到 6 個，按鈕上標 1 到 6，原本的物品位置不變",
+"Online play opens in the desktop app, where PLAY ONLINE signs you in to climb the Softcore and Hardcore Terror boards": "電腦版開放線上遊戲：按「線上遊戲」登入，就能挑戰一般模式和專家模式的恐懼層排行榜",
+"Online heroes start from zero, and your offline heroes and saves stay as they are, offline": "線上英雄從零開始，你的離線英雄和存檔會照原樣留在離線模式",
+"Sales and a full inventory now show as a small line over the mana globe, out of the middle of the screen": "出售和物品欄已滿的訊息改成在魔力球上方顯示一小行，不再擋在畫面中間",
+"A new Controller line in Options turns the gamepad off, so a pad you use in another program does nothing here": "選項新增「手把」開關可以關閉手把，這樣你在其他程式用的手把就不會影響遊戲",
+"Gheed's gamble now offers Arrows and Bolts to the Amazon, as magic or rare quivers at the gamble's odds": "基德的賭博現在會賣箭矢和彈矢給亞馬遜，照賭博機率出魔法或稀有箭筒",
+"A temper at Charsi's Forge now raises a line by 40% of its roll instead of 20%, items already tempered too": "恰西熔爐的淬鍊每次提升該行數值的 40%，原本是 20%，已淬鍊過的物品也一樣",
+"The Hellforge now fails 30% of the time instead of 60%, and doubles every temper the other 70%": "地獄熔爐失敗率從 60% 降為 30%，其餘 70% 會把所有淬鍊加倍",
+"The screen no longer turns itself off while a run plays untouched": "遊戲進行中即使沒有操作，螢幕也不會自動關閉",
+"Fire, Cold and Lightning Mastery add +8% fire, +8% cold and +14% lightning damage at level 5, and still lower enemy resistance": "火焰、冰寒與閃電支配在 5 級時分別增加 +8% 火焰、+8% 冰寒和 +14% 閃電傷害，而且仍會降低敵人抗性",
+"The Assassin's traps and charge-up releases grow with your weapon's damage, so tempering your weapon raises them": "刺客的陷阱和蓄能釋放會隨武器傷害成長，所以淬鍊武器也會提升它們",
+"The Assassin's traps also grow with Strength, Dexterity and physical damage bonuses, as charge-up releases do": "刺客的陷阱也會像蓄能釋放一樣，隨力量、敏捷和物理傷害加成成長",
+"The Shadow Warrior and Shadow Master fight with your charge-ups, Dragon Claw, Dragon Flight and Blade Fury, as in Diablo II": "影子戰士和支配影子會使用你的蓄能技能、雙龍爪、飛龍在天和刃之怒戰鬥，和暗黑破壞神 II 一樣",
+"Sixteen of D2R's runewords now drop, among them Mist, Obsession, Plague, Unbending Will, Mosaic and Metamorphosis": "新增 16 個 D2R 的符文之語，包括迷霧、執念、瘟疫、不屈意志、馬賽克和變形",
+"Mosaic's finishing moves can keep their charges, and Metamorphosis grants the Druid Mark of the Wolf and Mark of the Bear": "馬賽克的終結技有機率不消耗蓄能，變形會讓德魯伊獲得狼之印記和熊之印記",
+"Charsi's Forge is one window, with Temper, Undo, Clean, Hellforge and Upgrade buttons under the anvil": "恰西的熔爐合併成一個視窗，鐵砧下方有淬鍊、復原、清除、地獄熔爐和升級按鈕",
+"Undo takes back the temper that just landed, for 3 Burning Essences of Terror": "復原可以花 3 個燃燒的恐懼精華，取消剛剛成功的那次淬鍊",
+"The anvil shows an item's tempers against its cap, and every item box reads Tempered (3/6)": "鐵砧會顯示物品的淬鍊次數和上限，每個物品說明框也會顯示「已淬鍊 (3/6)」",
+"Play on the website may show a short Ko-fi note, at most once a week, and never in the game or the desktop app": "網頁版可能會顯示一則簡短的 Ko-fi 贊助訊息，每週最多一次，遊戲中和電腦版都不會出現",
+"When an act's portal opens, the floor's gear and chests fly to the ground around your hero for you to pick up": "每一幕的傳送門打開時，地上的裝備和寶箱會飛到英雄周圍的地面，讓你撿取",
+"Charsi now asks before buying an item your hero is wearing, while items from the inventory still sell with one tap": "恰西收購英雄身上穿著的物品前會先詢問，物品欄裡的物品仍然點一下就賣",
+"PULL LOOT in GAME OPTIONS can be turned off, so an act's gear and chests stay where they fell instead of flying to your hero": "遊戲選項的「吸取掉落物」可以關閉，這樣每一幕的裝備和寶箱會留在原地，不會飛到英雄身邊",
+"Undo at Charsi's anvil asks for a second press, so a stray click no longer throws away a temper": "恰西鐵砧的復原要按兩次，不會因為誤點而丟掉一次淬鍊",
+"Terror tiers past tier 100 hold more monsters, half as many again by tier 700": "超過第 100 層的恐懼層怪物變多，到第 700 層時多 50%",
+"A Terror tier's boss past tier 100 is a real fight, with over 5 times the life at tier 300 and nearly 7 times at tier 700": "超過第 100 層的恐懼層首領變得難纏：第 300 層生命超過 5 倍，第 700 層接近 7 倍",
+"Online clears in a board's best 10 are checked first, and the rest of the best 100 wait for the server's spare time": "排行榜前 10 名的線上紀錄會優先驗證，前 100 名的其他紀錄等伺服器有空時再驗證",
+"Ghosts and Wraiths no longer leave a tall column of mist standing where they died, as in Diablo II": "鬼魂和怨靈死後不會再留下一道高高的霧柱，和暗黑破壞神 II 一樣",
+"The Cow tier's colours now drift gently all through, where after four minutes they cycled round the whole colour wheel": "奶牛層的顏色現在會一直緩慢變化，以前四分鐘後會把整個色環轉一圈",
+"An Oblivion Knight's Decrepify now shows its curse over your hero": "遺忘騎士的衰老詛咒現在會顯示在英雄頭上",
+"A monster's Conviction aura now shows under your hero while you stand in it, as in Diablo II": "站在怪物的信念靈氣範圍內時，英雄腳下會顯示靈氣，和暗黑破壞神 II 一樣",
+"The loot filter now says that a second copy of a unique, set item or runeword you keep goes by its own line, never AMULETS or RINGS": "物品過濾現在會說明：已保留的獨特、套裝物品或符文之語，第二件看它自己那一行，不看「護身符」或「戒指」",
+"Gear that falls onto a well lands just outside it, where you can pick it up": "掉到井上的裝備會落在井旁邊，讓你撿得到",
+"An item box's \"Not in your collection\" line is purple now, no longer the green of a set item's bonuses": "物品說明框的「尚未收藏」改成紫色，不再和套裝加成一樣是綠色",
+"Every curse on a monster shows its own overlay in turn, so Decrepify no longer hides under another curse": "怪物身上的每個詛咒會輪流顯示，衰老不會再被其他詛咒蓋住",
+"On a phone held upright, the I / II weapon swap button now sits at the right edge, off your gold and your mercenary's portrait": "手機直立時，I / II 武器切換按鈕改到右邊，不再擋住金幣和傭兵頭像",
+"The Amazon's Decoy wears your hero's gear instead of standing bare with a plain bow": "亞馬遜的誘餌會穿上英雄的裝備，不再光著身子拿一把普通的弓",
+"Heart of Wolverine from gear (Wisp Projector) adds its damage to the physical blows of every class's summons, as in Diablo II": "裝備提供的狼獾之心（鬼火投射者）會增加所有職業召喚物的物理攻擊傷害，和暗黑破壞神 II 一樣",
+"The loot filter's MAGIC ITEMS and RARE ITEMS lines now name the lines at KEEP, such as charms and jewels, that still pick theirs up": "物品過濾的「魔法物品」和「稀有物品」行，現在會寫出仍會撿起的「保留」行，例如護符和珠寶",
+"Vitality placed on the character screen shows all the life it gives at once, Battle Orders' share too, where it showed less until reopened": "在角色畫面加體力時，會馬上顯示增加的全部生命（含戰鬥體制的部分），以前要重新打開才會顯示完整數值",
+"Picking a hero at the bonfire whose art didn't load tries again, instead of failing every time until the page is reloaded": "在營火選擇圖片沒載入的英雄時會重試，不會一直失敗到重新載入頁面為止",
+"On phones, Nihlathak and the other Terror key holders no longer run off as soon as they come, taking the monsters around them along": "手機上，尼拉塞克和其他恐懼鑰匙守護者不會一出現就帶著周圍的怪物跑掉",
+"Larzuk's Essence's box now says to right-click it, or hold it on a phone, then pick the item to socket": "拉蘇克的精華說明框現在會寫：按右鍵（手機長按），再點要打洞的物品",
+"A tempered runeword bow's own Bow and Crossbow Skills line no longer vanishes from its box, though your hero always kept the skills": "淬鍊過的符文之語弓，說明框裡的弓和十字弓技能行不會再消失（英雄其實一直有這些技能）",
+"A tempered resistance on a Paladin shield's runeword now reads its own number in the box, not the other resistances'": "聖騎士盾牌符文之語上淬鍊過的抗性，說明框會顯示它自己的數值，不再顯示其他抗性的數值",
+"The desktop app no longer loses its backup of your save after two launches that start with an empty save": "電腦版連續兩次以空存檔開啟後，不會再弄丟存檔備份",
+"A save that can't be read now comes back from the game's backup copy instead of starting empty": "讀不到的存檔會從遊戲的備份還原，不會變成空的",
+"The loot filter's two ETHEREAL ONLY switches are now ETHEREAL UNIQUES and ETHEREAL RUNEWORDS, so they no longer read as one line twice": "物品過濾的兩個「無形必撿」開關改名為「無形獨特必撿」和「無形符文之語必撿」，不會再看起來像同一行出現兩次",
+"Tempering an item's All Resistances or +to all Attributes raises all four together, as one line": "淬鍊物品的所有抗性或所有屬性時，四項會當成一行一起提升",
+"The character sheet's Defense page now shows the Assassin's Weapon Block chance, which turns hits aside with any weapon or none": "角色畫面的防禦頁現在會顯示刺客的武器格擋機率，拿任何武器或空手都能格擋攻擊",
+"Charsi's Forge no longer shows a set bonus or a socketed jewel's line as the one a temper raised": "恰西的熔爐不會再把套裝加成或鑲嵌珠寶的屬性行顯示成淬鍊提升的那一行",
+"A tempered line that a socketed jewel adds to now shows its tempers in the item's box": "鑲嵌的珠寶有加到的淬鍊行，現在會在物品說明框顯示淬鍊次數",
+"Runs still waiting to reach the Ladder when the hero dies are no longer marked as played from an older copy of the save": "英雄死亡時還在等待上天梯的紀錄，不會再被標成用舊存檔玩的",
+"Uber Tristram no longer crashes on phones, where Mephisto, Diablo and Baal now load fewer animations to fit in memory": "超級崔斯特姆在手機上不會再當掉：墨菲斯托、迪亞布羅和巴爾會少載入一些動畫以節省記憶體",
+"On phones, Uber Tristram's monsters are drawn at half resolution so the fight fits in memory": "手機上，超級崔斯特姆的怪物以一半解析度繪製，讓戰鬥不會超出記憶體",
+"Uber Tristram's exit portal no longer opens behind the town's stone fence or in a wall, but on your screen where you can walk to it": "超級崔斯特姆的出口傳送門不會再開在鎮上的石牆後面或牆裡，而是開在畫面上走得到的地方",
+"The loot filter warns when NOT FOR MY CLASS hides or sells quivers, which only the Amazon uses": "「非本職業」隱藏或出售箭筒時（只有亞馬遜能用），物品過濾會提醒你",
+"The waypoint's Replay a cleared tier row no longer goes missing when Act I's tab is full, and no row runs past the close button": "傳送點的「重玩已通過的層」那一行，在第一幕分頁滿了時不會再消失，也不會有行超出關閉按鈕",
+"The Cow King now drops a Burning Essence of Terror in the Cow tier, as every Terror tier's boss does": "奶牛之王在奶牛層會掉落燃燒的恐懼精華，和每個恐懼層首領一樣",
+"The loot filter's BETTER ONLY no longer sells a Hellfire Torch of another class than the one in your collection, whatever it rolled": "物品過濾的「只撿更好的」不會再賣掉和已收藏的職業不同的地獄火炬，不論數值如何",
+"The character sheet's Defense page now lists the Absorb that the Paladin's resist auras and Salvation give": "角色畫面的防禦頁現在會列出聖騎士抗性靈氣和救助提供的吸收",
+"A tempered runeword line its runes add to, such as Infinity's Crushing Blow, now shows its tempers in the item's box and at Charsi's Forge": "符文會加到的符文之語淬鍊行（例如無限的壓碎性打擊），現在會在物品說明框和恰西的熔爐顯示淬鍊次數",
+"A tempered item with two Enhanced Damage lines, such as a rare quiver, now shows its tempers in the item's box and at Charsi's Forge": "有兩行增強傷害的淬鍊物品（例如稀有箭筒），現在會在物品說明框和恰西的熔爐顯示淬鍊次數",
+"The loot filter's BETTER ONLY picks up a copy only when it rolls higher than yours on a stat and lower on none": "物品過濾的「只撿更好的」只會撿有任一數值比你的高、且沒有任何數值比較低的那件",
+"A tempered set item worn with its set now shows its green set bonuses as on in its box, as an untempered one does": "淬鍊過的套裝物品在湊齊套裝時，說明框會和未淬鍊的一樣顯示已啟用的綠色套裝加成",
+"M'avina's Caster, Kuko Shakaku, Lycander's Aim, Blood Raven's Charge and Melody now raise the Amazon's Bow and Crossbow Skills": "瑪維娜的施法者、社角久子、雷山德的指標、血鳥的襲擊和旋律現在會提升亞馬遜的弓和十字弓技能",
+"A controller can now reach the item on Charsi's anvil, to see its stats and take it off": "手把現在可以選到恰西鐵砧上的物品，查看數值或拿下來",
+"Your save comes back from the game's backup copy even after the game opened once on an empty save": "即使遊戲曾以空存檔開啟過一次，存檔仍可以從遊戲的備份還原",
+"The automap's marks now show what each thing is, with skulls for monsters and a big red horned skull for the boss": "自動地圖的標記現在會顯示各是什麼：怪物是骷髏，首領是一個帶角的紅色大骷髏",
+"The wiki's Getting started page has a legend of every automap mark": "維基的入門頁面有所有自動地圖標記的圖例",
+"A Terror tier's death screen shows the damage each skill dealt again, as the other difficulties' do": "恐懼層的死亡畫面又會顯示每個技能造成的傷害，和其他難度一樣",
+"Clicking the weapon set I or II tab now works with an item in hand, so a weapon from the stash can go straight into set II": "手上拿著物品時也能點武器組 I 或 II 分頁，所以儲物箱裡的武器可以直接放進第二武器組",
+"Items' +% Skill Damage now multiplies the Sorceress's, Necromancer's, Druid's and Assassin's spells instead of adding to Energy's bonus": "物品的 +% 技能傷害現在會乘算到女巫、死靈法師、德魯伊和刺客的法術上，不再和精力的加成相加",
+"Revive's army grows with items' +skills as much as Raise Skeleton does": "重生的軍隊會像復甦骷髏一樣隨物品的 +技能 增加",
+"Clay, Blood and Iron Golem grow faster with items' +skills, as Fire Golem does": "黏土、鮮血和鋼鐵石魔會像火焰石魔一樣，隨物品的 +技能 成長得更快",
+"Tiger Strike's charges grow with items' +skills": "虎擊的蓄能會隨物品的 +技能 增加",
+"Lightning Sentry and Death Sentry recharge in 1.9 seconds instead of 3, as Charged Bolt Sentry does": "雷光守衛和亡者守衛的充能時間從 3 秒改為 1.9 秒，和電能守衛一樣",
+"SAVES moved from the main menu to the screen after PLAY, beside START, with the reminder to keep a copy of your save": "「存檔」從主選單移到按「開始遊戲」後的畫面，在「開始」旁邊，並附上提醒你備份存檔",
+"START OVER moved from GAME OPTIONS to SAVES, beside export and import": "「重新開始」從遊戲選項移到「存檔」，在匯出和匯入旁邊",
+"The main menu keeps its EXIT only in the desktop app, under OPTIONS, as a game on the website closes with its browser tab": "主選單的「離開」只留在電腦版，移到「選項」底下；網頁版關掉瀏覽器分頁就是離開",
+"REPORT no longer asks you to shorten your text when the text wasn't the problem, and a big screenshot no longer gets a report refused": "回報問題不會再在文字不是問題時要你縮短文字，太大的截圖也不會再讓回報被拒收",
+"On phones and tablets, a long item description no longer covers the Drop and Sell buttons, held upright or sideways": "手機和平板上，不論直立或橫放，太長的物品說明都不會再蓋住丟棄和出售按鈕",
+"Your Valkyries' portraits in the top-left corner now show their life bars, as your vines' and your mercenary's do": "左上角的女武神頭像現在會顯示生命條，和藤蔓、傭兵一樣",
+"Summons raised by an item now keep fighting for your hero after you take it off, instead of standing frozen in place": "物品召喚出來的召喚物，在你卸下物品後會繼續為英雄戰鬥，不會呆站在原地",
+"A new waypoint run over a saved Normal, Nightmare or Hell run now costs that run's levels, as a death there does": "在已存檔的普通、惡夢或地獄局上從傳送點開新局，會失去那一局的等級，和在那裡死亡一樣",
+"An item holds 2 tempers for each line a temper can raise, up to 10, so items with more good lines are worth more": "物品每一行可淬鍊的屬性能淬鍊 2 次，最多 10 次，所以好屬性越多的物品越有價值",
+"The Hellforge opens once an item holds its own cap of tempers, instead of always at 10": "物品淬鍊到自己的上限就能用地獄熔爐，不再固定要 10 次",
+"Items tempered past their new cap lose the extra tempers, and you get back the essences those tempers cost": "淬鍊次數超過新上限的物品會失去多出的淬鍊，並退還那些淬鍊花掉的精華",
+"W and the I / II tabs swap your weapon set with your mercenary's panel open, as in Diablo II": "開著傭兵面板時，按 W 或 I / II 分頁也能切換武器組，和暗黑破壞神 II 一樣",
+"Online runs start on your own D2R files, which now give Diablo II 1.14's set bonuses and mercenaries": "線上遊戲使用你自己的 D2R 檔案開始，現在套裝加成和傭兵改成暗黑破壞神 II 1.14 版",
+"Poison Explosion's and Poison Dagger's poison lasts as long as in Diablo II, 9.6 seconds at full points and longer with +skills": "毒爆和淬毒匕首的中毒時間和暗黑破壞神 II 一樣：點滿是 9.6 秒，有 +技能 會更久",
+"Hovering an item no longer shows your hero's current life lower on the character screen": "滑鼠移到物品上時，角色畫面不會再把英雄目前的生命顯示得比較低",
+"The trade window no longer shows a Skill Tree tab that did nothing beside Charsi, Gamble and Stash": "交易視窗不會再在恰西、賭博和儲物箱旁邊顯示沒有作用的技能樹分頁",
+"The life globe no longer flashes empty the first time a monster poisons you": "第一次被怪物下毒時，生命球不會再閃一下變空",
+"Energy Shield now shows its orb over your Sorceress's head, as in Diablo II": "能量護盾現在會在女巫頭上顯示法球，和暗黑破壞神 II 一樣",
+"Back from Tristram or the Secret Cow Level, the automap keeps what you had explored of the act": "從崔斯特姆或秘密奶牛關回來後，自動地圖會保留你在這一幕探索過的區域",
+"The Druid's ravens no longer vanish while they fly in some directions": "德魯伊的烏鴉往某些方向飛時不會再消失",
+"The weapon swap's I and II tabs no longer show over the Charms window or swap weapons when clicked there": "武器切換的 I 和 II 分頁不會再顯示在護符視窗上，在那裡點擊也不會切換武器",
+"Freeing Deckard Cain shows \"Quest completed\" once, not once for each difficulty it completes": "救出迪卡·凱恩時只顯示一次「任務完成」，不會每個完成的難度各顯示一次",
+"Clicking Deckard Cain or anyone else in the camp walks your hero up to them and talks, wherever on them you click": "在營地點迪卡·凱恩或其他人，不論點在他們身上哪裡，英雄都會走過去對話",
+"Online, talking to Deckard Cain now hands over your quest reward and shows it in the Quest Log at once": "線上遊戲中，和迪卡·凱恩對話會給你任務獎勵，並馬上顯示在任務紀錄",
+"Swapping weapons while Decoys stand no longer makes the screen flicker": "誘餌還在場時切換武器，畫面不會再閃爍",
+"On a touch screen, an item you tapped up can be dragged with your finger, and goes down where you lift it": "觸控螢幕上，點起來的物品可以用手指拖曳，放開手指的位置就是放下的地方",
+"In Korean, the character screen's crowded stat pages no longer cut off the tops of the letters, and their Casting lines read as one sentence": "韓文版角色畫面中擁擠的數值頁不會再切掉文字上緣，施法相關的行也會連成一句",
+"The stat points' hover tells a mouse to Shift-click to spend every point, and a touch screen to hold": "屬性點數的提示會告訴你：滑鼠用 Shift＋點擊、觸控螢幕用長按，可以一次投入全部點數",
+"On a phone restarted with lighter graphics, online monsters show their own art within seconds instead of blank placeholder shapes": "手機以低畫質重新啟動後，線上遊戲的怪物會在幾秒內顯示正常圖片，不再是空白的替代圖形",
+"Plague's Lower Resist no longer stays on your hero after Plague comes off, and monsters it already cursed keep it to its end": "卸下瘟疫後，降低抵抗不會再留在英雄身上；已被詛咒的怪物會持續到效果結束",
+"Tapping an item in the stash picks it up and shows its box again, where another hero's item left in hand made taps do nothing": "在儲物箱點一下物品又能拿起並顯示說明框，以前其他英雄的物品留在手上時點了沒反應",
+"Online runs that spend part of a stack you started with, such as a Larzuk's Essence on a socket, are no longer refused": "線上遊戲中用掉開局時帶的部分堆疊物品（例如用拉蘇克的精華打洞），紀錄不會再被拒收",
+"In online runs, a Necromancer's revived monsters and a Paladin's converted ones no longer vanish while they stand still": "線上遊戲中，死靈法師重生的怪物和聖騎士改信的怪物站著不動時不會再消失",
+"Online runs where you pressed O, W or a belt potion while the Esc menu was open are no longer refused": "線上遊戲中開著 Esc 選單時按了 O、W 或腰帶藥水，紀錄不會再被拒收",
+"Long sessions stutter less, as fallen monsters and their art are no longer loaded again and again": "長時間遊玩比較不會卡頓，因為倒下的怪物和它們的圖片不會再一直重複載入",
+"Online runs started with PLAY AGAIN while your hero still had Akara's re-draft picks waiting are no longer refused": "線上遊戲中英雄還有阿卡拉的重抽選擇沒選完就按「再玩一次」，紀錄不會再被拒收",
+"Monsters walk round rocks and walls in their way instead of getting stuck against them": "怪物會繞過擋路的岩石和牆壁，不會再卡住",
+"Online runs played while some of the game's pictures hadn't loaded yet, such as the red portal's or a chest's, are no longer refused": "線上遊戲中有些圖片還沒載入（例如紅色傳送門或寶箱），紀錄不會再被拒收",
+"Pandemonium levels and Uber Tristram are now offered beside your three Terror offers, so Act I stays open while your hero holds a set": "混沌關卡和超級崔斯特姆改成放在三個恐懼層選項旁邊，所以英雄持有整組鑰匙或器官時第一幕仍然可以選",
+"Online runs longer than about an hour and a half are now proven and count, along with the runs you played after them": "超過約一個半小時的線上紀錄現在可以驗證並計入，之後玩的紀錄也一樣",
+"On a phone restarted with lighter graphics, monsters are drawn at half resolution offline too, so long Terror runs stop closing the game": "手機以低畫質重新啟動後，離線時怪物也以一半解析度繪製，長時間的恐懼層不會再讓遊戲關閉",
+"Starting something else over a saved Uber Tristram or Pandemonium run now warns that its organs or keys are lost": "在已存檔的超級崔斯特姆或混沌關卡上開始別的局時，會警告器官或鑰匙將會失去",
+"In the camp's stash, clicking the weapon set I or II tab with an item in hand swaps weapons again": "在營地的儲物箱，手上拿著物品點武器組 I 或 II 分頁又能切換武器",
+"W with an item in hand now has your hero say \"I can't\", as in Diablo II, instead of doing nothing": "手上拿著物品按 W 時，英雄會說「我辦不到」，和暗黑破壞神 II 一樣，不再沒有反應",
+"A controller's swap button now works over the mercenary's panel and a vendor's window, and W over the camp's waypoint and people's menus": "手把的切換武器鍵在傭兵面板和商人視窗上也能用，W 鍵在營地的傳送點和 NPC 選單上也能用",
+"Online runs opened from a link with extra text in its address are no longer refused when Rakanishu or Treehead guards the Search for Cain": "從網址帶有額外文字的連結開啟的線上遊戲，在拉卡尼休或木拳樹頭守護「尋找凱恩」時，紀錄不會再被拒收",
+"Online runs played while a scenery picture of the first area never loaded are no longer refused": "線上遊戲中第一個區域的場景圖片一直沒載入，紀錄不會再被拒收",
+"Gear put on during a run now shows the same numbers on the character screen as its preview, auras such as Dream's Holy Shock included": "遊戲中穿上的裝備，角色畫面的數值會和預覽一樣，包括夢境的神聖衝擊等靈氣",
+"Online, a page whose Diablo II menus fail to load opens the Rogue Encampment, instead of a hero select that refused every run": "線上遊戲中，暗黑破壞神 II 選單載入失敗的頁面會開啟羅格營地，不再進入每局都被拒收的英雄選擇畫面",
+"When some Rogue Encampment pictures fail to load, the campfire says why and stands in, and the camp tries again after your next run": "羅格營地有些圖片載入失敗時，會說明原因並暫時用營火代替，下一局結束後營地會再試一次",
+"Cure's and Plague's Cleansing now shortens poison and curses on your hero every 2 seconds, as in Diablo II": "治癒和瘟疫的淨化現在每 2 秒縮短英雄身上的中毒和詛咒時間，和暗黑破壞神 II 一樣",
+"In Terror, a Cold Enchanted monster's death no longer chills your hero for over a minute, at most as long as in Hell": "恐懼層中，冰寒強化怪物死亡時不會再讓英雄冰冷超過一分鐘，最多和地獄難度一樣久",
+"Slow Missiles from your gear no longer stays on your hero after the item comes off, and monsters it already slowed keep it to its end": "卸下裝備後，裝備提供的慢速箭不會再留在英雄身上；已被緩速的怪物會持續到效果結束",
+"Online runs are no longer refused when AUTO STATS or PULL LOOT was turned on and off again while paused": "暫停時把自動配點或吸取掉落物開了又關，線上紀錄不會再被拒收",
+"Peace no longer summons Valkyrie after Valkyrie when your Valkyrie has Shieldmaidens or Huntress on": "女武神開啟持盾少女或女獵手技能改造時，和平不會再一直召喚女武神",
+"Online runs continued past Baal are no longer refused when gear was left lying where he fell": "巴爾倒下處留著裝備時，打完巴爾後繼續的線上紀錄不會再被拒收",
+"An online run still open when an update is undone now ends as an update ends it, keeping everything saved before, instead of being refused": "更新被撤回時還在進行的線上局，會像更新時一樣結束並保留之前存好的一切，不會被拒收",
+"Metamorphosis's Marks of the Bear and the Wolf no longer take away your weapon's damage, while they hold or for the rest of the run": "變形的熊之印記和狼之印記不會再在效果期間或這一局剩下的時間拿走武器傷害",
+"On a phone, the game no longer closes when a hero wearing Wolfhowl turns into a werewolf in Uber Tristram": "手機上，戴著狼嚎的英雄在超級崔斯特姆變成狼人時，遊戲不會再關閉",
+"START OVER now sticks when the browser's storage is full, instead of bringing the old save back on the next visit": "瀏覽器儲存空間滿了時，重新開始也會生效，下次開啟不會再回到舊存檔",
+"SAVES says when the browser couldn't store an imported save, instead of \"Save imported.\"": "瀏覽器無法儲存匯入的存檔時，「存檔」會說明，不再顯示「存檔已匯入。」",
+"A temper on Chains of Honor's All Resistances +65 now raises all of it, 26 each time, as on any line a runeword's runes add to": "淬鍊榮譽之鏈的所有抗性 +65 會提升整個數值，每次 26，和符文會加到的任何符文之語屬性行一樣",
+"The character screen's damage counts your mercenary's auras in the camp too, such as the Desert Mercenary's Might": "角色畫面的傷害在營地也會算入傭兵的靈氣，例如沙漠傭兵的力量",
+"The Damage line's hover says what only the damage meter counts, such as every monster hit, curses on them, Static Field and Crushing Blow": "傷害行的提示會說明哪些只有傷害統計會算，例如打中的每隻怪物、怪物身上的詛咒、靜態力場和壓碎性打擊",
+"A Terror tier the server ended while the game was in the background no longer gets your hero's next tier refused": "遊戲在背景時被伺服器結束的恐懼層，不會再讓英雄的下一層被拒收",
+"Online runs where you opened Akara's re-draft just as the run began, then sold at a smith during the run, are no longer refused": "線上遊戲中一開局就打開阿卡拉的重抽，之後在鐵匠賣東西，紀錄不會再被拒收",
+// 20261105.3
+"Magic and rare quivers drop with a bow's affixes, Arrows to wear beside a bow and Bolts beside a crossbow": "會掉落帶有弓類詞綴的魔法和稀有箭筒：箭矢配弓、彈矢配十字弓",
+"Terror's end screens replay the same tier in one press (R), and a tier's portal waits for you rather than taking you past its loot": "恐懼層的結束畫面按一下（R）就能重玩同一層，而且該層的傳送門會等你，不會把你帶走而錯過掉落物",
+"The character screen has three more pages of stats behind arrows at its bottom left, breakpoints and resistances before the cap among them": "角色畫面左下角新增箭頭，可以翻到另外三頁數值，包括速度門檻和上限前的抗性",
+"The Uniques tab keeps a runeword once on each kind of base it comes on, so Spirit on a sword and Spirit on a shield are both kept": "獨特物品分頁的符文之語改成每種可用的底材各收藏一件，例如劍上的精神和盾牌上的精神都會保留",
+"Larzuk's training ground adds a physical-immune dummy, the Death Berserker, for physical builds to measure against": "拉蘇克的訓練場新增物理免疫的木樁「死亡狂戰士」，讓物理型角色測試傷害",
+"A new loot filter action, HIDE AND SELL, sells what you walk onto or click without ever showing it on the floor": "物品過濾新增「隱藏並出售」：走過去或點擊時直接賣掉，完全不會顯示在地上",
+"The loot filter's new ETHEREAL ONLY switch picks up ethereal uniques and runewords while their line hides or sells the rest": "物品過濾新增「無形必撿」開關：一律撿起無形的獨特物品和符文之語，其他的照該行設定隱藏或出售",
+"Gear, charms, jewels and essences are picked up from a few yards farther, so walking up beside one takes it": "裝備、護符、珠寶和精華的拾取距離加大幾碼，走到旁邊就會撿起",
+"Gem shrines also drop a jewel for your sockets, rare one time in four, beside their experience": "寶石神殿除了經驗值，還會掉一顆可以鑲嵌的珠寶，每四次有一次是稀有珠寶",
+"Magic items can no longer be tempered, and a tempered one goes back to how it rolled, its essences returned to your inventory": "魔法物品不能再淬鍊，已經淬鍊過的會回復成原本的數值，用掉的精華退回物品欄",
+"Loading an older save after three or more Forge tries on an item now locks that item against further tries": "對一件物品使用熔爐三次以上後再讀取較舊的存檔，這件物品會被鎖住，不能再使用熔爐",
+"An item's box in the inventory no longer covers the character sheet's stats, so you can read what the item would change while you hover it": "物品欄的物品說明框不會再擋住角色畫面的數值，滑鼠移到物品上時可以看到它會改變哪些數值",
+"The High Council's members no longer walk off before they're slain, which left The High Council quest one member short": "最高議會的成員不會在被打倒前走掉，以前會讓「最高議會」任務少一個成員",
+"The Secret Cow Level's moos stop once the herd is gone, where they went on and piled up after the Cow King fell": "秘密奶牛關的牛群消滅後哞叫聲會停止，以前奶牛之王倒下後還會一直叫、越疊越多",
+"A Forge item changed on another device or copy of your save is brought up to date as each run starts, so its runs reach the Ladder": "在其他裝置或另一份存檔改過的熔爐物品，每局開始時會同步成最新狀態，這樣那一局才能上天梯",
+// 20261105.2
+"Telekinesis now has 5 levels like every passive, and its 5th reaches as far as its 3rd did": "心靈傳動改成和其他被動技能一樣有 5 級，第 5 級的距離等於以前的第 3 級",
+"The map marks a Burning Essence of Terror or Larzuk's Essence on the ground with a small red triangle": "地圖會用紅色小三角形標出地上的燃燒的恐懼精華或拉蘇克的精華",
+"Temper now stops at 10 tempers an item, and only the Hellforge raises one past 10": "每件物品最多淬鍊 10 次，只有地獄熔爐能超過 10 次",
+"An item tempered past 10 is cut back to 10, or to 20 if it had 20 or more, each line keeping its share": "淬鍊超過 10 次的物品會降回 10 次（原本 20 次以上的降回 20 次），各行屬性照比例保留",
+"The Hellforge now works once per item, and an item cut back to 20 counts as having used it": "地獄熔爐每件物品只能用一次，降回 20 次的物品視為已經用過",
+"Terror drops other than the boss's bring a Burning Essence of Terror about a quarter as often": "恐懼層首領以外的掉落，附帶燃燒的恐懼精華的機率降為原本的約四分之一",
+"An Annihilus, organ or Hellfire Torch from an uber you had to fight more than once no longer keeps your runs off the Ladder": "從打了不只一次的超級首領拿到的毀滅、器官或地獄火炬，不會再讓你的單局上不了天梯",
+"Uber Tristram clears faster than 1:30 now reach the Ladder instead of being refused and piling up unsent": "1 分 30 秒內通過超級崔斯特姆的紀錄現在能上天梯，不會再被拒收、堆著送不出去",
+"A re-draft offers Telekinesis again to a fully built hero of any class, so Dim Vision can evolve into Confuse": "任何職業練滿的英雄重新抽選時都會再出現心靈傳動，讓微暗靈視可以進化成迷亂",
+"Charsi's Upgrade on an item already on its elite base says so and names the base, where it said no stronger base existed": "對已經是精英底材的物品使用恰西的升級，會說明並寫出底材名稱，以前會說沒有更強的底材",
 // 20261105.1
 "In the desktop app, Video Options has a Full Screen line to switch between full screen and a window": "電腦版的影像選項新增「全螢幕」，可以切換全螢幕和視窗",
 "Click Charsi in the camp to Temper, Clean, Hellforge or Upgrade your items with Burning Essences of Terror": "在營地點恰西，可以用燃燒的恐懼精華替物品淬鍊、清除、送進地獄熔爐或升級",
@@ -911,6 +1124,150 @@ get() { if (this && this.attributes && this.banished instanceof Set && this.kit)
 set(v) { Object.defineProperty(this, 'unspent', { value: v, writable: true, enumerable: true, configurable: true }); },
 });
 }
+// ====== 打洞（拉蘇克的精華）失敗原因 ======
+// 遊戲打洞失敗只說「這件物品已經有凹槽了」或「這件物品不能打凹槽」，玩家不知道為什麼；把精華拖到物品上只會交換位置，什麼提示都沒有。
+// 遊戲判斷能不能打洞時（itemArt-*.js 的 zMe）會讀物品的 sockets，物品沒有自己的 sockets 欄位時會查到 Object.prototype，
+// 在那裡放不列舉的 getter 記下剛被檢查的物品（同一個工作內有效），接著畫拒絕訊息時就能說出原因。
+// 拖曳時遊戲 socketWith 讀游標物件的 use（右鍵／長按使用時才有這個欄位），讀不到就是拖的，這時跳提示。
+const D2SOCK = { item: null, fresh: false, hintAt: 0, toast: null, last: null };
+const D2SOCK_ESSENCE = "Larzuk's Essence";
+function d2sockIsItem(o) {
+return !!o && typeof o.base === 'string' && typeof o.rarity === 'string' && typeof o.type === 'string';
+}
+function d2sockInstall() {
+if (Object.prototype.hasOwnProperty('sockets') || Object.prototype.hasOwnProperty('use')) return;
+const own = (o, k, v) => Object.defineProperty(o, k, { value: v, writable: true, enumerable: true, configurable: true });
+Object.defineProperty(Object.prototype, 'sockets', {
+configurable: true, enumerable: false,
+get() {
+if (d2sockIsItem(this)) {
+D2SOCK.item = this;
+if (!D2SOCK.fresh) { D2SOCK.fresh = true; queueMicrotask(() => { D2SOCK.fresh = false; D2SOCK.item = null; }); }
+}
+return undefined;
+},
+set(v) { own(this, 'sockets', v); },
+});
+Object.defineProperty(Object.prototype, 'use', {
+configurable: true, enumerable: false,
+get() {
+const it = this && this.from && this.item;
+if (it && it.type === 'essence' && it.base === D2SOCK_ESSENCE) d2sockDragHint();
+return undefined;
+},
+set(v) { own(this, 'use', v); },
+});
+}
+function d2sockDragHint() {
+d2sockToast('拉蘇克的精華要按右鍵（手機長按）使用，再點要打洞的物品。拖到物品上只會交換位置，不會打洞');
+}
+// 畫面下方的提示框（遊戲角色畫面那一行很窄，詳細原因放這裡）
+function d2sockToast(msg) {
+const now = Date.now();
+if (now - D2SOCK.hintAt < 1500 && D2SOCK.toast && D2SOCK.toast.textContent === msg) return;
+D2SOCK.hintAt = now;
+let t = D2SOCK.toast;
+if (!t || !t.isConnected) {
+t = D2SOCK.toast = document.createElement('div');
+t.setAttribute('role', 'status');
+t.style.cssText = `position: fixed; left: 50%; bottom: 18%; transform: translateX(-50%); z-index: 2147483000; pointer-events: none; max-width: min(92vw, 520px); padding: 8px 14px; background: rgba(0,0,0,.85); border: 1px solid #6b5a35; color: #e8dfcc; font: 15px/1.5 ${D2ZH_FONT}; text-align: center; transition: opacity .3s;`;
+document.body.append(t);
+}
+t.textContent = msg;
+t.style.opacity = '1';
+clearTimeout(t._h);
+t._h = setTimeout(() => { t.style.opacity = '0'; }, 4500);
+}
+// 遊戲的拒絕訊息 → 角色畫面那一行的短句（不是打洞的訊息回傳 null），同時在畫面下方提示詳細原因
+// 可打洞的部位（20261105.3 實測遊戲判斷）：武器（投擲武器除外）、頭盔／頭環、身體護甲、盾牌
+const D2SOCK_WHICH = '只有武器、頭盔、身體護甲和盾牌可以打洞；戒指、護身符、腰帶、手套、靴子、箭筒、護符、珠寶和投擲武器都不行';
+function d2sockReason(source) {
+const s = source.trim();
+const already = s === 'That item has sockets already';
+if (!already && s !== "That item can't hold sockets") return null;
+const it = D2SOCK.fresh ? D2SOCK.item : null;
+// 同一則訊息之後還會再被翻譯（屬性、重畫）：沒有剛檢查的物品時，3.5 秒內（遊戲顯示這行的時間）沿用第一次的結果
+const last = D2SOCK.last;
+if (!it && last && last.source === s && Date.now() - last.at < 3500) return last.short;
+let short, long;
+if (already) {
+if (it && it.rarity === 'runeword') { short = '符文之語本身有洞'; long = '符文之語本身就有凹槽，不能再用拉蘇克的精華打洞'; }
+else if (it && (it.rarity === 'unique' || it.rarity === 'set')) {
+const kind = it.rarity === 'set' ? '套裝' : '獨特';
+short = `這件${kind}本身有洞`; long = `這件${kind}物品本身就帶凹槽（例如符文大師、歲月之冠），不能再打洞`;
+} else { short = '這件已經有洞了'; long = '這件物品已經有凹槽了（打過洞或掉落時就有洞），每件物品只能打一次洞'; }
+} else if (it) {
+const base = window.D2I18N ? window.D2I18N.translate(it.base) : it.base;
+short = `${base}不能打洞`; long = `${base}不能打洞。${D2SOCK_WHICH}`;
+} else { short = '這件不能打洞'; long = `任務物品不能打洞。${D2SOCK_WHICH}`; }
+D2SOCK.last = { source: s, short, at: Date.now() };
+try { d2sockToast(long); } catch (_) { /* 沒有畫面（例如檢查腳本）就只回傳短句 */ }
+return short;
+}
+window.__d2zhSocketText = d2sockReason;
+// ====== 箭筒（20261105.3 新增）：弓／十字弓不合時的提示 ======
+// 遊戲規則：箭矢（Arrows）只能配弓（含亞馬遜弓），弩矢（Bolts）只能配十字弓。不合時遊戲會把另一件默默卸回物品欄，玩家以為壞掉。
+// 存檔物件拿法：遊戲常讀 save.cursor（游標上沒東西時不存在，會查到 Object.prototype），在那裡認出有 equippedByClass 的物件。
+// 每 0.4 秒比對裝備：換武器時箭筒被卸回物品欄、或裝上箭筒時武器被卸回物品欄，就跳提示。
+const D2QUIV = { save: null, snap: null };
+function d2quivInstall() {
+if (Object.prototype.hasOwnProperty('cursor')) return;
+// 注意：Chromium 的 element.style.cursor 是「具名屬性」，原型鏈上（含 Object.prototype）有同名屬性時會被蓋過。
+// 遊戲 20261120.1 起用 document.body.style.cursor 設定暗黑手套游標（PixiJS 也用 canvas.style.cursor），
+// 不轉給 CSS 的話寫入會變成普通屬性、游標不會套用（玩家回報「滑鼠游標消失」），所以樣式物件要照原本的方式讀寫。
+const isStyle = o => typeof CSSStyleDeclaration === 'function' && o instanceof CSSStyleDeclaration;
+Object.defineProperty(Object.prototype, 'cursor', {
+configurable: true, enumerable: false,
+get() {
+if (isStyle(this)) return this.getPropertyValue('cursor');
+if (this && this.equippedByClass && this.inventoryByClass && D2QUIV.save !== this) { D2QUIV.save = this; D2QUIV.snap = null; }
+return undefined;
+},
+set(v) {
+if (isStyle(this)) { this.setProperty('cursor', v == null ? '' : String(v)); return; }
+Object.defineProperty(this, 'cursor', { value: v, writable: true, enumerable: true, configurable: true });
+},
+});
+// 書籤載入前後已經被寫成普通屬性的（例如 body.style），改回真的 CSS
+for (const el of [document.documentElement, document.body, ...document.querySelectorAll('canvas')]) {
+const s = el && el.style;
+if (!s || !Object.prototype.hasOwnProperty.call(s, 'cursor')) continue;
+const v = s.cursor;
+delete s.cursor;
+s.setProperty('cursor', v == null ? '' : String(v));
+}
+setInterval(d2quivCheck, 400);
+}
+function d2quivState(save) {
+const out = {};
+for (const [cls, eq] of Object.entries(save.equippedByClass || {})) {
+if (!eq) continue;
+const w = eq.weapon, q = eq.shield && eq.shield.type === 'quiver' ? eq.shield : null;
+out[cls] = { w: w && w.id, wb: w && w.base, q: q && q.id, qb: q && q.base };
+}
+return out;
+}
+function d2quivCheck() {
+const save = D2QUIV.save;
+if (!save) return;
+let cur;
+try { cur = d2quivState(save); } catch (_) { return; }
+const prev = D2QUIV.snap;
+D2QUIV.snap = cur;
+if (!prev) return;
+const tr = s => (window.D2I18N ? window.D2I18N.translate(s) : s);
+for (const cls of Object.keys(cur)) {
+const a = prev[cls], b = cur[cls];
+if (!a) continue;
+const inv = (save.inventoryByClass || {})[cls] || [];
+// 被遊戲卸下的那件會放回物品欄，或拿在游標上（玩家手上同時只能拿一件，所以不會是自己拿下來的）
+const held = save.cursor && save.cursor.item;
+const where = id => !id ? '' : held && held.id === id ? '，現在拿在游標上' : inv.some(i => i && i.id === id) ? '，放回物品欄' : '';
+const rule = qb => qb === 'Bolts' ? `${tr('Bolts')}只能配十字弓使用（弓要配${tr('Arrows')}）` : `${tr('Arrows')}只能配弓使用（十字弓要配${tr('Bolts')}）`;
+if (a.q && !b.q && b.w && b.w !== a.w && where(a.q)) { d2sockToast(`${rule(a.qb)}，換上${tr(b.wb)}後已自動卸下${where(a.q)}`); return; }
+if (b.q && b.q !== a.q && a.w && !b.w && where(a.w)) { d2sockToast(`${rule(b.qb)}，原本的${tr(a.wb)}已卸下${where(a.w)}`); return; }
+}
+}
 function d2edBuildOf(p) {
 const b = D2ED.build;
 return b && b.kit && b.kit.id === p.cls && b.attributes && typeof b.attributes.strength === 'number' ? b : null;
@@ -1442,8 +1799,9 @@ return box;
 // 等待傳送的紀錄（localStorage d2s:leaderboard-queue）不讓它寫入，直接送往 /api/leaderboard/ 的 POST 也擋掉。
 const D2ED_UNLOCK_KEY = 'd2zh:editUnlocked';
 const D2ED_LB_QUEUE_KEY = 'd2s:leaderboard-queue';
+// 2026-11-21 遊戲排行榜已經關閉：修改功能預設開啟，玩家自己按「關閉修改功能」才存 '0'
 function d2edUnlocked() {
-try { return localStorage.getItem(D2ED_UNLOCK_KEY) === '1'; } catch (_) { return false; }
+try { return localStorage.getItem(D2ED_UNLOCK_KEY) !== '0'; } catch (_) { return true; }
 }
 function d2edKeepLeaderboardOff() {
 const rawSet = Storage.prototype.setItem;
@@ -1463,7 +1821,12 @@ return;
 }
 return rawSet.call(this, key, value);
 };
-const isLeaderboardPost = (url, init) => /\/api\/leaderboard\//.test(String(url && url.url || url)) && /^post$/i.test((init && init.method) || (url && url.method) || 'GET');
+// 恰西的鐵砧（淬鍊／清除／地獄熔爐／升級）也走同一個網址：POST /api/leaderboard/forge，那不是排行榜紀錄，不能擋（擋了遊戲會說「沒有連線」）
+const D2ED_LB_ALLOW = /^\/?forge(?:[/?#]|$)/;
+const isLeaderboardPost = (url, init) => {
+const m = /\/api\/leaderboard(\/.*)?$/.exec(String(url && url.url || url));
+return !!m && !D2ED_LB_ALLOW.test(m[1] || '') && /^post$/i.test((init && init.method) || (url && url.method) || 'GET');
+};
 const rawFetch = window.fetch;
 window.fetch = function (url, init) {
 if (d2edUnlocked() && isLeaderboardPost(url, init)) return Promise.resolve(new Response('', { status: 403 }));
@@ -1474,7 +1837,7 @@ try {
 const app = window.d2app, raw = app && app.leaderboard;
 if (typeof raw === 'function') {
 app.leaderboard = function (method, path) {
-if (d2edUnlocked() && /^post$/i.test(method)) return Promise.resolve({ status: 403, body: null });
+if (d2edUnlocked() && /^post$/i.test(method) && !D2ED_LB_ALLOW.test(String(path || ''))) return Promise.resolve({ status: 403, body: null });
 return raw.apply(this, arguments);
 };
 }
@@ -1482,9 +1845,13 @@ return raw.apply(this, arguments);
 }
 function d2edLockSection() {
 return d2edEl('section', { class: 'd2ed-sec' }, d2edEl('h3', {}, '修改功能'),
-d2edEl('p', { class: 'd2ed-note' }, '遊戲中可以修改這一局的人物；在主選單可以修改恰西的永久升級。修改後遊戲的排行榜會拒收你的紀錄。'),
-d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: 'd2ed-main', onclick: d2edConfirmUnlock }, '啟用修改功能')));
+d2edEl('p', { class: 'd2ed-note' }, '遊戲中可以修改這一局的人物；在主選單可以修改恰西的永久升級。'),
+d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: 'd2ed-main', onclick: () => {
+try { localStorage.setItem(D2ED_UNLOCK_KEY, '1'); } catch (e) { alert('無法啟用：' + e); return; }
+d2edRender(); d2edToast('已啟用修改功能');
+} }, '啟用修改功能')));
 }
+// 排行榜還在時用的確認窗（2026-11-21 起不再使用，保留給排行榜恢復時）
 function d2edConfirmUnlock() {
 const card = D2ED.panel && D2ED.panel.querySelector('.d2ed-card');
 if (!card || card.querySelector('.d2ed-modal')) return;
@@ -1520,10 +1887,10 @@ const card = D2ED.panel && D2ED.panel.querySelector('.d2ed-card');
 if (!card || card.querySelector('.d2ed-modal')) return;
 const modal = d2edEl('div', { class: 'd2ed-modal' });
 const close = () => modal.remove();
-const relock = () => { try { localStorage.removeItem(D2ED_UNLOCK_KEY); } catch (_) { /* 無痕視窗 */ } close(); d2edRender(); };
+const relock = () => { try { localStorage.setItem(D2ED_UNLOCK_KEY, '0'); } catch (_) { /* 無痕視窗 */ } close(); d2edRender(); };
 modal.append(d2edEl('div', { class: 'd2ed-modal-box', role: 'alertdialog', 'aria-label': '確認關閉修改功能' },
 d2edEl('b', {}, '關閉修改功能？'),
-d2edEl('p', { style: 'margin: 6px 0; color: #d8d0c0' }, '隱藏修改功能，書籤不再強制關閉排行榜上傳。要恢復上傳，請到營地儲物箱旁的排行榜書自行開啟「傳送我的紀錄」（改過的存檔仍可能被排行榜拒收）。'),
+d2edEl('p', { style: 'margin: 6px 0; color: #d8d0c0' }, '隱藏人物和永久升級的修改區塊。之後要用，再按「啟用修改功能」就會出現。'),
 d2edEl('div', { class: 'd2ed-row' },
 d2edEl('button', { type: 'button', class: 'd2ed-main', onclick: relock }, '確認'),
 d2edEl('button', { type: 'button', onclick: close }, '取消'))));
@@ -1535,12 +1902,49 @@ return d2edEl('h3', { style: 'display: flex; align-items: center; justify-conten
 d2edEl('button', { type: 'button', style: 'flex: none; font-size: 13px; font-weight: normal', onclick: d2edConfirmRelock }, '關閉修改功能'));
 }
 // ====== 低效能模式 ======
-// 遊戲每格都用 devicePixelRatio 決定畫面解析度（build 20261026：render scale 的 tick），把它壓到 0.5 就改用低解析度渲染，最省顯示卡。
+// 遊戲每格都用 devicePixelRatio 決定畫面解析度（build 20261026：render scale 的 tick），V59 以前壓到 0.5（最省但文字會糊），V60 起壓到 1。
 // 另外把遊戲「影像選項 → 技能特效」（localStorage d2s:skill-effects，0～1）調到 0；遊戲只在開頁時讀一次，重新載入後才生效。
 const D2ED_PERF_KEY = 'd2zh:perf';
-const D2ED_PERF_DPR = 0.5;
+// V60：解析度不再降到 0.5（地上物品名稱、介面文字會糊掉），改成最多 1 倍（高解析度手機／螢幕省最多，文字照樣清楚），
+// 省下的效能改從特效拿：技能特效最淡、天氣（雪、雨）關閉、光源和陰影關閉。
+const D2ED_PERF_DPR = 1;
 const D2ED_FX_KEY = 'd2s:skill-effects';
 const D2ED_FX_BACKUP_KEY = 'd2zh:perfSkillEffects';
+const D2ED_WEATHER_KEY = 'd2s:weather';            // 遊戲：沒有這個鍵＝天氣開、'0'＝關（開頁讀一次）
+const D2ED_WEATHER_BACKUP_KEY = 'd2zh:perfWeather';
+// 遊戲的網址參數設定物件（itemArt-*.js 的 tn，?nolights／?noshadows 會把 lights／shadows 設成 false）。
+// 光源（mx）和陰影（$S）每局開始建立時才讀，所以改了從下一局（或下一幕）生效。找不到（例如電腦版打包不同）就略過。
+const D2ED_PERF_GAME = { settings: undefined, orig: null };
+async function d2edPerfGameSettings() {
+if (D2ED_PERF_GAME.settings !== undefined) return D2ED_PERF_GAME.settings;
+D2ED_PERF_GAME.settings = null;
+const urls = [...new Set([...performance.getEntriesByType('resource').map(e => e.name), ...[...document.querySelectorAll('script[src]')].map(e => e.src), ...[...document.querySelectorAll('link[rel=modulepreload]')].map(e => e.href)])]
+.filter(n => /\/assets\/[^/]+\.js(\?|$)/.test(n) && !/\/ko-/.test(n) && !/\/game-[^/]+\.js/.test(n));   // 遊戲入口有頂層 await，不要等它
+// 先找最可能的 itemArt-*.js，找不到再看其他檔
+urls.sort((a, b) => (/\/itemArt-/.test(b) ? 1 : 0) - (/\/itemArt-/.test(a) ? 1 : 0));
+for (const url of urls) {
+let m = null;
+try { m = await Promise.race([import(url), new Promise((_, no) => setTimeout(no, 3000))]); } catch (_) { continue; }
+const hit = m && Object.values(m).find(v => v && typeof v === 'object' && typeof v.lights === 'boolean' && typeof v.shadows === 'boolean' && 'res' in v && 'smoke' in v);
+if (hit) { D2ED_PERF_GAME.settings = hit; break; }
+}
+return D2ED_PERF_GAME.settings;
+}
+async function d2edPerfApplyGame() {
+try {
+const s = await d2edPerfGameSettings();
+if (!s) return;
+if (d2edPerfOn()) {
+if (!D2ED_PERF_GAME.orig) D2ED_PERF_GAME.orig = { lights: s.lights, shadows: s.shadows };
+s.lights = false;
+s.shadows = false;
+} else if (D2ED_PERF_GAME.orig) {
+s.lights = D2ED_PERF_GAME.orig.lights;
+s.shadows = D2ED_PERF_GAME.orig.shadows;
+D2ED_PERF_GAME.orig = null;
+}
+} catch (e) { console.warn('[D2 中文] 低效能模式（光源／陰影）', e); }
+}
 function d2edPerfOn() {
 try { return localStorage.getItem(D2ED_PERF_KEY) === '1'; } catch (_) { return false; }
 }
@@ -1559,22 +1963,38 @@ if (on) {
 const fx = localStorage.getItem(D2ED_FX_KEY);
 localStorage.setItem(D2ED_FX_BACKUP_KEY, fx === null ? '' : fx);
 localStorage.setItem(D2ED_FX_KEY, '0');
+const weather = localStorage.getItem(D2ED_WEATHER_KEY);
+localStorage.setItem(D2ED_WEATHER_BACKUP_KEY, weather === null ? '' : weather);
+localStorage.setItem(D2ED_WEATHER_KEY, '0');
 localStorage.setItem(D2ED_PERF_KEY, '1');
 } else {
 const fx = localStorage.getItem(D2ED_FX_BACKUP_KEY);
 if (fx) localStorage.setItem(D2ED_FX_KEY, fx); else localStorage.removeItem(D2ED_FX_KEY);
 localStorage.removeItem(D2ED_FX_BACKUP_KEY);
+const weather = localStorage.getItem(D2ED_WEATHER_BACKUP_KEY);
+if (weather) localStorage.setItem(D2ED_WEATHER_KEY, weather); else localStorage.removeItem(D2ED_WEATHER_KEY);
+localStorage.removeItem(D2ED_WEATHER_BACKUP_KEY);
 localStorage.removeItem(D2ED_PERF_KEY);
 }
 } catch (e) { alert('無法儲存設定：' + e); return; }
 d2edPerfApplyDpr();
+d2edPerfApplyGame();
+}
+// V59 以前開啟的人：補上天氣關閉（舊版只備份了技能特效）
+function d2edPerfMigrate() {
+try {
+if (!d2edPerfOn() || localStorage.getItem(D2ED_WEATHER_BACKUP_KEY) !== null) return;
+const weather = localStorage.getItem(D2ED_WEATHER_KEY);
+localStorage.setItem(D2ED_WEATHER_BACKUP_KEY, weather === null ? '' : weather);
+localStorage.setItem(D2ED_WEATHER_KEY, '0');
+} catch (_) { /* 存不了就算了 */ }
 }
 function d2edPerfSection() {
 const on = d2edPerfOn();
 const toggle = () => { d2edPerfSet(!on); d2edRender(); d2edToast(on ? '低效能模式已關閉' : '低效能模式已開啟'); };
 return d2edEl('section', { class: 'd2ed-sec' }, d2edEl('h3', {}, '低效能模式'),
-d2edEl('p', { class: 'd2ed-note' }, '電腦或手機跑不動時開啟：畫面改用低解析度（會比較模糊），技能特效調到最淡。'),
-d2edEl('p', { class: 'd2ed-note' }, '解析度馬上生效；技能特效要重新載入遊戲後才會變淡（也可以在 選項 → 影像選項 → 技能特效 自己調）。'),
+d2edEl('p', { class: 'd2ed-note' }, '電腦或手機跑不動時開啟：技能特效調到最淡，關閉天氣（雪、雨）、光源和陰影；高解析度螢幕改用 1 倍解析度。物品名稱和文字維持清楚。'),
+d2edEl('p', { class: 'd2ed-note' }, '解析度馬上生效；光源和陰影從下一局（或下一幕）開始；技能特效和天氣要重新載入遊戲後才會生效。'),
 d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: on ? '' : 'd2ed-main', onclick: toggle }, on ? '關閉低效能模式' : '開啟低效能模式'),
 d2edEl('span', { class: 'd2ed-note', style: 'align-self: center' }, on ? '目前：開啟' : '目前：關閉')));
 }
@@ -1589,6 +2009,7 @@ function d2edBgMuteOn() {
 try { return localStorage.getItem(D2ED_BGMUTE_KEY) !== '0'; } catch (_) { return true; }
 }
 (function d2edBgMuteInstall() {
+if (D2ZH_ONLINE) return;   // 線上模式只翻譯
 const contexts = new Set();
 const proto = window.BaseAudioContext?.prototype ?? window.AudioContext?.prototype;
 const desc = proto && Object.getOwnPropertyDescriptor(proto, 'currentTime');
@@ -1666,7 +2087,19 @@ return d2edEl('section', { class: 'd2ed-sec' }, d2edEl('h3', {}, '碎片感應')
 d2edEl('p', { class: 'd2ed-note' }, '隱藏任務「破碎之光」：碎片出現後，畫面邊緣朝它的方向會有微弱的光暈，越接近越亮，看得到碎片時就消失。'),
 d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: on ? '' : 'd2ed-main', onclick: toggle }, on ? '關閉碎片感應' : '開啟碎片感應'),
 d2edEl('span', { class: 'd2ed-note', style: 'align-self: center' }, on ? '目前：開啟' : '目前：關閉')),
-on && D2ED.shardStatus ? d2edEl('p', { class: 'd2ed-note' }, '狀態：' + D2ED.shardStatus()) : null);
+on && D2ED.shardStatus ? d2edEl('p', { class: 'd2ed-note' }, '狀態：' + D2ED.shardStatus()) : null,
+d2edEl('p', { class: 'd2ed-note' }, `已找到 ${d2shardCount() ?? '?'}／10 塊。` + d2shardNextText(d2shardCount())));
+}
+function d2edEndPullSection() {
+const on = d2edEndPullOn();
+const toggle = () => {
+try { localStorage.setItem(D2ED_ENDPULL_KEY, on ? '0' : '1'); } catch (e) { alert('無法儲存設定：' + e); return; }
+d2edRender(); d2edToast(on ? '過關吸取物品已關閉' : '過關吸取物品已開啟');
+};
+return d2edEl('section', { class: 'd2ed-sec' }, d2edEl('h3', {}, '過關吸取物品'),
+d2edEl('p', { class: 'd2ed-note' }, '打完這一幕、遊戲把經驗寶石吸到身邊時，地上的裝備和物品（鑰匙、精華、器官等）也一起飛過來撿起。不會吸你自己丟下的、或物品過濾設成隱藏的；物品欄滿了會留在腳邊。'),
+d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: on ? '' : 'd2ed-main', onclick: toggle }, on ? '關閉過關吸取物品' : '開啟過關吸取物品'),
+d2edEl('span', { class: 'd2ed-note', style: 'align-self: center' }, on ? '目前：開啟' : '目前：關閉')));
 }
 // ====== 技能格調整大小（預設關閉） ======
 const D2ED_SKILLZOOM_KEY = 'd2zh:skillZoom';
@@ -1684,22 +2117,596 @@ d2edEl('p', { class: 'd2ed-note' }, '開啟後，技能樹開著時技能選單�
 d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: on ? '' : 'd2ed-main', onclick: toggle }, on ? '關閉技能格調整大小' : '開啟技能格調整大小'),
 d2edEl('span', { class: 'd2ed-note', style: 'align-self: center' }, on ? '目前：開啟' : '目前：關閉')));
 }
+// ====== 鐵砧必定成功、裝備修改（指定強化／自選詞綴） ======
+// 遊戲本體（Game-*.js）有匯出 Game 類別：改它的 prototype 就能包住正在跑的遊戲實例的方法。
+// tick 每一格都會跑，順便記下遊戲實例（D2GAME.game），裝備修改要用它的 save、kit、changeGear（改完會存檔並重算角色數值）。
+// 鐵砧的結果由伺服器決定，伺服器會記住每件物品的淬鍊紀錄：
+// - 淬鍊失敗：把花掉的精華退回物品欄，再送一次，直到成功（每次都是真的向伺服器淬鍊，紀錄一致）。
+// - 地獄熔爐失敗（淬鍊全部消失）：伺服器只給一次機會，改成在本機把淬鍊加倍；伺服器的紀錄仍是失敗，這件物品之後再放上鐵砧時，遊戲會改回伺服器的紀錄。
+const D2GAME = { proto: null, game: null, tries: 0 };
+const D2FORGE_KEY = 'd2zh:forgeSure';   // 缺省＝開，'0'＝關
+// 電腦版遊戲內排行榜還在（2026-11-21 確認），使用者決定先隱藏「必定成功」和「自選詞綴」；要恢復把這兩個改成 true
+// 2026-11-22：離線遊戲沒有排行榜（線上模式書籤只翻譯），使用者決定恢復顯示
+const D2FORGE_SHOW = true;
+const D2IE_AFFIX_SHOW = true;
+function d2forgeSureOn() {
+if (!D2FORGE_SHOW) return false;
+try { return localStorage.getItem(D2FORGE_KEY) !== '0'; } catch (_) { return true; }
+}
+function d2gameUrls() {
+return [...new Set([...performance.getEntriesByType('resource').map(e => e.name), ...[...document.querySelectorAll('script[src]')].map(e => e.src), ...[...document.querySelectorAll('link[rel=modulepreload]')].map(e => e.href)])].filter(n => /\/assets\/[^/]+\.js(\?|$)/.test(n) && !/\/ko-/.test(n));
+}
+async function d2gameInstall() {
+if (D2GAME.proto) return true;
+const urls = d2gameUrls();
+const first = urls.filter(u => /\/Game-[\w-]+\.js/.test(u));
+for (const url of [...first, ...urls.filter(u => !first.includes(u))]) {
+let m;
+try { m = await Promise.race([import(url), new Promise((_, no) => setTimeout(no, 3000))]); } catch (_) { continue; }
+for (const v of Object.values(m)) {
+const P = v && typeof v === 'function' && v.prototype;
+if (P && typeof P.forgeTry === 'function' && typeof P.tick === 'function' && typeof P.changeGear === 'function') { d2gamePatch(P); return true; }
+}
+if (first.includes(url)) continue;
+}
+// 遊戲模組可能還沒載完：過幾秒再找（最多 10 次）
+if (++D2GAME.tries < 10) setTimeout(d2gameInstall, 3000);
+return false;
+}
+function d2gamePatch(P) {
+if (P.__d2zhPatched) { D2GAME.proto = P; return; }
+P.__d2zhPatched = true;
+D2GAME.proto = P;
+const rawTick = P.tick;
+P.tick = function () { D2GAME.game = this; return rawTick.apply(this, arguments); };
+const rawTry = P.forgeTry;
+// 20261120.1 起：forgeTry(職業, 等級, 動作, 回呼)，離線的淬鍊結果在本機用亂數決定（不再問伺服器），也沒有 giveEssences 了。
+// 淬鍊失敗：把這次扣掉的精華在存檔裡補回去再試；地獄熔爐失敗：照遊戲的成功規則在本機把每行加倍（單行上限 100000）。
+P.forgeTry = async function (cls, level, act) {
+D2GAME.game = this;
+if (!d2forgeSureOn() || (act !== 'temper' && act !== 'hellforge')) return rawTry.apply(this, arguments);
+if (act === 'temper') {
+let r;
+for (let i = 0; i < 60; i++) {
+const snap = d2forgeEssenceSnap(this.save);
+r = await rawTry.apply(this, arguments);
+if (!r || r.text !== 'The temper failed') return r;
+if (!d2forgeEssenceRestore(this, cls, snap)) return r;   // 補不回去就停，免得一直扣
+}
+return r;
+}
+const before = d2gameFindItem(this.save, this.anvil);
+const t0 = before && before.forge && before.forge.t ? { ...before.forge.t } : null;
+const r = await rawTry.apply(this, arguments);
+if (r && r.text === 'All tempers lost' && t0 && Object.keys(t0).length) {
+const it = d2gameFindItem(this.save, this.anvil);
+if (it) {
+const t = {};
+for (const [k, n] of Object.entries(t0)) t[k] = Math.min(n * 2, 1e5);
+this.changeGear(cls, () => { it.forge = { ...(it.forge || {}), t, hf: 1 }; });
+return { ...r, text: 'All tempers doubled', color: 'gold' };
+}
+}
+return r;
+};
+}
+// 燃燒的恐懼精華（type 'essence'，數量在 count）：記下每一堆所在的陣列、位置和數量，淬鍊失敗後照原樣補回（整堆用完被移除的也放回去）
+function d2forgeEssenceSnap(save) {
+const out = [], seen = new Set();
+const walk = (o, depth) => {
+if (!o || typeof o !== 'object' || seen.has(o) || depth > 7) return;
+seen.add(o);
+if (Array.isArray(o)) o.forEach((v, i) => { if (v && typeof v === 'object' && v.type === 'essence' && typeof v.count === 'number') out.push({ arr: o, i, item: v, count: v.count, copy: JSON.parse(JSON.stringify(v)) }); });
+for (const v of Array.isArray(o) ? o : Object.values(o)) walk(v, depth + 1);
+};
+walk(save, 0);
+return out;
+}
+function d2forgeEssenceRestore(game, cls, snap) {
+const fix = snap.filter(s => !s.arr.includes(s.item) || s.item.count < s.count);
+if (!fix.length || typeof game.changeGear !== 'function') return false;
+game.changeGear(cls, () => {
+for (const s of fix) {
+if (s.arr.includes(s.item)) s.item.count = s.count;
+else if (s.arr[s.i] == null) s.arr[s.i] = s.copy;
+else s.arr.splice(s.i, 0, s.copy);
+}
+});
+return true;
+}
+// 在存檔裡找某個 id 的物品（身上、副武器、物品欄、儲物箱、傭兵身上都可能）
+function d2gameFindItem(save, id) {
+if (!save || !id) return null;
+const seen = new Set();
+const walk = (o, depth) => {
+if (!o || typeof o !== 'object' || seen.has(o) || depth > 7) return null;
+seen.add(o);
+if (o.id === id && typeof o.base === 'string') return o;
+for (const v of Array.isArray(o) ? o : Object.values(o)) {
+const hit = walk(v, depth + 1);
+if (hit) return hit;
+}
+return null;
+};
+return walk(save, 0);
+}
+function d2edForgeSection() {
+const on = d2forgeSureOn();
+const toggle = () => {
+try { localStorage.setItem(D2FORGE_KEY, on ? '0' : '1'); } catch (e) { alert('無法儲存設定：' + e); return; }
+d2edRender(); d2edToast(on ? '鐵砧必定成功已關閉' : '鐵砧必定成功已開啟');
+};
+const game = D2GAME.game;
+const ready = !!(game && game.kit && game.save);
+return d2edEl('section', { class: 'd2ed-sec' }, d2edEl('h3', {}, D2FORGE_SHOW ? '鐵砧與裝備修改' : '裝備修改'),
+D2FORGE_SHOW ? d2edEl('p', { class: 'd2ed-note' }, '鐵砧必定成功：淬鍊失敗時自動退回精華再試，直到成功；地獄熔爐一定是「淬鍊全部加倍」。') : null,
+D2FORGE_SHOW ? d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: on ? '' : 'd2ed-main', onclick: toggle }, on ? '關閉鐵砧必定成功' : '開啟鐵砧必定成功'),
+d2edEl('span', { class: 'd2ed-note', style: 'align-self: center' }, on ? '目前：開啟' : '目前：關閉')) : null,
+d2edEl('p', { class: 'd2ed-note' }, D2IE_AFFIX_SHOW ? '選身上或物品欄的裝備，直接指定每一行的強化次數，或自己挑選、調整裝備上的詞綴。' : '選身上或物品欄的裝備，直接指定每一行能力的強化次數（跟恰西鐵砧一樣，每件最多 10 次）。'),
+d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: 'd2ed-main', ...(!ready && { disabled: '' }), onclick: d2ieShow }, '裝備修改'),
+ready ? null : d2edEl('span', { class: 'd2ed-note', style: 'align-self: center' }, '選好英雄（進營地或遊戲中）後才能使用')));
+}
+// ---- 裝備修改視窗（借用裝備創造的版面樣式 #d2ec-overlay） ----
+const D2IE = { overlay: null, pick: null, pools: new Map() };
+const D2IE_SLOT = { weapon: '武器', shield: '副手', helm: '頭盔', head: '頭盔', body: '身體護甲', armor: '身體護甲', gloves: '手套', belt: '腰帶', boots: '靴子', amulet: '護身符', ring: '戒指', ring1: '左戒指', ring2: '右戒指', ringLeft: '左戒指', ringRight: '右戒指' };
+// 每件裝備的強化總數上限（20261120.1 起）：每一行可淬鍊的能力 2 次、最多 10 次；地獄熔爐成功過（hf）加倍。
+// 超過上限的部分遊戲讀檔時會削掉並退精華，所以照遊戲鐵砧畫面的 cap；讀不到就用同樣的公式算。
+const D2IE_TEMPER_MAX = 10;
+function d2ieTemperCap(item, lines) {
+let cap = null;
+try { const v = D2EC.api.anvilLines(item, 0, d2ieLevel(), 1); if (v && typeof v.cap === 'number') cap = v.cap; } catch (_) { /* 用公式 */ }
+if (cap === null) cap = Math.min(D2IE_TEMPER_MAX, 2 * (lines || []).filter(l => l.key).reduce((a, l) => a + (l.rolls || 1), 0)) * (item.forge && item.forge.hf ? 2 : 1);
+return cap;
+}
+function d2ieGame() {
+const g = D2GAME.game;
+return g && g.kit && g.save ? g : null;
+}
+function d2ieEntries() {
+const g = d2ieGame();
+if (!g) return [];
+const kit = g.kit.id, save = g.save, out = [];
+const ok = it => it && typeof it === 'object' && typeof it.base === 'string' && it.id && it.type !== 'quest' && it.type !== 'essence' && Array.isArray(it.mods);
+for (const [slot, it] of Object.entries((save.equippedByClass || {})[kit] || {})) if (ok(it)) out.push({ where: '身上・' + (D2IE_SLOT[slot] || slot), item: it });
+const sets = (save.weaponSets || {})[kit];
+if (sets && typeof sets === 'object') for (const [slot, it] of Object.entries(sets)) if (ok(it)) out.push({ where: '副武器組・' + (D2IE_SLOT[slot] || slot), item: it });
+for (const it of (save.inventoryByClass || {})[kit] || []) if (ok(it)) out.push({ where: '物品欄', item: it });
+return out;
+}
+function d2ieLevel() {
+const g = d2ieGame();
+return (D2ED.player && D2ED.player.level) || (g && g.world && g.world.player && g.world.player.level) || 1;
+}
+// 鐵砧畫面用的行列表（遊戲函式）：[{ text, key（可以淬鍊才有）, held（已淬鍊次數） }]
+function d2ieAnvilLines(item) {
+const f = D2EC.api && D2EC.api.anvilLines;
+if (!f) return null;
+try { return f(item, 0, d2ieLevel(), 1).lines || []; } catch (_) { return null; }
+}
+// 單一詞綴（魔法／稀有物品的 mods）的說明文字
+function d2ieModText(item, mod) {
+const lines = d2ieAnvilLines({ ...item, mods: [mod], stats: undefined, bonus: undefined, forge: undefined, sockets: undefined, socketed: undefined, rarity: 'magic' });
+const text = lines && lines.map(l => l.text).filter(Boolean).join('、');
+return text ? d2ecTr(text) : `${d2ecModName(mod.stat)} ${mod.value}`;
+}
+const d2ieIsAffix = m => !m.implicit && !m.auto && !m.staff;
+// 這種底材可能出現的詞綴：用遊戲的掉落產生器產生一批魔法／稀有物品，收集出現過的詞綴和最大值（每種底材只收一次）
+function d2ieAffixPool(base) {
+if (D2IE.pools.has(base)) return D2IE.pools.get(base);
+const pool = new Map();
+for (const roll of (D2EC.api && D2EC.api.rollers) || []) {
+for (let n = 0; n < 600; n++) {
+let it;
+try { it = roll({ base }, 1 + (n % 99), 99, undefined); } catch (_) { break; }
+// 20261120.1 起稀有產生器遇到有獨特的底材會直接做獨特，獨特的能力不是詞綴，跳過
+if (!it || (it.rarity !== 'magic' && it.rarity !== 'rare')) continue;
+for (const m of it.mods || []) {
+if (!d2ieIsAffix(m) || typeof m.stat !== 'string' || typeof m.value !== 'number') continue;
+const p = pool.get(m.stat);
+if (!p) pool.set(m.stat, { stat: m.stat, lo: m.value, hi: m.value, mod: { ...m } });
+else { p.lo = Math.min(p.lo, m.value); p.hi = Math.max(p.hi, m.value); }
+}
+}
+}
+D2IE.pools.set(base, pool);
+return pool;
+}
+function d2ieClose() {
+if (!D2IE.overlay) return;
+D2IE.overlay.remove();
+D2IE.overlay = null;
+D2IE.pick = null;
+}
+function d2ieMsg(text, bad) {
+const msg = D2IE.overlay && D2IE.overlay.querySelector('.d2ec-editor .d2ec-msg');
+if (!msg) return;
+msg.textContent = text;
+msg.style.color = bad ? '#ff8a7a' : '';
+clearTimeout(msg._h);
+msg._h = setTimeout(() => { msg.textContent = ''; }, 4000);
+}
+// 改物品：交給遊戲的 changeGear（改完會存檔，身上的裝備也會重算角色數值）
+function d2ieChange(item, fn) {
+const g = d2ieGame();
+if (!g) return false;
+g.changeGear(g.kit.id, () => fn(item));
+return true;
+}
+// 用遊戲的驗證函式整理新資料，通過才換掉原本的物品（同一個 id、同一個物件）
+function d2ieReplace(item, next) {
+delete next.roll;   // 有 roll 的物品讀檔時會照種子重骰，改過的詞綴會不見
+let ready = null;
+try { ready = D2EC.api.normalize(JSON.parse(JSON.stringify(next))); } catch (_) { ready = null; }
+if (!ready) return false;
+return d2ieChange(item, it => {
+for (const k of Object.keys(it)) delete it[k];
+Object.assign(it, ready);
+});
+}
+async function d2ieShow() {
+if (D2IE.overlay || D2EC.overlay) return;
+if (!d2ieGame()) { d2edToast('還沒抓到遊戲資料，請進營地或遊戲後再試'); return; }
+const list = d2edEl('div', { class: 'd2ec-results' }, d2edEl('p', { class: 'd2ec-hint' }, '讀取裝備資料中…'));
+const overlay = D2IE.overlay = d2edEl('div', { id: 'd2ec-overlay', role: 'dialog', 'aria-label': '裝備修改' },
+d2edEl('div', { class: 'd2ec-head' }, d2edEl('b', {}, '裝備修改'), d2edEl('span', { class: 'd2ec-grow' }),
+d2edEl('button', { type: 'button', class: 'd2ec-x', 'aria-label': '關閉', onclick: d2ieClose }, '×')),
+d2edEl('div', { class: 'd2ec-main' }, list, d2edEl('div', { class: 'd2ec-editor' }, d2edEl('p', { class: 'd2ec-hint' }, '從左邊選一件裝備。'))));
+for (const type of ['keydown', 'keyup', 'keypress']) overlay.addEventListener(type, e => {
+e.stopPropagation();
+if (type === 'keydown' && e.key === 'Escape') d2ieClose();
+});
+document.body.append(overlay);
+const api = await d2ecLoad();
+if (D2IE.overlay !== overlay) return;
+if (!api) { list.replaceChildren(d2edEl('p', { class: 'd2ec-hint' }, d2ecFailText())); return; }
+d2ieList();
+}
+function d2ieList() {
+const list = D2IE.overlay && D2IE.overlay.querySelector('.d2ec-results');
+if (!list) return;
+const entries = d2ieEntries();
+if (!entries.length) { list.replaceChildren(d2edEl('p', { class: 'd2ec-hint' }, '身上和物品欄沒有可以修改的裝備。')); return; }
+list.replaceChildren(...entries.map(en => {
+const it = en.item;
+const b = d2edEl('button', { type: 'button', class: 'd2ec-result d2ec-r-' + it.rarity, onclick: () => d2ieSelect(it) },
+d2ecIcon(it.rarity, it.name, it.base), d2edEl('span', {}, d2ecTr(it.name), d2edEl('small', {}, en.where)));
+b.classList.toggle('on', D2IE.pick === it);
+return b;
+}));
+}
+function d2ieSelect(item) {
+D2IE.pick = item;
+d2ieList();
+const box = D2IE.overlay.querySelector('.d2ec-editor');
+const rarityZh = { normal: '普通', magic: '魔法', rare: '稀有', unique: '獨特', set: '套裝', runeword: '符文之語' }[item.rarity] || item.rarity;
+const head = d2edEl('div', { class: 'd2ec-title d2ec-r-' + item.rarity }, d2ecIcon(item.rarity, item.name, item.base),
+d2edEl('div', {}, d2edEl('b', {}, d2ecTr(item.name)), d2edEl('small', {}, `${rarityZh}・${d2ecTr(item.base)}`)));
+box.replaceChildren(head, ...d2ieTemperPart(item), ...(D2IE_AFFIX_SHOW ? d2ieAffixPart(item) : []), d2edEl('div', { class: 'd2ec-actions' }, d2edEl('span', { class: 'd2ec-msg' })));
+}
+// 指定強化：每一行可以淬鍊的能力直接填次數（數量型每次 +20%（至少 +1），技能等級型每次 +1 級）
+function d2ieTemperPart(item) {
+const out = [d2edEl('h4', {}, '指定強化')];
+const lines = d2ieAnvilLines(item);
+if (!lines) { out.push(d2edEl('p', { class: 'd2ec-fixed' }, '讀不到鐵砧的資料，這個版本無法指定強化。')); return out; }
+const rows = lines.filter(l => l.key);
+if (!rows.length) { out.push(d2edEl('p', { class: 'd2ec-fixed' }, '這件裝備沒有可以強化的能力。')); return out; }
+const held = (item.forge && item.forge.t) || {};
+const cap = d2ieTemperCap(item, rows);
+const reads = [];
+const total = d2edEl('p', { class: 'd2ec-range', style: 'margin: 4px 0' });
+const showTotal = () => {
+const sum = reads.reduce((a, [, read]) => a + read(), 0);
+total.textContent = `合計 ${sum} / ${cap} 次`;
+total.style.color = sum > cap ? '#ff8a7a' : '';
+};
+for (const l of rows) {
+const row = d2ecNumberRow(v => `${d2ecTr(l.text)}（強化 ${v} 次）`, 0, cap, Math.min(cap, held[l.key] || 0), read => reads.push([l.key, read]));
+row.querySelector('input').addEventListener('input', showTotal);
+out.push(row);
+}
+showTotal();
+out.push(total);
+const apply = clear => {
+const t = {};
+if (!clear) for (const [key, read] of reads) { const n = read(); if (n > 0) t[key] = n; }
+const sum = Object.values(t).reduce((a, b) => a + b, 0);
+if (sum > cap) { d2ieMsg(`強化合計 ${sum} 次，超過上限 ${cap} 次，沒有套用`, true); return; }
+const ok = d2ieChange(item, it => {
+const f = { ...(it.forge || {}) };
+if (Object.keys(t).length) f.t = t; else delete f.t;
+if (Object.keys(f).length) it.forge = f; else delete it.forge;
+});
+if (!ok) { d2ieMsg('找不到遊戲資料，沒有套用', true); return; }
+d2ieSelect(item);
+d2ieMsg(clear ? '已清除所有強化' : '已套用強化');
+};
+out.push(d2edEl('p', { class: 'd2ec-range', style: 'margin: 4px 0' }, `數量型能力每強化一次 +40%（至少 +1），技能等級每次 +1 級。這件最多 ${cap} 次（每一行 2 次、最多 10 次${item.forge && item.forge.hf ? '，經過地獄熔爐加倍' : ''}），跟恰西鐵砧的上限一樣。`),
+d2edEl('p', { class: 'd2ec-range', style: 'margin: 4px 0' }, '用這裡改過強化的裝備，之後再放上恰西的鐵砧時，遊戲會改回鐵砧伺服器上的紀錄。'),
+d2edEl('div', { class: 'd2ed-row', style: 'margin: 6px 0' },
+d2edEl('button', { type: 'button', class: 'd2ec-ok', onclick: () => apply(false) }, '套用強化'),
+d2edEl('button', { type: 'button', onclick: () => apply(true) }, '全部清除')));
+return out;
+}
+function d2ieAffixPart(item) {
+const out = [d2edEl('h4', {}, '詞綴')];
+if (item.stats) return out.concat(d2ieStatsPart(item));
+if (item.rarity !== 'magic' && item.rarity !== 'rare') { out.push(d2edEl('p', { class: 'd2ec-fixed' }, '普通品質的裝備沒有詞綴。')); return out; }
+const pool = d2ieAffixPool(item.base);
+const keep = item.mods.filter(m => !d2ieIsAffix(m));
+const rows = item.mods.filter(d2ieIsAffix).map(m => ({ mod: { ...m } }));
+const wrap = d2edEl('div', {});
+const keepValues = () => { for (const r of rows) if (r.read) r.mod.value = r.read(); };
+const draw = () => {
+wrap.replaceChildren();
+rows.forEach((r, k) => {
+const p = pool.get(r.mod.stat);
+const lo = Math.min(1, r.mod.value), hi = Math.max(p ? p.hi : r.mod.value, r.mod.value);
+const del = d2edEl('button', { type: 'button', onclick: () => { keepValues(); rows.splice(k, 1); draw(); } }, '移除');
+const row = d2ecNumberRow(v => d2ieModText(item, { ...r.mod, value: v }), lo, hi, r.mod.value, read => { r.read = read; });
+row.append(del);
+wrap.append(row);
+});
+if (!rows.length) wrap.append(d2edEl('p', { class: 'd2ec-fixed' }, '（沒有詞綴）'));
+};
+draw();
+const opts = [...pool.values()].map(p => [p.stat, d2ieModText(item, { ...p.mod, value: p.hi })]).sort((a, b) => a[1].localeCompare(b[1], 'zh-Hant'));
+const pick = d2edEl('select', {}, d2edEl('option', { value: '' }, opts.length ? '選擇要加入的詞綴…' : '找不到這種底材的詞綴資料'), ...opts.map(([v, t]) => d2edEl('option', { value: v }, t)));
+const add = () => {
+const p = pool.get(pick.value);
+if (!p) return;
+keepValues();
+rows.push({ mod: { ...p.mod, value: p.hi } });
+pick.value = '';
+draw();
+};
+const limit = item.rarity === 'magic' ? '魔法物品原本最多 2 條詞綴（前綴、後綴各一）。' : '稀有物品原本最多 6 條詞綴（前綴、後綴各三）。';
+const apply = () => {
+const affixes = rows.map(r => ({ ...r.mod, value: r.read ? r.read() : r.mod.value }));
+const min = affixes.find(m => /MinDamage$|mindam$/.test(m.stat));
+if (min) for (const m of affixes) if (m.stat === min.stat.replace(/Min/, 'Max').replace(/min/, 'max') && m.value < min.value) m.value = min.value;
+const next = { ...JSON.parse(JSON.stringify(item)), mods: [...keep.map(m => ({ ...m })), ...affixes] };
+// 強化次數是照 mods 的位置記的（m3＝第 3 條）：詞綴增減後位置會變，照同一種能力搬到新位置，被移除的就拿掉
+const t = item.forge && item.forge.t;
+if (t) {
+const used = new Set(), moved = {};
+for (const [key, n] of Object.entries(t)) {
+if (key[0] !== 'm') { moved[key] = n; continue; }
+const old = item.mods[Number(key.slice(1))];
+const at = old ? next.mods.findIndex((m, i) => !used.has(i) && m.stat === old.stat && !!m.implicit === !!old.implicit) : -1;
+if (at >= 0) { used.add(at); moved['m' + at] = n; }
+}
+next.forge = { ...next.forge };
+if (Object.keys(moved).length) next.forge.t = moved; else delete next.forge.t;
+if (!Object.keys(next.forge).length) delete next.forge;
+}
+if (!d2ieReplace(item, next)) { d2ieMsg('遊戲不接受這樣的詞綴組合，沒有套用', true); return; }
+d2ieSelect(item);
+d2ieMsg('已套用詞綴');
+};
+out.push(wrap, d2edEl('label', { class: 'd2ec-row' }, pick, d2edEl('button', { type: 'button', onclick: add }, '加入')),
+d2edEl('p', { class: 'd2ec-range', style: 'margin: 4px 0' }, `數值上限是這種底材掉落時出現過的最大值。${limit}遊戲不接受的組合會顯示「沒有套用」，裝備不會被改。`),
+d2edEl('div', { class: 'd2ed-row', style: 'margin: 6px 0' }, d2edEl('button', { type: 'button', class: 'd2ec-ok', onclick: apply }, '套用詞綴')));
+return out;
+}
+// 獨特、套裝、符文之語：每一行能力在物品表的上下限內調整（跟裝備創造一樣）
+function d2ieStatsPart(item) {
+const api = D2EC.api;
+const def = api.all.find(d => d.rarity === item.rarity && d.name === item.name);
+let groups = null;
+const clone = JSON.parse(JSON.stringify(item));
+try { if (def) groups = d2ecGroups(def, item.base, clone); } catch (_) { groups = null; }
+if (!groups) return [d2edEl('p', { class: 'd2ec-fixed' }, '這件裝備的能力和物品表對不起來，無法調整。')];
+const out = [];
+for (const g of groups) {
+const stats = g.at === 'stats' ? clone.stats : clone.bonus[g.at];
+if (g.tag) out.push(d2edEl('h4', {}, g.tag));
+for (const row of g.rows) {
+const cur = stats[row.slots[0].i][row.slots[0].field];
+if (d2ecLineTexts(row.idxs.map(i => ({ ...stats[i] }))).length) out.push(d2ecNumberRow(v => d2ecRowText(row, stats, v), row.lo, row.hi, Math.min(row.hi, Math.max(row.lo, Math.trunc(cur))), read => { row.read = read; }));
+}
+for (const line of d2ecLineTexts(g.fixed.map(s => ({ ...s })))) out.push(d2edEl('p', { class: 'd2ec-fixed' }, line));
+}
+const apply = () => {
+const next = JSON.parse(JSON.stringify(item));
+for (const g of groups) {
+const stats = g.at === 'stats' ? next.stats : next.bonus[g.at];
+for (const row of g.rows) if (row.read) for (const s of row.slots) stats[s.i][s.field] = row.read();
+}
+if (!d2ieReplace(item, next)) { d2ieMsg('遊戲不接受這些數值，沒有套用', true); return; }
+d2ieSelect(item);
+d2ieMsg('已套用詞綴');
+};
+out.push(d2edEl('p', { class: 'd2ec-range', style: 'margin: 4px 0' }, '每一行可以在這件裝備的能力範圍內調整。'),
+d2edEl('div', { class: 'd2ed-row', style: 'margin: 6px 0' }, d2edEl('button', { type: 'button', class: 'd2ec-ok', onclick: apply }, '套用詞綴')));
+return out;
+}
 // ====== 裝備創造（只在遊戲中出現）：獨特、套裝、符文之語，能力數值由玩家在上下限內指定 ======
 // 遊戲的物品表、產生與驗證函式都在已載入的模組裡，但匯出名稱每次改版都會變，所以用函式內容認。
 // 表裡的每一列（props）依序對應物品 stats 的欄位，規則照遊戲 B6：func 15／16／11／19 和有 par 的 17 是固定值，其他在 min～max 骰一個數。
 const D2EC = { api: null, overlay: null, sel: null, cat: 'head' };
 const D2EC_GRID = { columns: 10, rows: 4 };
 const D2EC_FIXED_FUNCS = new Set([15, 16, 11, 19]);
-const D2EC_RARITY = { normal: '普通', socketed: '有洞', unique: '傳奇', set: '套裝', runeword: '符文之語' };
+const D2EC_RARITY = { unique: '獨特', set: '套裝', runeword: '符文之語', misc: '道具', base: '底材' };
+// 鑰匙和器官是任務物品（base＝代碼），放進物品欄時遊戲自己登記到存檔 pandemonium（itemArt 的 Kv，物品欄金幣旁的數量就是看這裡），一把一個 id；
+// 精華是一般物品，一疊最多 99 個，carry 會自動疊在一起
+const D2EC_MISC = [
+{ name: 'Key of Terror', base: 'pk1', kind: 'quest', max: 50 }, { name: 'Key of Hate', base: 'pk2', kind: 'quest', max: 50 }, { name: 'Key of Destruction', base: 'pk3', kind: 'quest', max: 50 },
+{ name: 'Mephisto\'s Brain', base: 'mbr', kind: 'quest', max: 50 }, { name: 'Diablo\'s Horn', base: 'dhn', kind: 'quest', max: 50 }, { name: 'Baal\'s Eye', base: 'bey', kind: 'quest', max: 50 },
+{ name: 'Burning Essence of Terror', base: 'Burning Essence of Terror', kind: 'essence', max: 99 },
+];
+const d2ecBaseLabel = def => def.rarity === 'misc' ? (def.kind === 'essence' ? '精華' : '鑰匙／器官') : def.rarity === 'base' ? '無能力底材' : d2ecTr(def.base);
+// 「底材」分頁只列這些部位（戒指、護身符、護符、珠寶不會有普通品質）
+const D2EC_PLAIN_TYPES = ['weapon', 'shield', 'head', 'body', 'gloves', 'belt', 'boots'];
+// 普通品質的底材：用遊戲的掉落產生器做一件同底材的物品，只留底材本身的固有能力（implicit，例如武器傷害），拿掉詞綴和底材附加能力
+function d2ecPlainItem(base) {
+let src = null;
+for (const roll of D2EC.api.rollers || []) {
+for (let i = 0; i < 40 && !src; i++) {
+let it;
+try { it = roll({ base }, 99, 99, undefined); } catch (_) { break; }
+if (it && it.base === base && (it.rarity === 'magic' || it.rarity === 'rare')) src = it;
+}
+if (src) break;
+}
+const id = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+const type = src ? src.type : undefined;
+const mods = src ? (src.mods || []).filter(m => m.implicit && !m.auto && !m.staff).map(m => ({ ...m })) : [];
+return { id, base, type, rarity: 'normal', name: base, level: 1, mods };
+}
+function d2ecMiscItem(def, count) {
+const id = Math.random().toString(36).slice(2, 10) + Date.now().toString(36);
+if (def.kind === 'quest') return { id, base: def.base, type: 'quest', rarity: 'unique', name: def.name, level: 0, mods: [] };
+return { id, base: def.base, type: 'essence', rarity: 'normal', name: def.name, level: 85, mods: [], ...(count > 1 && { count }) };
+}
 // 營地裡下面 WeakMap 的攔截抓不到世界（裝備放進物品欄要用 world.carry），但遊戲每秒都會讀 world.tristram（沒進崔斯特姆時這個欄位不存在），
 // 所以跟 unspent 一樣在 Object.prototype 放不列舉的 getter 認出它；寫入時改成物件自己的欄位。
 function d2ecWorldInstall() {
 if (Object.prototype.hasOwnProperty('tristram')) return;
 Object.defineProperty(Object.prototype, 'tristram', {
 configurable: true, enumerable: false,
-get() { if (this && Array.isArray(this.pickups) && typeof this.carry === 'function') D2ED.world = this; return undefined; },
+get() { if (this && Array.isArray(this.pickups) && typeof this.carry === 'function') { D2ED.world = this; d2lootWrap(this); } return undefined; },
 set(v) { Object.defineProperty(this, 'tristram', { value: v, writable: true, enumerable: true, configurable: true }); },
 });
+}
+// ====== 物品過濾：每一行都能選「撿取並出售魔法以下」「撿取並出售稀有以下」，赫拉迪克法典也能選「保留」 ======
+// 遊戲（saveTransfer-*.js）每行可選的值放在模組常數陣列：一般行 [pick, keep, hide, sell, hidesell]、法典 [pick, hide, sell, hidesell]，
+// 已收藏／符文之語是一般行再加 better。選單切換（匯出的 cycle 函式）和讀檔驗證都照這兩個陣列，所以把新值直接加進陣列，
+// 選單就能選、存檔也會留著。陣列拿不到，用 cycle 函式跑一次、攔它呼叫的 indexOf 認出來。
+// 遊戲判斷只認得原本的值（新值在它的嚴格度表裡沒有分數，等於「拿起」），真正的出售由書籤包住 world.loot 決定。
+// 網頁版點書籤前遊戲已經讀過檔，新值會被當成不認得的值丟掉：書籤把新值另存一份（d2zh:lootExt），之後補回遊戲記憶體裡的設定，
+// 由遊戲自己寫檔（存檔封印照常，不會被標成修改過）。
+const D2LOOT_CAP = { zhSellMagic: 1, zhSellRare: 2 };   // 出售到哪個稀有度為止：白色 0、魔法 1、稀有 2
+const D2LOOT_LABEL = { zhSellMagic: 'SELL MAGIC AND BELOW', zhSellRare: 'SELL RARE AND BELOW' };
+const D2LOOT_GEAR = new Set(['weapon', 'shield', 'quiver', 'head', 'body', 'gloves', 'belt', 'boots', 'ring', 'amulet', 'charm', 'jewel']);
+const D2LOOT_KEY = 'd2zh:lootExt';
+const D2LOOT = { ready: false, forClass: null, mode: 'sc', mirror: { sc: {}, hc: {} }, done: {}, live: {}, pending: null };
+const d2lootIsExt = (rule, v) => D2LOOT_CAP[v] !== undefined || (rule === 'codex' && v === 'keep');
+const d2lootIsSave = o => !!o && typeof o === 'object' && Object.prototype.hasOwnProperty.call(o, 'inventoryByClass') && Object.prototype.hasOwnProperty.call(o, 'gold');
+const d2lootModeOf = save => save && save.mode === 'hc' ? 'hc' : 'sc';
+function d2lootExtRows(filter) {
+const out = {};
+if (filter && typeof filter === 'object') for (const [rule, v] of Object.entries(filter)) if (d2lootIsExt(rule, v)) out[rule] = v;
+return out;
+}
+function d2lootSaveMirror() {
+try { localStorage.setItem(D2LOOT_KEY, JSON.stringify(D2LOOT.mirror)); } catch (_) { /* 存不了：只是重開後要重選 */ }
+}
+// 補回新值：只補還是預設值（沒有這個欄位）的行；玩家已經改成別的值的行不動
+function d2lootRestore(filter, mode) {
+for (const [rule, v] of Object.entries(D2LOOT.mirror[mode] || {})) if (filter[rule] === undefined) filter[rule] = v;
+D2LOOT.done[mode] = true;
+D2LOOT.live[mode] = filter;
+}
+function d2lootSync(mode, filter) {
+const rows = d2lootExtRows(filter);
+if (JSON.stringify(rows) !== JSON.stringify(D2LOOT.mirror[mode] || {})) { D2LOOT.mirror[mode] = rows; d2lootSaveMirror(); }
+}
+function d2lootValue(filter, rule) {
+const v = filter && filter[rule];
+return v !== undefined ? v : rule === 'charm' || rule === 'jewel' ? 'keep' : 'pick';
+}
+// 遊戲判斷完再加上新選項：遊戲已經隱藏／出售的照遊戲；有「保留」的行就不賣（跟遊戲「保留優先」一樣）
+function d2lootDecide(world, item, r) {
+if (d2lootIsExt('codex', r)) r = 'pick';   // 已收藏／符文之語／法典那幾行，遊戲會把新值原樣傳回來：它們都比稀有高，等於拿起
+if (r !== 'pick' || !item || item.type === 'essence' || !D2LOOT_GEAR.has(item.type)) return r;
+const rank = { normal: 0, magic: 1, rare: 2 }[item.rarity];
+if (rank === undefined) return r;
+const filter = D2LOOT.live[D2LOOT.mode] !== undefined ? D2LOOT.live[D2LOOT.mode] : D2LOOT.mirror[D2LOOT.mode];
+const rows = rank > 0 ? [item.rarity, item.type] : [item.type];
+let forClass = true;
+const cls = world && world.player && world.player.cls;
+if (D2LOOT.forClass && cls) { try { forClass = !!D2LOOT.forClass(item, cls); } catch (_) { /* 判斷不了就當本職業 */ } }
+if (!forClass) rows.push('other');
+const vals = rows.map(row => d2lootValue(filter, row));
+if (vals.includes('keep')) return r;
+return vals.some(v => D2LOOT_CAP[v] !== undefined && rank <= D2LOOT_CAP[v]) ? 'sell' : r;
+}
+function d2lootWrap(world) {
+if (!world || typeof world.loot !== 'function' || world.loot.__d2zhLoot) return;
+const orig = world.loot;
+const wrapped = function (item) {
+const r = orig.apply(this, arguments);
+if (!D2LOOT.ready) return r;
+try { return d2lootDecide(world, item, r); } catch (_) { return r; }
+};
+wrapped.__d2zhLoot = true;
+world.loot = wrapped;
+}
+function d2lootInstall() {
+try { const m = JSON.parse(localStorage.getItem(D2LOOT_KEY) || 'null'); if (m && typeof m === 'object') D2LOOT.mirror = { sc: m.sc || {}, hc: m.hc || {} }; } catch (_) { /* 沒有就從空的開始 */ }
+try { D2LOOT.mode = localStorage.getItem('d2-survivors/mode/v1') === 'hardcore' ? 'hc' : 'sc'; } catch (_) { /* 預設一般模式 */ }
+// 存檔沒有 lootFilter（全部預設）時遊戲讀到的是這裡：要補新值就幫它建一個；遊戲寫入時照一般欄位寫在物件自己身上
+if (!Object.prototype.hasOwnProperty('lootFilter')) {
+Object.defineProperty(Object.prototype, 'lootFilter', {
+configurable: true, enumerable: false,
+get() {
+if (!D2LOOT.ready || !d2lootIsSave(this)) return undefined;
+const mode = d2lootModeOf(this);
+if (D2LOOT.done[mode] || mode !== D2LOOT.mode || !Object.keys(D2LOOT.mirror[mode] || {}).length) return undefined;
+const filter = {};
+Object.defineProperty(this, 'lootFilter', { value: filter, writable: true, enumerable: true, configurable: true });
+d2lootRestore(filter, mode);
+return filter;
+},
+set(v) { Object.defineProperty(this, 'lootFilter', { value: v, writable: true, enumerable: true, configurable: true }); },
+});
+}
+// 遊戲寫檔：先 JSON.stringify({...存檔, seal: undefined})，接著寫進 localStorage。讀檔驗證封印也會 stringify 同樣的東西但不寫入，
+// 所以 stringify 時只記下來，等真的寫入存檔才處理（驗證時改內容會讓封印對不上）。這裡不能讀 v.lootFilter（會觸發上面的 getter）。
+const rawStringify = JSON.stringify;
+JSON.stringify = function (v) {
+if (v && typeof v === 'object' && Object.prototype.hasOwnProperty.call(v, 'seal') && v.seal === undefined && d2lootIsSave(v)) {
+D2LOOT.pending = { mode: d2lootModeOf(v), filter: Object.prototype.hasOwnProperty.call(v, 'lootFilter') ? v.lootFilter : null };
+}
+return rawStringify.apply(this, arguments);
+};
+const rawSet = Storage.prototype.setItem;
+Storage.prototype.setItem = function (key, value) {
+const p = D2LOOT.pending;
+if (p && this === window.localStorage && /^d2-survivors\/(save|hc)\/v1$/.test(key)) {
+D2LOOT.pending = null;
+if (D2LOOT.ready) {
+D2LOOT.mode = p.mode;
+const filter = p.filter && typeof p.filter === 'object' ? p.filter : null;
+if (!D2LOOT.done[p.mode]) {
+if (filter) d2lootRestore(filter, p.mode);   // 寫完後補進記憶體裡的設定，遊戲下次寫檔就會存進去
+else if (!Object.keys(D2LOOT.mirror[p.mode] || {}).length) D2LOOT.done[p.mode] = true;
+} else {
+D2LOOT.live[p.mode] = filter;
+d2lootSync(p.mode, filter);
+}
+}
+}
+return rawSet.apply(this, arguments);
+};
+d2lootSetup().catch(() => { /* 認不出遊戲程式：維持遊戲原本的選項 */ });
+}
+async function d2lootSetup() {
+const urls = [...new Set([...performance.getEntriesByType('resource').map(e => e.name), ...[...document.querySelectorAll('script[src]')].map(e => e.src), ...[...document.querySelectorAll('link[rel=modulepreload]')].map(e => e.href)])].filter(n => /\/assets\/[^/]+\.js(\?|$)/.test(n) && !/\/ko-/.test(n));
+const mods = await Promise.all(urls.map(url => Promise.race([import(url), new Promise((_, no) => setTimeout(no, 3000))]).catch(() => null)));
+let cycle = null, labels = null;
+for (const m of mods) for (const v of m ? Object.values(m) : []) {
+if (typeof v === 'function') {
+const s = Function.prototype.toString.call(v);
+if (/\.indexOf\(\w+\(e,t\)\)\+n\+(\w+)\.length\)%\1\.length\]/.test(s)) cycle = v;
+// 「是不是本職業的裝備」：底材表查得到、職業能用、物品上的職業技能都屬於這個職業
+else if (/^function \w+\(e,t\)\{let n=\w+\.get\(e\.base\);return!!n&&\w+\(t,n\)&&\w+\(e\)\.every\(e=>e===t\)\}$/.test(s)) D2LOOT.forClass = v;
+} else if (v && typeof v === 'object' && !Array.isArray(v) && typeof v.pick === 'string' && typeof v.keep === 'string' && typeof v.hidesell === 'string') labels = v;
+}
+if (!cycle || !labels) throw new Error('loot filter not found');
+const grab = rule => {
+const seen = [], rawIndexOf = Array.prototype.indexOf;
+Array.prototype.indexOf = function () { if (rawIndexOf.call(this, 'hidesell') >= 0) seen.push(this); return rawIndexOf.apply(this, arguments); };
+try { cycle({}, rule, 1); } finally { Array.prototype.indexOf = rawIndexOf; }
+return seen[0];
+};
+const common = grab('magic'), codex = grab('codex');
+if (!common || !codex || common === codex || Object.isFrozen(common) || Object.isFrozen(codex)) throw new Error('loot filter lists not found');
+for (const v of Object.keys(D2LOOT_CAP)) { if (!common.includes(v)) common.push(v); if (!codex.includes(v)) codex.push(v); }
+if (!codex.includes('keep')) codex.splice(1, 0, 'keep');
+Object.assign(labels, D2LOOT_LABEL);
+D2LOOT.ready = true;
+if (D2ED.world) d2lootWrap(D2ED.world);
 }
 function d2ecTr(s) {
 try { return (window.D2I18N && window.D2I18N.translate(s)) || s; } catch (_) { return s; }
@@ -1723,15 +2730,35 @@ runewordStats: find((s, f) => f.length === 4 && /\.runewords\?\.\[/.test(s) && /
 size: find(s => /\.size\?\?\[1,1\]/.test(s)),
 baseInfo: find(s => /itype:\w+\.itype/.test(s) && s.includes('bothHands')),
 isType: find((s, f) => f.length === 2 && s.includes('.equiv')),
+anvilLines: find(s => s.includes('hellforge:{open:')),   // 鐵砧畫面的行列表（裝備修改的指定強化用，找不到不影響裝備創造）
 makers: fns.filter(([f, s]) => f.length === 3 && /\.roll=\[\d,/.test(s)).map(([f]) => f),   // 20261103 起 roll 版本從 1 變 2
 cats: exportsAll.find(v => Array.isArray(v) && v[0] && Array.isArray(v[0].uniques) && v[0].label),
 make: {},
+// 掉落產生器（物品表、等級、…）：用來收集底材可能出現的隨機職業技能（staff）和底材自帶屬性（auto）。找不到就不提供這兩個選項
+rollers: fns.filter(([f, s]) => f.length === 4 && (/\?`rare`:`magic`/.test(s) || /\.get\(\w+\.base\),`rare`,/.test(s))).map(([f]) => f),
 };
 const runewords = exportsAll.find(v => Array.isArray(v) && v[0] && Array.isArray(v[0].runes) && Array.isArray(v[0].types));
 const bestBase = find((s, f) => f.length === 1 && /Math\.max\(\w+\.lvl,41\)/.test(s));
 if (!api.tables || !api.normalize || !api.lines || !api.runewordStats || !api.size || !api.baseInfo || !api.isType || !api.cats || !runewords || !bestBase || !api.tables()) return null;
 // 分類表是遊戲倉庫在用的物件，複製一份再加欄位
 api.cats = api.cats.map(c => ({ ...c, uniques: c.uniques.map(d => ({ ...d })) }));
+// 三把鑰匙、三個器官、燃燒的恐懼精華放在「護符」分頁最後（遊戲倉庫沒有這幾樣）
+const misc = D2EC_MISC.map(m => ({ ...m, rarity: 'misc', lvl: 0 }));
+const charmCat = api.cats.find(c => c.id === 'charm');
+if (charmCat) charmCat.uniques.push(...misc); else api.cats.push({ id: 'misc', label: 'Charms', uniques: misc });
+// 「底材」分頁：沒有任何能力的普通裝備，給玩家自己打洞或拿去做符文之語（放在護符分頁後面）
+const tbl = api.tables();
+const typeOf = {};
+for (const d of api.cats.flatMap(c => c.uniques)) {
+if (d.rarity !== 'unique' && d.rarity !== 'set') continue;
+const info = api.baseInfo({ base: d.base });
+if (info) typeOf[info.itype] = d.type;
+}
+const plain = Object.keys(tbl.bases).filter(name => {
+const info = api.baseInfo({ base: name });
+return info && D2EC_PLAIN_TYPES.includes(typeOf[info.itype]);
+}).map(name => ({ name, base: name, rarity: 'base', type: typeOf[api.baseInfo({ base: name }).itype], lvl: 0 }));
+if (plain.length) api.cats.splice(charmCat ? api.cats.indexOf(charmCat) + 1 : api.cats.length, 0, { id: 'bases', label: '底材', uniques: plain });
 api.all = api.cats.flatMap(c => c.uniques);
 for (const rarity of ['unique', 'set']) {
 const def = api.all.find(d => d.rarity === rarity);
@@ -1741,7 +2768,7 @@ if (!api.make[rarity]) return null;
 // 符文之語可以做在很多底材上：遊戲沒有匯出底材表，用 itype 認類型，從獨特和套裝的底材查裝備欄位
 api.typeOfItype = {};
 for (const d of api.all) {
-if (d.rarity === 'runeword') continue;
+if (d.rarity === 'runeword' || d.rarity === 'misc') continue;
 const info = api.baseInfo({ base: d.base });
 if (info) api.typeOfItype[info.itype] = d.type;
 }
@@ -1773,27 +2800,40 @@ return def.types.some(x => api.isType(info.itype, x)) && !(def.excluded || []).s
 });
 return list.includes(def.base) ? list : [def.base, ...list];
 }
+// 符文之語做在職業底材上時，遊戲會照底材加「隨機職業技能」（最多 3 個，各 1～3 級，staff）和「底材自帶屬性」（一組，auto），
+// 這兩張表沒有匯出，所以用遊戲的掉落產生器對同一種底材產生一批物品，收集出現過的項目和數值範圍（每種底材只收一次）
+const D2EC_BASEMODS = new Map();
+function d2ecBaseMods(base) {
+if (D2EC_BASEMODS.has(base)) return D2EC_BASEMODS.get(base);
+const staff = new Map(), auto = new Map();
+for (const roll of D2EC.api.rollers || []) {
+for (let n = 0; n < 700; n++) {
+let item;
+try { item = roll({ base }, 1 + (n % 99), 99, undefined); } catch (_) { break; }
+if (!item || (item.rarity !== 'magic' && item.rarity !== 'rare')) continue;   // 20261120.1 起可能直接做成獨特
+const mods = item.mods || [];
+for (const m of mods) if (m.staff && typeof m.stat === 'string') staff.set(m.stat, Math.max(staff.get(m.stat) || 0, m.value));
+const row = mods.filter(m => m.auto && typeof m.stat === 'string');
+if (!row.length) continue;
+const key = row.map(m => m.stat).join('|');
+// 同一組裡各項的範圍可能不同（例如攻擊準確率和增強傷害），各自記錄；same：這一組每次都同一個數值（例如所有抗性）
+// mods 留完整的一份當樣板（毒素傷害還有 length 欄位，少了遊戲不收）
+const r = auto.get(key) || { stats: row.map(m => m.stat), mods: row.map(m => ({ ...m })), lo: row.map(() => Infinity), hi: row.map(() => -Infinity), same: true };
+row.forEach((m, k) => { r.lo[k] = Math.min(r.lo[k], m.value); r.hi[k] = Math.max(r.hi[k], m.value); });
+if (row.some(m => m.value !== row[0].value)) r.same = false;
+auto.set(key, r);
+}
+}
+const out = { staff: [...staff.keys()].sort(), auto: [...auto.values()] };
+D2EC_BASEMODS.set(base, out);
+return out;
+}
 function d2ecBaseItem(def, base) {
-  const { api } = D2EC;
-  // 如果是白色/有洞基底，直接根據底材生成
-  if (def.rarity === 'normal' || def.rarity === 'socketed') {
-    const baseInfo = api.tables().bases[base] || {};
-    return {
-      id: Math.random().toString(36).slice(2, 10) + Date.now().toString(36),
-      base: base,
-      name: base,
-      type: baseInfo.type || def.type || 'weapon',
-      rarity: def.rarity,
-      sockets: def.rarity === 'socketed' ? (baseInfo.maxSockets || 6) : 0,
-      ethereal: false,
-      defense: baseInfo.defense ? baseInfo.defense.max : undefined,
-      stats: []
-    };
-  }
-  
-  delete item.roll;   // 有 roll 的物品讀檔時會照種子重骰 原本的傳奇/套裝/符文之語邏輯
-  const item = api.make[def.rarity](def, def.lvl, 99);
-  return item;
+const { api } = D2EC;
+if (def.rarity !== 'runeword') {
+const item = api.make[def.rarity](def, def.lvl, 99);
+delete item.roll;   // 有 roll 的物品讀檔時會照種子重骰
+return item;
 }
 const type = api.typeOfItype[(api.baseInfo({ base }) || {}).itype] || def.type;
 const slot = type === 'weapon' ? 'weapon' : type === 'shield' ? 'shield' : 'helm';
@@ -1816,7 +2856,8 @@ const idxs = [], slots = [];
 for (const { stat, func } of row.stats) {
 if (!stats[i] || stats[i].stat !== stat) throw new Error('物品表和物品對不起來：' + stat);
 idxs.push(i);
-if (!D2EC_FIXED_FUNCS.has(func) && !(func === 17 && row.par)) slots.push({ i, field: func === 12 ? 'param' : 'value' });
+// func 12：骰的是技能編號；func 36（例如地獄火炬的隨機職業技能）：骰的是職業 0～6，技能等級是固定的 val。兩種都寫進 param
+if (!D2EC_FIXED_FUNCS.has(func) && !(func === 17 && row.par)) slots.push({ i, field: func === 12 || func === 36 ? 'param' : 'value' });
 i++;
 }
 if (hi > lo && slots.length) g.rows.push({ lo, hi, idxs, slots, def: Math.trunc((lo + hi) / 2) });
@@ -1894,12 +2935,54 @@ const sel = D2EC.sel;
 if (!sel) return;
 const world = D2ED.world;
 if (!world || typeof world.carry !== 'function') { d2ecNotice('還沒抓到遊戲世界，請進入地圖後再試一次。'); return; }
+if (sel.plain) {
+const item = d2ecPlainItem(sel.base);
+if (!item.type) item.type = sel.def.type;   // 沒有掉落產生器（舊版電腦版主程序）時用分類表的部位
+if (sel.defense) item.defense = sel.defense.read(); else if (sel.fixedDefense !== undefined) item.defense = sel.fixedDefense;
+if (sel.sockets) { const n = sel.sockets(); if (n > 0) item.sockets = n; }
+const ready = item.type ? D2EC.api.normalize(JSON.parse(JSON.stringify(item))) : null;
+if (!ready) { d2ecNotice('遊戲不接受這件底材的資料，沒有建立。'); return; }
+if (!world.carry(ready)) { d2ecNotice('物品欄已滿，請整理背包。'); return; }
+d2ecInventory();
+const msg = D2EC.overlay.querySelector('.d2ec-msg');
+msg.textContent = `已放入物品欄：${d2ecTr(sel.base)}${ready.sockets ? `（${ready.sockets} 洞）` : ''}`;
+clearTimeout(msg._h);
+msg._h = setTimeout(() => { msg.textContent = ''; }, 3000);
+return;
+}
+if (sel.misc) {
+const count = sel.count ? sel.count() : 1;
+const items = sel.def.kind === 'quest' ? Array.from({ length: count }, () => d2ecMiscItem(sel.def, 1)) : [d2ecMiscItem(sel.def, count)];
+let done = 0;
+for (const it of items) {
+const ready = D2EC.api.normalize(JSON.parse(JSON.stringify(it)));
+if (!ready) { d2ecNotice('遊戲不接受這個道具的資料，沒有建立。'); break; }
+if (!world.carry(ready)) { d2ecNotice('物品欄已滿，請整理背包。'); break; }
+done++;
+}
+if (!done) return;
+d2ecInventory();
+const msg = D2EC.overlay.querySelector('.d2ec-msg');
+msg.textContent = `已放入物品欄：${sel.def.zh} ×${sel.def.kind === 'quest' ? done : count}`;
+clearTimeout(msg._h);
+msg._h = setTimeout(() => { msg.textContent = ''; }, 3000);
+return;
+}
 const item = d2ecBaseItem(sel.def, sel.base);
 for (const g of sel.groups) {
 const stats = g.at === 'stats' ? item.stats : item.bonus[g.at];
 for (const row of g.rows) if (row.read) for (const s of row.slots) stats[s.i][s.field] = row.read();
 }
 if (sel.defense) item.defense = sel.defense.read();
+if (sel.ethereal && sel.ethereal()) {   // 跟遊戲做無形符文之語一樣：防禦 ×1.5 取整數，武器傷害由遊戲照 ethereal 自己算
+item.ethereal = true;
+if (item.defense !== undefined) item.defense = Math.floor(item.defense * 3 / 2);
+}
+if (sel.def.rarity === 'runeword') {
+const staff = (sel.staff || []).map(f => f()).filter(Boolean).filter((m, i, a) => a.findIndex(x => x.stat === m.stat) === i);
+item.mods = [...(sel.auto ? sel.auto() : []), ...staff];
+}
+if (sel.sockets) { const n = sel.sockets(); if (n > 0) item.sockets = n; }
 const ready = D2EC.api.normalize(JSON.parse(JSON.stringify(item)));
 if (!ready) { d2ecNotice('遊戲不接受這件裝備的資料，沒有建立。'); return; }
 if (!world.carry(ready)) { d2ecNotice('物品欄已滿，請整理背包。'); return; }
@@ -1921,8 +3004,101 @@ input.addEventListener('change', () => { input.value = String(read()); text.text
 onValue(read);
 return d2edEl('label', { class: 'd2ec-row' }, text, d2edEl('span', { class: 'd2ec-range' }, `${lo} ～ ${hi}`), input);
 }
+// 底材附加能力（mods）的名稱：遊戲的說明文字函式只吃物品表格式（stats），這幾種 mods 自己對照
+const D2EC_MOD_ZH = { life: '生命', mana: '法力', fireResist: '火焰抗性', coldResist: '冰寒抗性', lightningResist: '閃電抗性', poisonResist: '毒素抗性', attackRatingPoints: '攻擊準確率', enhancedDamage: '增強傷害 %', poisonMinDamage: '最小毒素傷害', poisonMaxDamage: '最大毒素傷害' };
+const D2EC_CLASSES = ['Amazon', 'Sorceress', 'Necromancer', 'Paladin', 'Barbarian', 'Druid', 'Assassin'];
+function d2ecModName(stat) {
+if (D2EC_MOD_ZH[stat]) return D2EC_MOD_ZH[stat];
+let m = /^skilltab(\d+)$/.exec(stat);
+if (m) { const n = Number(m[1]); return `${d2ecTr(D2EC_CLASSES[Math.floor(n / 3)] || '')}技能（第 ${n % 3 + 1} 類）`; }
+m = /^skill:(\w+)$/.exec(stat);
+if (m) return d2ecTr(m[1].replace(/([a-z])([A-Z])/g, '$1 $2').replace(/^./, c => c.toUpperCase())).replace(/（[^）]*）$/, '');   // 拿掉技能名稱後的元素標記
+return d2ecTr(stat);
+}
+// 無形、洞數、符文之語底材的隨機職業技能和自帶屬性。遊戲讀檔規則：無形只收符文之語（而且底材要有耐久度）；
+// 洞數只收獨特和套裝（上限照底材，本身有「插槽」能力的由那一列決定）；符文之語的 mods 只留 auto（一組）和 staff（最多 3 個）
+function d2ecExtras(def, base, item, sel) {
+const out = [];
+const row = D2EC.api.tables().bases[base] || {};
+if (def.rarity === 'runeword') {
+if (!row.noDurability) {
+const cb = d2edEl('input', { type: 'checkbox' });
+sel.ethereal = () => cb.checked;
+out.push(d2edEl('label', { class: 'd2ec-row' }, d2edEl('span', { class: 'd2ec-label' }, '無形（防禦和武器傷害 ×1.5，無法修理）'), cb));
+}
+const bm = d2ecBaseMods(base);
+if (bm.staff.length) {
+out.push(d2edEl('h4', {}, '底材隨機職業技能（最多 3 個）'));
+const opts = bm.staff.map(s => [s, d2ecModName(s)]).sort((a, b) => a[1].localeCompare(b[1], 'zh-Hant'));
+sel.staff = [];
+for (let k = 0; k < 3; k++) {
+const pick = d2edEl('select', {}, d2edEl('option', { value: '' }, '（無）'), ...opts.map(([v, t]) => d2edEl('option', { value: v }, t)));
+const lv = d2edEl('input', { type: 'number', min: '1', max: '3', step: '1', value: '3' });
+lv.addEventListener('change', () => { lv.value = String(Math.min(3, Math.max(1, Math.trunc(Number(lv.value)) || 1))); });
+sel.staff.push(() => pick.value ? { stat: pick.value, value: Math.min(3, Math.max(1, Math.trunc(Number(lv.value)) || 1)), staff: true } : null);
+out.push(d2edEl('label', { class: 'd2ec-row' }, pick, d2edEl('span', { class: 'd2ec-range' }, '+1 ～ 3 級'), lv));
+}
+}
+if (bm.auto.length) {
+out.push(d2edEl('h4', {}, '底材自帶屬性'));
+const vals = d2edEl('div', {});
+const pick = d2edEl('select', {}, d2edEl('option', { value: '' }, '（無）'), ...bm.auto.map((r, k) => d2edEl('option', { value: String(k) }, r.stats.map(d2ecModName).join('、'))));
+const build = () => {
+const r = bm.auto[pick.value];
+vals.replaceChildren();
+sel.auto = null;
+if (!r) return;
+const reads = [];
+if (r.same) {
+const lo = Math.min(...r.lo), hi = Math.max(...r.hi);
+vals.append(d2ecNumberRow(v => `${r.stats.map(d2ecModName).join('、')} ${v}`, lo, hi, hi, read => { for (const _ of r.stats) reads.push(read); }));
+} else r.stats.forEach((s, k) => vals.append(d2ecNumberRow(v => `${d2ecModName(s)} ${v}`, r.lo[k], r.hi[k], r.hi[k], read => reads.push(read))));
+sel.auto = () => {
+const mods = r.mods.map((m, k) => ({ ...m, value: reads[k](), auto: true }));
+const min = mods.find(m => m.stat === 'poisonMinDamage'), max = mods.find(m => m.stat === 'poisonMaxDamage');
+if (min && max && max.value < min.value) max.value = min.value;
+return mods;
+};
+};
+pick.addEventListener('change', build);
+out.push(d2edEl('label', { class: 'd2ec-row' }, pick), vals);
+}
+} else {
+const sockets = Array.isArray(row.sockets) ? (row.sockets[2] ?? row.sockets[row.sockets.length - 1]) : 0;
+if (sockets > 0 && !item.stats.some(s => s.stat === 'item_numsockets')) out.push(d2ecNumberRow(v => v ? `洞數 ${v}` : '洞數 0（不打洞）', 0, sockets, 0, read => { sel.sockets = read; }));
+}
+return out;
+}
 function d2ecSelect(def, base = def.base) {
 const box = D2EC.overlay.querySelector('.d2ec-editor');
+if (def.rarity === 'base') {   // 無能力底材：只調防禦和洞數
+const sel = D2EC.sel = { def, base: def.base, plain: true };
+for (const b of D2EC.overlay.querySelectorAll('.d2ec-result')) b.classList.toggle('on', b._def === def);
+const row = D2EC.api.tables().bases[def.base] || {};
+const head = d2edEl('div', { class: 'd2ec-title' }, d2ecIcon('base', def.name, def.base), d2edEl('div', {}, d2edEl('b', {}, d2ecTr(def.base)), d2edEl('small', {}, '底材・普通品質')));
+const body = d2edEl('div', {},
+d2edEl('p', { class: 'd2ec-fixed' }, '僅為底材：不帶任何能力（沒有魔法、稀有、獨特屬性），只有底材本身的基本數值。可以調整防禦和洞數，拿去鑲嵌寶石、珠寶或符文之語。'),
+d2edEl('p', { class: 'd2ec-fixed' }, '無形：遊戲規定只有符文之語可以是無形，底材設成無形讀檔時會被遊戲刪除，所以這裡不提供。要無形請直接建立符文之語並勾選無形。'));
+const range = row.defense;
+if (range && range[1] > range[0]) body.append(d2ecNumberRow(v => `底材防禦 ${v}`, range[0], range[1], range[1], read => { sel.defense = { read }; }));
+else if (range) sel.fixedDefense = range[1];
+const sockets = Array.isArray(row.sockets) ? (row.sockets[2] ?? row.sockets[row.sockets.length - 1]) : 0;
+if (sockets > 0) body.append(d2ecNumberRow(v => v ? `洞數 ${v}` : '洞數 0（不打洞）', 0, sockets, sockets, read => { sel.sockets = read; }));
+else body.append(d2edEl('p', { class: 'd2ec-fixed' }, '這種底材不能打洞'));
+box.replaceChildren(head, body, d2edEl('div', { class: 'd2ec-actions' },
+d2edEl('button', { type: 'button', class: 'd2ec-ok', onclick: d2ecCreate }, '確定'), d2edEl('span', { class: 'd2ec-msg' })));
+return;
+}
+if (def.rarity === 'misc') {   // 鑰匙、器官、精華：只選數量
+const sel = D2EC.sel = { def, misc: true };
+for (const b of D2EC.overlay.querySelectorAll('.d2ec-result')) b.classList.toggle('on', b._def === def);
+const head = d2edEl('div', { class: 'd2ec-title d2ec-r-unique' }, d2ecIcon('misc', def.name, def.base), d2edEl('div', {}, d2edEl('b', {}, def.zh), d2edEl('small', {}, `道具・${d2ecBaseLabel(def)}`)));
+const note = def.kind === 'quest' ? '每一個都會算進物品欄金幣旁邊的數量（每次最多 ' + def.max + ' 個）' : '一疊最多 99 個，會自動疊到物品欄裡現有的精華上';
+box.replaceChildren(head, d2edEl('p', { class: 'd2ec-fixed' }, note),
+d2ecNumberRow(v => `數量 ${v}`, 1, def.max, 1, read => { sel.count = read; }),
+d2edEl('div', { class: 'd2ec-actions' }, d2edEl('button', { type: 'button', class: 'd2ec-ok', onclick: d2ecCreate }, '確定'), d2edEl('span', { class: 'd2ec-msg' })));
+return;
+}
 let item, groups;
 try {
 item = d2ecBaseItem(def, base);
@@ -1948,6 +3124,7 @@ if (range && item.defense !== undefined && !item.stats.some(s => s.stat === 'ite
 const lo = range[0], hi = range[1];
 body.append(d2ecNumberRow(v => `底材防禦 ${v}`, lo, hi, Math.trunc((lo + hi) / 2), read => { sel.defense = { read }; }));
 } else if (item.defense !== undefined) body.append(d2edEl('p', { class: 'd2ec-fixed' }, `底材防禦 ${item.defense}`));
+body.append(...d2ecExtras(def, base, item, sel));
 for (const g of groups) {
 const stats = g.at === 'stats' ? item.stats : item.bonus[g.at];
 if (g.tag) body.append(d2edEl('h4', {}, g.tag));
@@ -1968,7 +3145,7 @@ if (!words.length) { list.replaceChildren(d2edEl('p', { class: 'd2ec-hint' }, '�
 const found = api.all.filter(d => words.every(w => d.hay.includes(w)));
 if (!found.length) { list.replaceChildren(d2edEl('p', { class: 'd2ec-hint' }, '找不到符合的裝備。')); return; }
 list.replaceChildren(...found.map(def => {
-const b = d2edEl('button', { type: 'button', class: 'd2ec-result d2ec-r-' + def.rarity, onclick: () => d2ecSelect(def) }, d2ecIcon(def.rarity, def.name, def.base), d2edEl('span', {}, def.zh, d2edEl('small', {}, `${D2EC_RARITY[def.rarity]}・${d2ecTr(def.base)}`)));
+const b = d2edEl('button', { type: 'button', class: 'd2ec-result d2ec-r-' + def.rarity, onclick: () => d2ecSelect(def) }, d2ecIcon(def.rarity, def.name, def.base), d2edEl('span', {}, def.zh, d2edEl('small', {}, `${D2EC_RARITY[def.rarity]}・${d2ecBaseLabel(def)}`)));
 b._def = def;
 b.classList.toggle('on', !!D2EC.sel && D2EC.sel.def === def);
 return b;
@@ -1992,7 +3169,7 @@ overlay.querySelector('.d2ec-search').value = def.zh;
 D2EC.sel = null;
 d2ecSearch();
 d2ecSelect(def);
-} }, d2ecIcon(def.rarity, def.name, def.base), d2edEl('span', {}, def.zh), d2edEl('small', {}, d2ecTr(def.base)))));
+} }, d2ecIcon(def.rarity, def.name, def.base), d2edEl('span', {}, def.zh), d2edEl('small', {}, d2ecBaseLabel(def)))));
 slots.scrollTop = 0;
 };
 for (const c of api.cats) {
@@ -2098,9 +3275,28 @@ card.append(modal);
 }
 function d2edRender() {
 const body = D2ED.panel.querySelector('.d2ed-body');
+if (D2ZH_ONLINE) {
+// 線上連線失敗時，遊戲會刪掉 d2s:online、在同一頁改成離線（不重新載入）；這時書籤仍是線上模式，重新載入頁面就會恢復
+let fellBack = false;
+try { fellBack = !sessionStorage.getItem('d2s:online'); } catch (_) { /* 讀不到就當仍在線上 */ }
+if (fellBack) {
+body.replaceChildren(d2edEl('div', {},
+d2edEl('h3', {}, '線上連線沒有成功'),
+d2edEl('p', {}, '遊戲已改成離線，但書籤是在線上模式載入的，所以修改功能還沒啟用。重新載入遊戲後就能使用。'),
+d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: 'd2ed-main', onclick: () => location.reload() }, '重新載入'))),
+...[d2edUpdateSection()].filter(Boolean));
+return;
+}
+body.replaceChildren(d2edEl('div', {},
+d2edEl('h3', {}, '線上模式不可使用'),
+d2edEl('p', {}, `目前是線上遊戲（${D2ZH_ONLINE === 'hardcore' ? '專家模式' : '一般模式'}），書籤只提供中文翻譯。`),
+d2edEl('p', { class: 'd2ed-note' }, '書籤修改、裝備創造、裝備修改、物品過濾擴充、碎片感應、過關吸取物品、低效能模式、背景靜音等功能，只能在離線遊戲使用。回主選單改玩「離線遊戲」就會恢復。')),
+...[d2edUpdateSection()].filter(Boolean));
+return;
+}
 // 遊戲中改這一局的人物；在主選單（不在一局裡）改恰西的永久升級
 const inRun = !document.body.classList.contains('no-run');
-const sections = d2edUnlocked() ? [inRun ? d2edRunSection() : d2edSaveSection(), d2edPerfSection(), d2edBgMuteSection(), d2edShardSection(), d2edSkillZoomSection(), d2edUpdateSection()] : [d2edLockSection(), d2edPerfSection(), d2edBgMuteSection(), d2edShardSection(), d2edSkillZoomSection(), d2edUpdateSection()];
+const sections = d2edUnlocked() ? [inRun ? d2edRunSection() : d2edSaveSection(), d2edForgeSection(), d2edPerfSection(), d2edBgMuteSection(), d2edShardSection(), d2edEndPullSection(), d2edSkillZoomSection(), d2edUpdateSection()] : [d2edLockSection(), d2edPerfSection(), d2edBgMuteSection(), d2edShardSection(), d2edEndPullSection(), d2edSkillZoomSection(), d2edUpdateSection()];
 body.replaceChildren(...sections.filter(Boolean));
 }
 // ====== 問題回報（Google 表單，不需登入、不收集信箱） ======
@@ -2123,6 +3319,51 @@ url.searchParams.set(D2ZH_REPORT_ENTRY.bookmark, D2ZH_VERSION);
 if (d2zhGameBuild) url.searchParams.set(D2ZH_REPORT_ENTRY.game, d2zhGameBuild);
 window.open(url.href, '_blank', 'noopener');
 }
+// ====== 上榜模式 ======
+// 遊戲上傳排行榜時會檢查環境：書籤替換了瀏覽器內建函式、或電腦版 app.asar 被中文化改過，都會被標成 patched 拒收（422）。
+// 網頁版：重新整理頁面＝書籤不再執行。電腦版：交給 d2zh-inject.cjs → install.ps1 -CleanLaunch，
+// 關閉遊戲、把 app.asar 換回官方原版、開一次乾淨的英文遊戲；之後用「D2 Survivors 中文版」捷徑開才會恢復中文。
+function d2zhCleanModeOpen() {
+const card = D2ED.panel && D2ED.panel.querySelector('.d2ed-card');
+if (!card || card.querySelector('.d2ed-modal')) return;
+const desk = window.__D2ZH_DESKTOP;
+const inRun = !document.body.classList.contains('no-run');
+let lbOff = false;
+try { const save = d2edReadSave(); lbOff = !!(save && save.leaderboard && save.leaderboard.off); } catch (_) { /* 讀不到存檔就不提示 */ }
+const modal = d2edEl('div', { class: 'd2ed-modal' });
+const close = () => modal.remove();
+const status = d2edEl('p', { class: 'd2ed-note', style: 'margin: 6px 0; color: #f0c94a' });
+const okBtn = d2edEl('button', { type: 'button', class: 'd2ed-main' }, '確定');
+const cancelBtn = d2edEl('button', { type: 'button', onclick: close }, '取消');
+okBtn.onclick = () => {
+if (!desk) { location.reload(); return; }
+if (typeof desk !== 'object' || !desk.cleanLaunch) {
+status.textContent = '中文化程式需要更新才能使用上榜模式：請關閉遊戲，再用「D2 Survivors 中文版」捷徑重新開一次（會自動更新），然後再按一次。也可以自己關閉遊戲，執行「移除中文版.cmd」改回英文版。';
+return;
+}
+okBtn.disabled = cancelBtn.disabled = true;
+status.textContent = '正在關閉遊戲，稍後會開啟原始模式（英文）。如果跳出系統管理員確認，請按「是」。';
+window.__d2zhCleanDone = r => {
+if (r && r.ok) return;
+okBtn.disabled = cancelBtn.disabled = false;
+status.textContent = r && r.reason === 'old-installer'
+? '中文化程式需要更新才能使用上榜模式：請關閉遊戲，再用「D2 Survivors 中文版」捷徑重新開一次（會自動更新），然後再按一次。'
+: `無法切換成上榜模式（${(r && r.reason) || '未知錯誤'}）。`;
+};
+console.log('__D2ZH__:clean');
+};
+modal.append(d2edEl('div', { class: 'd2ed-modal-box', role: 'alertdialog', 'aria-label': '上榜模式' },
+d2edEl('b', {}, '上榜模式'),
+d2edEl('p', { style: 'margin: 6px 0; color: #d8d0c0' }, '使用書籤會導致無法上榜，按下確定後會幫你打開原始模式(英文)並且不加入任何東西，如果想上榜請不要再執行書籤或是中文化.bat'),
+d2edEl('ul', {},
+inRun ? d2edEl('li', {}, '目前在遊戲中，這一局沒存到的進度會不見；建議先「儲存並離開遊戲」，在主選單再按。') : null,
+desk ? d2edEl('li', {}, '遊戲會關閉並重新開啟成英文版（可能跳出系統管理員確認，請按「是」）。之後想用中文，用「D2 Survivors 中文版」捷徑開遊戲就會恢復。') : d2edEl('li', {}, '頁面會重新整理，書籤的所有功能都會停止。之後想用中文，再點一次書籤即可。'),
+lbOff ? d2edEl('li', {}, '你的「傳送我的紀錄」（排行榜上傳）目前是關閉的，請到營地儲物箱旁的排行榜書把它打開。') : null,
+d2edEl('li', {}, '在上榜模式之前打的、被拒收的紀錄，無法補送。')),
+status,
+d2edEl('div', { class: 'd2ed-row' }, okBtn, cancelBtn)));
+card.append(modal);
+}
 function d2edOpen() {
 if (D2ED.panel) return;
 const close = () => { D2ED.panel.remove(); D2ED.panel = null; };
@@ -2132,6 +3373,7 @@ d2edEl('div', { class: 'd2ed-head' }, d2edEl('b', {}, '書籤修改'), d2edEl('s
 d2edEl('button', { type: 'button', title: '看玩家回報的回覆', onclick: d2zhReplyOpen }, '回報內容'),
 d2edEl('button', { type: 'button', onclick: () => { close(); d2zhNewsOpen(true); } }, '更新說明'),
 d2edEl('button', { type: 'button', title: '開啟問題回報表單（不需登入，會自動帶入版本）', onclick: d2zhReportOpen }, '問題回報'),
+d2edEl('button', { type: 'button', title: '關閉書籤／中文化，用原始英文版遊戲上排行榜', onclick: d2zhCleanModeOpen }, '上榜模式'),
 d2edEl('button', { type: 'button', class: 'd2ed-x', onclick: close, 'aria-label': '關閉' }, '×')),
 d2edEl('div', { class: 'd2ed-body' })));
 D2ED.panel.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape') close(); });
@@ -2142,6 +3384,53 @@ d2edRender();
 // 每次中文化版本更新後第一次開啟，跳出這次（以及上次看過之後）的改版內容；「書籤修改」面板的「更新說明」可以重看。
 // 新版本加在最前面。note：作者的話（照原本分行顯示）；perf：作者的話後面加「開啟低效能模式」按鈕；report：最後加「問題回報」按鈕。
 const D2ZH_NEWS = [
+{ ver: 'V69', date: '2026-11-23', game: '遊戲 20261122.1', items: [
+'翻譯遊戲 20261122.1 新增的文字：遊戲選項的「協助檢查紀錄」、線上遊戲的「重新解壓縮」遊戲檔案說明，以及這次的更新紀錄'] },
+{ ver: 'V68', date: '2026-11-22', game: '遊戲 20261120.1', items: [
+'功能優化'] },
+{ ver: 'V67', date: '2026-11-22', game: '遊戲 20261120.1', items: [
+'線上遊戲只提供中文翻譯，「書籤修改」等其他功能請在離線遊戲使用（線上模式打開會顯示「線上模式不可使用」）',
+'功能優化'] },
+{ ver: 'V66', date: '2026-11-22', game: '遊戲 20261120.1', items: [
+'翻譯遊戲 20261120.1 新增的文字：線上遊戲（登入、排隊、斷線）、恰西熔爐的復原與淬鍊上限、物品過濾的新說明、16 個新的符文之語，以及這次的更新紀錄',
+'修正暗黑風格的滑鼠游標不見、變回系統箭頭的問題'] },
+{ ver: 'V65', date: '2026-11-21', game: '遊戲 20261105.3', items: [
+'功能優化'] },
+{ ver: 'V64', date: '2026-11-12', game: '遊戲 20261105.3', items: [
+'「書籤修改」上方新增「上榜模式」按鈕：使用書籤或電腦版中文化時，排行榜會把紀錄拒收（顯示 patched）。按下確定後，網頁版會重新整理頁面、停止書籤；電腦版會關閉遊戲，換回官方原版檔案，開啟乾淨的英文版。想上榜時請不要再執行書籤或中文化；電腦版之後用「D2 Survivors 中文版」捷徑開遊戲就會恢復中文',
+'電腦版第一次使用上榜模式前，要先用「D2 Survivors 中文版」捷徑重開一次遊戲，讓中文化程式自動更新',
+'排行榜「你」分頁下方新增說明：在「搜尋」分頁輸入你的名字就能查詢排名；啟用書籤時無法上榜，要用上榜模式以原文通關'] },
+{ ver: 'V63', date: '2026-11-12', game: '遊戲 20261105.3', items: [
+'排行榜「搜尋玩家」：遊戲是用排行榜上的名字搜尋（「你」分頁的「你的名字」），不是帳號。現在打開搜尋框會自動填好你自己的名字，按 Enter 就能查到自己的排名；還沒設定名字的話，框下方會說明要先去「你」分頁設定'] },
+{ ver: 'V62', date: '2026-11-09', game: '遊戲 20261105.3', items: [
+'修正手機網頁版更新說明視窗太高、超出畫面，按不到 × 和「知道了」關不掉的問題（書籤修改面板也一起修正）',
+'更新說明的「知道了」固定在視窗底部，不用捲到最下面才按得到'] },
+{ ver: 'V61', date: '2026-11-09', game: '遊戲 20261105.3', items: [
+'物品過濾每一行都多了兩個選項：「撿取並出售魔法以下」（藍字）會把這一類的白色和魔法物品撿起來直接賣掉、稀有物品留著；「撿取並出售稀有以下」（黃字）連稀有物品也一起賣。有一行設成「保留」的物品不會被賣（跟遊戲原本一樣保留優先）；獨特、套裝和符文之語不受影響',
+'物品過濾的赫拉迪克法典也可以選「保留」',
+'修正物品過濾「已收藏」和「符文之語」底下的開關看起來像重複的兩行：改成「└ 無形必撿」，表示是上面那一行的附屬開關'] },
+{ ver: 'V60', date: '2026-11-08', game: '遊戲 20261105.3', items: [
+'用拉蘇克的精華打洞失敗時會說出原因：哪一種物品不能打洞（只有武器、頭盔、身體護甲和盾牌可以；戒指、護身符、腰帶、手套、靴子、箭筒、護符、珠寶和投擲武器都不行）、符文之語或獨特／套裝本身就有洞、或這件已經打過洞',
+'把拉蘇克的精華拖到物品上時，提示要按右鍵（手機長按）使用；拖過去只會交換位置，不會打洞',
+'箭筒提示：箭矢只能配弓、彈矢只能配十字弓。換上不合的武器時，遊戲會把另一件自動卸下，現在會說明原因',
+'作者在「回報內容」新增或修改回覆時，開遊戲會先跳出來給你看（新的回覆標成金色），按「我知道了」後才會跳更新說明',
+'低效能模式改版：不再把畫面降成低解析度，地上的物品名稱和文字保持清楚（高解析度螢幕改用 1 倍解析度）；改成關閉天氣（雪、雨）、光源和陰影，技能特效一樣調到最淡。已經開著的人重新載入遊戲就會套用',
+'修正翻譯錯誤：物品過濾的方案「隱藏魔法物品」原本顯示成「皮魔法」，「出售魔法物品」「出售魔法和稀有物品」也一併修正；「預設」改為「方案」'] },
+{ ver: 'V59', date: '2026-11-07', game: '遊戲 20261105.3', items: [
+'修正啟用修改功能後，恰西的鐵砧（淬鍊、清除淬鍊、地獄熔爐、升級）都顯示「沒有連線：沒有花費任何東西」而無法使用：鐵砧和排行榜用同一個伺服器網址，被擋排行榜上傳的功能一起擋掉了。現在只擋排行榜紀錄，鐵砧可以正常使用'] },
+{ ver: 'V58', date: '2026-11-07', game: '遊戲 20261105.3', items: [
+'修正翻譯：手機版選項說明「點一下其他選項切換過去，點已開啟的選項則關閉」原本沒有翻到，顯示成英文'] },
+{ ver: 'V57', date: '2026-11-06', game: '遊戲 20261105.3', items: [
+'新增「過關吸取物品」（預設開啟，可在書籤修改裡關閉）：打完這一幕、遊戲把經驗寶石吸到身邊時，地上的裝備和物品（鑰匙、精華、器官等）也會一起飛過來撿起，不會再因為進傳送門而留在地上。自己丟下的和物品過濾設成隱藏的不會吸；物品欄滿了會留在腳邊'] },
+{ ver: 'V56', date: '2026-11-06', game: '遊戲 20261105.3', items: [
+'任務欄「破碎之光」會寫出下一塊碎片出現在哪裡：第 1 塊在第一幕、第 2～5 塊各在第二～五幕（任何難度）、第 6～10 塊在惡夢或地獄難度的任何一幕且有怪物守護；恐懼層的任何一幕都會出現碎片。書籤修改的「碎片感應」也會顯示已找到幾塊和下一塊的位置',
+'修正碎片感應：恐懼層「儲存並離開」後按「繼續」重開同一層時，常被誤判成「碎片在書籤開始偵測前就出現了」，結果魔力球顯示碎片已出現、畫面邊緣卻沒有引導光暈。現在重開這一幕會重新偵測',
+'碎片感應新增「重新偵測位置」：中途才點書籤、或中途才打開碎片感應而錯過碎片出現的那一刻時，不再放棄這一幕，會在英雄移動時重新找出碎片的正確位置（約 3 秒），找到後照常顯示引導光暈；偵測中魔力球顯示「碎片已出現　偵測位置中」。另修正中途關掉再打開碎片感應時光暈會指錯方向',
+'功能優化'] },
+{ ver: 'V55', date: '2026-11-06', game: '遊戲 20261105.3', items: [
+'配合遊戲更新翻譯新增的文字：角色畫面新增的三頁數值（速度門檻、敵人抗性、反傷、遠程／近戰傷害減少等）、箭筒、物品過濾的「隱藏並出售」與「無形必撿」、淬鍊上限與地獄熔爐限一次、恐懼層結束畫面的重玩、儲物箱的單手／雙手武器',
+'修正翻譯錯誤：「隱藏並出售」原本顯示成「皮 AND 出售」、恰西退回精華的提示原本顯示成「恰西歸來者」',
+'翻譯遊戲主選單「最新消息」裡這次改版的更新公告'] },
 { ver: 'V54', date: '2026-11-05', game: '遊戲 20261105.1', items: [
 '配合遊戲更新翻譯新增的文字：恰西的鐵砧（淬鍊、清除、地獄熔爐、升級）、燃燒的恐懼精華、鑰匙說明與首領出現的提示、武器技能的新說明、電腦版的全螢幕選項',
 '翻譯遊戲主選單「最新消息」裡這次改版的更新公告',
@@ -2309,6 +3598,7 @@ const D2ZH_NEWS_KEY = 'd2zh:newsSeen';
 const d2zhVerNum = v => parseInt(String(v || '').replace(/\D/g, ''), 10) || 0;
 // 更新說明裡的「開啟低效能模式」：按下直接開啟（解析度馬上變低；技能特效要重新載入才變淡），已開啟就只顯示狀態
 function d2zhNewsPerfButton() {
+if (D2ZH_ONLINE) return null;   // 線上模式只翻譯
 const note = d2edEl('span', { class: 'd2ed-note', style: 'align-self: center' });
 const btn = d2edEl('button', { type: 'button', class: 'd2ed-main' }, '開啟低效能模式');
 const shown = () => { btn.disabled = true; btn.className = ''; btn.textContent = '低效能模式已開啟'; note.textContent = '技能特效重新載入遊戲後才會變淡'; };
@@ -2348,6 +3638,53 @@ d2zhReplyLoad()
 .then(t => { body.textContent = t.trim() || '目前沒有回報內容'; })
 .catch(err => { body.textContent = /[^\x00-\x7f]/.test(err.message) ? err.message : '回報內容讀取失敗，請確認網路連線後再開一次'; });
 }
+// 開遊戲時：回應.txt 跟玩家上次看過的不一樣（作者新增或修改了回覆）就先跳出來，新的行標成金色並捲到第一行新內容；
+// 玩家按「我知道了」才記成看過。讀不到（離線、電腦版舊主程序）就略過，直接跳更新說明。
+const D2ZH_REPLY_SEEN_KEY = 'd2zh:replySeen';
+function d2zhStartupPopups() {
+const news = () => d2zhNewsOpen(false);
+let seen = null;
+try { seen = localStorage.getItem(D2ZH_REPLY_SEEN_KEY); } catch (_) { /* 存不了就每次比對都當新的 */ }
+let finished = false;
+const giveUp = setTimeout(() => { finished = true; news(); }, 10000);   // 讀太久就不等了
+d2zhReplyLoad().then(raw => {
+if (finished) return;
+finished = true; clearTimeout(giveUp);
+const text = String(raw || '').replace(/\r\n?/g, '\n').trim();
+if (!text || text === seen) { news(); return; }
+d2zhReplyPopup(text, seen, news);
+}).catch(() => { if (!finished) { finished = true; clearTimeout(giveUp); news(); } });
+}
+function d2zhReplyPopup(text, seen, after) {
+if (D2ED.panel || document.getElementById('d2ed-overlay')) { after(); return; }
+const old = new Set(seen ? seen.split('\n').map(l => l.trim()).filter(Boolean) : []);
+const isNew = l => !!seen && !!l.trim() && !old.has(l.trim());
+const body = d2edEl('div', { class: 'd2ed-body d2zh-reply-body', style: 'white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.6; color: #e8e2d0;' });
+let first = null;
+for (const line of text.split('\n')) {
+const fresh = isNew(line);
+const el = d2edEl('div', fresh ? { style: 'color: #f0c94a; font-weight: bold;' } : {}, line || ' ');
+if (fresh && !first) first = el;
+body.append(el);
+}
+let box;
+const close = () => {
+try { localStorage.setItem(D2ZH_REPLY_SEEN_KEY, text); } catch (_) { /* 存不了：下次再顯示 */ }
+box.remove();
+after();
+};
+box = d2edEl('div', { id: 'd2ed-overlay' },
+d2edEl('div', { class: 'd2ed-card', role: 'dialog', 'aria-label': '玩家回報內容' },
+d2edEl('div', { class: 'd2ed-head' }, d2edEl('b', {}, '玩家回報內容有更新'), d2edEl('span', { class: 'd2ed-ver', title: '中文化版本' }, D2ZH_VERSION)),
+seen ? d2edEl('p', { class: 'd2ed-note', style: 'margin: 6px 12px 0;' }, '金色是這次新增或修改的回覆') : null,
+body,
+d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: 'd2ed-main', onclick: close }, '我知道了'))));
+box.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape') close(); });
+document.body.append(box);
+const btn = box.querySelector('.d2ed-main');
+if (btn) btn.focus();
+if (first) requestAnimationFrame(() => { body.scrollTop = Math.max(0, first.offsetTop - body.offsetTop - 8); });
+}
 function d2zhNewsOpen(all) {
 if (D2ED.panel || document.getElementById('d2ed-overlay')) return;
 let seen = 0;
@@ -2368,18 +3705,30 @@ d2edEl('h3', {}, `${n.ver}　${n.date}`), d2edEl('p', { class: 'd2ed-note' }, `�
 ...(n.note || []).map(t => d2edEl('p', { style: 'margin: 6px 0; white-space: pre-line; line-height: 1.6;' }, t)),
 n.perf ? d2zhNewsPerfButton() : null,
 d2edEl('ul', { style: 'margin: 4px 0 8px; padding-left: 20px;' }, ...n.items.map(t => d2edEl('li', {}, t))),
-n.report ? d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', onclick: d2zhReportOpen }, '問題回報')) : null)),
-d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', class: 'd2ed-main', onclick: close }, '知道了')))));
+n.report ? d2edEl('div', { class: 'd2ed-row' }, d2edEl('button', { type: 'button', onclick: d2zhReportOpen }, '問題回報')) : null))),
+// 「知道了」放在捲動內文外面，手機畫面矮也一直看得到
+d2edEl('div', { class: 'd2ed-row', style: 'flex: none; margin: 0; padding: 8px 14px 12px; border-top: 1px solid #4a3418;' }, d2edEl('button', { type: 'button', class: 'd2ed-main', onclick: close }, '知道了'))));
 box.addEventListener('keydown', e => { e.stopPropagation(); if (e.key === 'Escape') close(); });
 document.body.append(box);
 }
 function d2edInstall() {
 window.__D2ED = D2ED; // 除錯用（在主控台看抓到的人物、選單位置）
-D2ED.ec = { load: d2ecLoad, baseItem: d2ecBaseItem, groups: d2ecGroups, bases: d2ecRunewordBases, lines: d2ecLineTexts };
+// 線上模式：不裝任何修改用的攔截（人物、存檔、物品、過濾、效能），只留面板按鈕顯示「線上模式不可使用」
+if (!D2ZH_ONLINE) {
+D2ED.ec = { load: d2ecLoad, baseItem: d2ecBaseItem, groups: d2ecGroups, bases: d2ecRunewordBases, lines: d2ecLineTexts, baseMods: d2ecBaseMods, show: d2ecShow, select: d2ecSelect, create: d2ecCreate };
 d2edBuildInstall();
+d2sockInstall();
+d2quivInstall();
 d2ecWorldInstall();
+d2gameInstall();
+D2ED.forge = { game: D2GAME, find: d2gameFindItem, show: d2ieShow, entries: d2ieEntries, select: d2ieSelect, lines: d2ieAnvilLines, pool: d2ieAffixPool };   // 除錯／測試用
 d2edKeepLeaderboardOff();
+d2lootInstall();
+D2ED.loot = D2LOOT;   // 除錯用：ready、mirror、live
 d2edPerfApplyDpr();
+d2edPerfMigrate();
+setTimeout(d2edPerfApplyGame, 1500);   // 等遊戲模組載完
+}
 // 電腦版：開遊戲時的背景檢查做完會呼叫這裡（d2zh-inject.cjs）。下載到比這個頁面新的翻譯檔時：
 // 剛開遊戲、還在選單（不在一局裡）就直接重新載入用新版；否則記下來，「書籤修改」面板會出現「重新載入」按鈕。
 window.__d2zhAutoChecked = result => {
@@ -2394,7 +3743,7 @@ if (newer && performance.now() < 30000 && idle) { location.reload(); return; }
 if (D2ED.panel) d2edRender();
 };
 const rawGet = WeakMap.prototype.get;
-WeakMap.prototype.get = function (key) {
+if (!D2ZH_ONLINE) WeakMap.prototype.get = function (key) {
 const v = rawGet.call(this, key);
 if (v && key && typeof key === 'object' && key.mastery && key.cls && key.weaponDamage !== undefined && typeof v.crit === 'number') {
 if (D2ED.player !== key) d2edKeepSchedule(key);
@@ -2402,7 +3751,7 @@ D2ED.player = key;
 D2ED.extras = v;
 }
 // 遊戲也拿「這一輪的世界」（地上物品 pickups、舞台 stage）當 WeakMap 的鍵：記下來給小地圖標記任務道具用
-if (key && typeof key === 'object' && key !== D2ED.world && Array.isArray(key.pickups) && key.player && key.stage) D2ED.world = key;
+if (key && typeof key === 'object' && key !== D2ED.world && Array.isArray(key.pickups) && key.player && key.stage) { D2ED.world = key; d2lootWrap(key); }
 return v;
 };
 const style = document.createElement('style');
@@ -2419,9 +3768,9 @@ background-image: var(--d2-button-down, linear-gradient(180deg, #1a140c, #3a2e1c
 font: bold 18px ${D2ZH_FONT}; letter-spacing: 1px; white-space: nowrap; }
 #d2-language-switch { align-items: center; font-size: 14px; }
 #d2-language-switch .d2ed-lang-label { padding: 0 6px; color: #c7a45f; font-size: 13px; white-space: nowrap; text-shadow: 1px 1px 0 #000, 0 0 3px #000; }
-#d2ed-overlay { position: fixed; inset: 0; z-index: 2147483647; display: grid; place-items: center; padding: 12px;
+#d2ed-overlay { position: fixed; inset: 0; z-index: 2147483647; display: grid; grid-template-rows: minmax(0, 1fr); place-items: center; padding: 12px;
 background: rgba(0,0,0,.6); font: 14px/1.5 ${D2ZH_FONT}; color: #e8e2d0; }
-#d2ed-overlay .d2ed-card { width: min(560px, 100%); max-height: calc(100vh - 24px); display: flex; flex-direction: column;
+#d2ed-overlay .d2ed-card { width: min(560px, 100%); max-height: 100%; min-height: 0; display: flex; flex-direction: column;   /* 不用 100vh：手機有網址列時 100vh 比看得到的畫面高，× 和「知道了」會被推到畫面外 */
 background: linear-gradient(180deg, #221a12, #120d08); border: 2px solid #8f743e; border-radius: 8px; box-shadow: 0 10px 40px #000; }
 #d2ed-overlay .d2ed-head { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 10px; padding: 10px 14px; border-bottom: 1px solid #4a3418; }
 #d2ed-overlay .d2ed-head b { color: #f0c94a; font-size: 18px; white-space: nowrap; }
@@ -2533,8 +3882,8 @@ e.stopImmediatePropagation();
 }
 d2edAdoptSwitcher();
 requestAnimationFrame(d2edPlaceButton);
-// 等遊戲畫面出來再跳更新說明，不要蓋在載入畫面上
-setTimeout(() => d2zhNewsOpen(false), 2500);
+// 等遊戲畫面出來再跳更新說明，不要蓋在載入畫面上；回應.txt 有新內容時先跳回報內容，關掉後才跳更新說明
+setTimeout(d2zhStartupPopups, 2500);
 }
 d2zhInstallHook();
 const D2ZH_EXTRA = {"labels":{"Cap":"帽子","Skull Cap":"骷髏帽","Helm":"頭盔","Full Helm":"全盔","Great Helm":"卓越頭盔","Mask":"面具","Crown":"皇冠","Bone Helm":"骨盔","War Hat":"戰帽","Sallet":"輕便頭盔","Casque":"無頰頭盔","Basinet":"圓頂盔","Winged Helm":"翼盔","Grim Helm":"陰森頭盔","Grand Crown":"巨皇冠","Death Mask":"死亡面具","Shako":"軍帽","Hydraskull":"九頭蛇頭蓋骨圓帽","Armet":"活動頭盔","Giant Conch":"巨型海螺","Spired Helm":"螺旋頭盔","Corona":"頭冠","Demonhead":"惡魔頭顱","Bone Visage":"骨面","Circlet":"頭飾","Coronet":"寶冠","Tiara":"三重冠","Diadem":"權冠","Wolf Head":"狼頭","Hawk Helm":"飛鷹頭盔","Antlers":"鹿角","Falcon Mask":"獵鷹面具","Spirit Mask":"靈魂狼頭面具","Alpha Helm":"阿爾發頭盔","Griffon Headdress":"獅鷲獸頭帶","Hunter's Guise":"獵人的偽裝","Sacred Feathers":"神聖羽毛頭帶","Totemic Mask":"圖騰面具狼盔","Blood Spirit":"血腥之靈","Sun Spirit":"太陽之靈","Earth Spirit":"大地之靈","Sky Spirit":"天空之靈","Dream Spirit":"幽夢之靈","Jawbone Cap":"顎骨帽","Fanged Helm":"尖牙盔","Horned Helm":"角盔","Assault Helmet":"突擊頭盔","Avenger Guard":"復仇者之盔","Jawbone Visor":"顎骨面甲","Lion Helm":"獅頭尖盔","Rage Mask":"狂怒面具","Savage Helmet":"野蠻頭盔","Slayer Guard":"殺手防護面甲","Carnage Helm":"屠殺頭盔","Fury Visor":"暴怒面甲","Destroyer Helm":"毀滅者頭盔","Conqueror Crown":"征服者皇冠面甲","Guardian Crown":"守護者皇冠","Quilted Armor":"布甲","Leather Armor":"皮甲","Hard Leather Armor":"硬皮甲","Studded Leather":"鑲嵌甲","Ring Mail":"環甲","Scale Mail":"鱗甲","Chain Mail":"鎖子甲","Breast Plate":"胸甲","Splint Mail":"板甲","Plate Mail":"板甲","Field Plate":"實戰鎧甲","Gothic Plate":"哥德鎧甲","Full Plate Mail":"全身鎧甲","Ancient Armor":"古代盔甲","Light Plate":"輕型裝甲","Ghost Armor":"鬼魂戰甲","Serpentskin Armor":"海蛇皮甲","Demonhide Armor":"惡魔皮甲","Trellised Armor":"攀繞戰甲","Linked Mail":"連環甲","Tigulated Mail":"鱗片甲","Mesh Armor":"織網戰甲","Cuirass":"胸鎧","Russet Armor":"羅瑟戰甲","Templar Coat":"聖殿外衣","Sharktooth Armor":"鯊齒戰甲","Embossed Plate":"浮雕鎧甲","Chaos Armor":"混沌盔甲","Ornate Plate":"華麗鎧甲","Mage Plate":"法師鎧甲","Dusk Shroud":"灰暮壽衣","Wyrmhide":"龍皮甲","Scarab Husk":"聖甲蟲殼","Wire Fleece":"線羊毛皮甲","Diamond Mail":"鑽石甲","Loricated Mail":"鎖片甲","Boneweave":"骸骨鏈甲","Great Hauberk":"巨型鎖甲","Balrog Skin":"炎魔皮板甲","Hellforge Plate":"地獄熔爐鎧甲","Kraken Shell":"海妖殼甲","Lacquered Plate":"漆鎧","Shadow Plate":"暗影鎧甲","Sacred Armor":"神聖盔甲","Archon Plate":"執政官鎧甲","Buckler":"圓盾","Small Shield":"小盾牌","Large Shield":"大盾牌","Kite Shield":"輕盾","Tower Shield":"塔盾","Gothic Shield":"哥德盾牌","Bone Shield":"白骨盾牌","Spiked Shield":"尖刺盾","Defender":"防禦者盾","Round Shield":"圓型盾","Scutum":"長方盾","Dragon Shield":"龍盾","Pavise":"大型立盾","Ancient Shield":"古代之盾","Grim Shield":"冷酷之盾","Barbed Shield":"倒鉤盾","Heater":"加熱盾","Luna":"月盾","Hyperion":"亥伯龍盾","Monarch":"統治者大盾","Aegis":"神盾","Ward":"保護盾牌","Troll Nest":"洞穴巨魔巢穴骨盾","Blade Barrier":"刀刃屏障","Targe":"小盾","Rondache":"圓盾牌","Heraldic Shield":"紋章盾","Aerin Shield":"艾林盾","Crown Shield":"皇冠盾","Akaran Targe":"阿卡蘭輕圓盾","Akaran Rondache":"阿卡蘭圓盾","Protector Shield":"保護者之盾","Gilded Shield":"飾金盾牌","Royal Shield":"皇家盾","Sacred Targe":"神聖小盾","Sacred Rondache":"神聖輕圓盾","Kurast Shield":"庫拉斯特盾","Zakarum Shield":"撒卡蘭姆盾牌","Vortex Shield":"旋風盾","Preserved Head":"保存頭顱","Zombie Head":"殭屍頭顱","Unraveller Head":"解縛者頭顱","Gargoyle Head":"石像鬼頭顱","Demon Head":"惡魔之首","Mummified Trophy":"木乃伊獎章","Fetish Trophy":"妖人獎章","Sexton Trophy":"助祭獎章","Cantor Trophy":"領唱者印記","Hierophant Trophy":"祭司印記","Minion Skull":"僕從骷髏","Hellspawn Skull":"地獄之子骷髏","Overseer Skull":"督軍骷髏","Succubus Skull":"女妖之骨","Bloodlord Skull":"血王之骨","Leather Gloves":"皮手套","Heavy Gloves":"重手套","Chain Gloves":"鎖鍊手套","Light Gauntlets":"輕型鐵手套","Gauntlets":"鐵手套","Demonhide Gloves":"魔皮手套","Sharkskin Gloves":"鯊魚皮套","Heavy Bracers":"重型手鐲","Battle Gauntlets":"戰場手套","War Gauntlets":"巨戰手套","Bramble Mitts":"荊棘連指手套","Vampirebone Gloves":"吸血鬼骸骨手套","Vambraces":"吸血鬼手套","Crusader Gauntlets":"十字軍鐵手套","Ogre Gauntlets":"食人魔鐵手套","Boots":"靴子","Heavy Boots":"重靴","Chain Boots":"鎖鍊靴","Light Plated Boots":"輕型金屬靴","Greaves":"護脛","Demonhide Boots":"魔皮靴","Sharkskin Boots":"鯊皮之靴","Mesh Boots":"織網之靴","Battle Boots":"戰場之靴","War Boots":"巨戰之靴","Wyrmhide Boots":"龍皮靴","Scarabshell Boots":"聖甲蟲殼靴","Boneweave Boots":"骸骨靴","Mirrored Boots":"鏡面靴","Myrmidon Greaves":"極速靴","Sash":"飾帶","Light Belt":"輕扣帶","Belt":"腰帶","Heavy Belt":"重扣帶","Plated Belt":"金屬扣帶","Demonhide Sash":"魔皮勳帶","Sharkskin Belt":"鯊皮腰帶","Mesh Belt":"織網腰帶","Battle Belt":"戰場腰帶","War Belt":"巨戰腰帶","Spiderweb Sash":"蛛網腰帶","Vampirefang Belt":"吸血鬼燎牙腰帶","Mithril Coil":"秘銀腰帶","Troll Belt":"洞穴巨魔腰帶","Colossus Girdle":"巨神腰帶","Hand Axe":"手斧","Axe":"斧","Double Axe":"雙刃斧","Military Pick":"軍用鎬","War Axe":"巨戰斧","Large Axe":"巨斧","Broad Axe":"闊斧","Battle Axe":"戰鬥斧","Great Axe":"卓越之斧","Giant Axe":"大斧","Hatchet":"小斧","Cleaver":"切肉斧","Twin Axe":"強化雙斧","Crowbill":"鴉喙斧","Naga":"納卡","Military Axe":"軍斧","Bearded Axe":"鬚斧","Tabar":"戰鬥斧","Gothic Axe":"哥德之斧","Ancient Axe":"古代之斧","Tomahawk":"戰鉞","Small Crescent":"小新月斧","Ettin Axe":"雙頭斧","War Spike":"戰刺","Berserker Axe":"狂戰士斧","Feral Axe":"猛禽斧","Silver-edged Axe":"銀刃斧","Decapitator":"斬首斧","Champion Axe":"豪傑斧","Glorious Axe":"榮光之斧","Wand":"法杖","Yew Wand":"紫杉之杖","Bone Wand":"骨杖","Grim Wand":"殘酷之杖","Burnt Wand":"燒焦之杖","Petrified Wand":"淨化之杖","Tomb Wand":"古墓之杖","Grave Wand":"墓地之杖","Polished Wand":"拋光魔杖","Ghost Wand":"鬼魂法杖","Lich Wand":"巫妖法杖","Unearthed Wand":"破隱法杖","Club":"木棒","Spiked Club":"尖刺棍棒","Mace":"釘頭錘","Morning Star":"流星鎚","Flail":"連枷","War Hammer":"巨戰鐵鎚","Maul":"撞槌","Great Maul":"巨槌","Cudgel":"棍棒","Barbed Club":"倒鉤棍","Flanged Mace":"凸緣釘頭錘","Jagged Star":"鋸齒流星鎚","Knout":"鐵皮鞭","Battle Hammer":"戰鬥鐵鎚","War Club":"戰棍","Martel de Fer":"鐵錘","Truncheon":"戰儀杖","Tyrant Club":"暴君棍","Reinforced Mace":"強化釘頭錘","Devil Star":"惡魔流星錘","Scourge":"天罰之錘","Legendary Mallet":"傳說之鎚","Ogre Maul":"食人魔大槌","Thunder Maul":"雷霆大槌","Scepter":"權杖","Grand Scepter":"雄偉權杖","War Scepter":"巨戰權杖","Rune Scepter":"符文權杖","Holy Water Sprinkler":"聖水噴杖","Divine Scepter":"神屬權杖","Mighty Scepter":"強威權杖","Seraph Rod":"熾天使之杖","Caduceus":"神使之杖","Short Sword":"短劍","Scimitar":"彎刀","Sabre":"軍刀","Falchion":"彎劍","Crystal Sword":"水晶劍","Broad Sword":"闊劍","Long Sword":"長劍","War Sword":"巨戰之劍","Two-Handed Sword":"雙手劍","Claymore":"雙刃大刀","Giant Sword":"大劍","Bastard Sword":"雜種劍","Flamberge":"焰形劍","Great Sword":"卓越之劍","Gladius":"羅馬短劍","Cutlass":"微彎劍","Shamshir":"波斯彎刀","Tulwar":"印度彎刀","Dimensional Blade":"空間之刃","Battle Sword":"戰鬥劍","Rune Sword":"符文劍","Ancient Sword":"古代之劍","Espandon":"斬鐵劍","Dacian Falx":"雙刃鐮","Tusk Sword":"長牙劍","Gothic Sword":"哥德劍","Zweihander":"雙手巨劍","Executioner Sword":"死刑之劍","Falcata":"短劍","Ataghan":"土耳其劍","Elegant Blade":"優雅之刃","Hydra Edge":"九頭蛇之刃","Phase Blade":"幻化之刃","Conquest Sword":"征服之劍","Cryptic Sword":"神秘之劍","Mythical Sword":"秘儀之劍","Legend Sword":"傳奇之劍","Highland Blade":"高地之刃","Balrog Blade":"炎魔之刃","Champion Sword":"冠軍之劍","Colossus Sword":"巨神之劍","Colossus Blade":"巨神之刃","Dagger":"匕首","Dirk":"短刀","Kris":"波刃短劍","Blade":"短刀","Poignard":"銳匕","Rondel":"圓盤匕首","Cinquedeas":"五指劍","Stiletto":"細劍","Bone Knife":"骸骨小刀","Mithril Point":"秘銀尖刺","Fanged Knife":"尖牙刀","Legend Spike":"傳說尖刺","Throwing Knife":"飛刀","Throwing Axe":"飛斧","Balanced Knife":"平衡飛刀","Balanced Axe":"平衡斧","Battle Dart":"戰鬥飛鏢","Francisca":"法蘭飛斧","War Dart":"戰爭飛鏢","Hurlbat":"短戰戟","Flying Knife":"飛刀","Flying Axe":"飛斧","Winged Knife":"翼形刀","Winged Axe":"翼斧","Javelin":"標槍","Pilum":"短鏢槍","Short Spear":"短矛","Glaive":"大長刀","Throwing Spear":"飛矛","War Javelin":"戰爭標槍","Great Pilum":"卓越標槍","Simbilan":"銳矛","Spiculum":"尖頭標槍","Harpoon":"魚叉","Hyperion Javelin":"亥伯龍標槍","Stygian Pilum":"冥河標槍","Balrog Spear":"炎魔長矛","Ghost Glaive":"鬼魂尖槍","Winged Harpoon":"翼魚叉","Spear":"長矛","Trident":"三叉戟","Brandistock":"藏刃矛","Spetum":"三刃矛","Pike":"矛","War Spear":"巨戰長矛","Fuscina":"海神叉","War Fork":"戰叉","Yari":"日本槍","Lance":"長槍","Hyperion Spear":"亥伯龍之矛","Stygian Pike":"冥河長槍","Mancatcher":"捕人叉","Ghost Spear":"幽靈長矛","War Pike":"戰槍","Bardiche":"大砍刀","Voulge":"鉤鐮","Scythe":"鐮刀","Poleaxe":"長柄戰斧","Halberd":"長戟","War Scythe":"戰爭鐮刀","Lochaber Axe":"羅佳伯斧","Bill":"鉤刀","Battle Scythe":"戰鬥鐮刀","Partizan":"闊頭槍","Bec-de-Corbin":"雙鋒戰戟","Grim Scythe":"陰森鐮刀","Ogre Axe":"食人魔之斧","Colossus Voulge":"巨神鉤鐮","Thresher":"打穀者","Cryptic Axe":"神秘之斧","Great Poleaxe":"巨長斧","Giant Thresher":"巨型打穀者","Short Staff":"短棍","Long Staff":"長棍","Gnarled Staff":"多節棍","Battle Staff":"戰鬥法杖","War Staff":"巨戰法杖","Jo Staff":"喬木棒","Quarterstaff":"長棍","Cedar Staff":"杉木棍","Gothic Staff":"哥德之棍","Rune Staff":"符文之棍","Walking Stick":"手杖","Stalagmite":"鐘乳石之杖","Elder Staff":"長老之杖","Shillelagh":"樹皮之杖","Archon Staff":"執政官之杖","Short Bow":"短弓","Hunter's Bow":"獵弓","Long Bow":"長弓","Composite Bow":"組合弓","Short Battle Bow":"短戰鬥弓","Long Battle Bow":"長戰鬥弓","Short War Bow":"短巨戰弓","Long War Bow":"長巨戰弓","Edge Bow":"鋒銳之弓","Razor Bow":"剃刀之弓","Cedar Bow":"杉木弓","Double Bow":"雙弓","Short Siege Bow":"短攻城弓","Large Siege Bow":"長攻城弓","Rune Bow":"符文之弓","Gothic Bow":"哥德弓","Spider Bow":"蜘蛛弓","Blade Bow":"刀鋒弓","Shadow Bow":"陰影弓","Great Bow":"巨弓","Diamond Bow":"鑽石弓","Crusader Bow":"十字軍弓","Ward Bow":"庇護之弓","Hydra Bow":"九頭蛇弓","Light Crossbow":"輕十字弓","Crossbow":"十字弓","Heavy Crossbow":"重十字弓","Repeating Crossbow":"連發十字弓","Arbalest":"石弓","Siege Crossbow":"攻城十字弓","Ballista":"弩弓","Chu-Ko-Nu":"諸葛連弩","Pellet Bow":"彈丸弓","Gorgon Crossbow":"蛇髮女妖十字弓","Colossus Crossbow":"巨神十字弓","Demon Crossbow":"惡魔十字弓","Katar":"拳劍","Wrist Blade":"腕刃","Hatchet Hands":"斧手","Cestus":"腰刀","Claws":"爪","Blade Talons":"刃爪","Scissors Katar":"剪咬刃","Quhab":"格鬥刃","Wrist Spike":"腕刺","Fascia":"格鬥爪","Hand Scythe":"手鐮","Greater Claws":"巨爪","Greater Talons":"巨鷹爪","Scissors Quhab":"剪刃庫哈布","Suwayyah":"近身刃","Wrist Sword":"腕劍","War Fist":"戰拳","Battle Cestus":"鬥腰刀","Feral Claws":"猛禽爪","Runic Talons":"符紋爪","Scissors Suwayyah":"近身剪","Eagle Orb":"鷹之法珠","Sacred Globe":"神聖法球","Smoked Sphere":"煙霧法珠","Clasped Orb":"扣環法珠","Jared's Stone":"傑瑞德之石","Glowing Orb":"發光法珠","Crystalline Globe":"水晶法球","Cloudy Sphere":"雲霧法珠","Sparkling Ball":"閃耀水晶球","Swirling Crystal":"渦流水晶","Heavenly Stone":"天堂之石","Eldritch Orb":"怪異之球","Demon Heart":"惡魔之心","Vortex Orb":"漩渦球","Dimensional Shard":"次元碎片","Stag Bow":"男性之弓","Reflex Bow":"反射之弓","Maiden Spear":"少女之矛","Maiden Pike":"少女長槍","Maiden Javelin":"女士標槍","Ashwood Bow":"灰木之弓","Ceremonial Bow":"祭典之弓","Ceremonial Spear":"儀式之矛","Ceremonial Pike":"祭典之長矛","Ceremonial Javelin":"祭典之 標 槍","Matriarchal Bow":"女族長之弓","Grand Matron Bow":"大院長之弓","Matriarchal Spear":"女族長之矛","Matriarchal Pike":"族長長槍","Matriarchal Javelin":"女族長之 標 槍","Rogue's Bow":"蘿格之弓","Valkyrie Wing":"女神之翼","Undead Crown":"不死皇冠","Arch-Angel's Wing":"大天使之翼","Healing Potion":"治療藥水","Mana Potion":"法力藥水","Rejuvenation Potion":"回復藥水","Full Rejuvenation Potion":"全面回復藥水","Scroll of Town Portal":"城鎮傳送卷軸","Tome of Town Portal":"城鎮傳送之書","Gold":"金幣","Small Charm":"小型護符","Chipped":"碎裂的","Flawed":"瑕疵的","Flawless":"無瑕的","Perfect":"完美的","Amethyst":"紫寶石","Topaz":"黃寶石","Sapphire":"蔚藍","Emerald":"祖母綠","Ruby":"紅寶石","Diamond":"鑽石","Skull":"骷髏","Azurewrath":"蒼怒","Bladebone":"刃骨","Bloodfist":"血拳","Bloodrise":"血湧","Boneflame":"骨焰","Bonehew":"砍骨","Boneshade":"骨影","Brainhew":"碎腦","Crushflange":"碎骨錘","Culwen's Point":"庫爾溫的尖端","Deathbit":"死亡之刺","Deathspade":"死亡之鏟","Axe of Fechmar":"費屈瑪之斧","Felloak":"倒橡","Frostburn":"霜燒","Ghostflame":"鬼焰","Goldwrap":"金色包裹","Gorefoot":"血足","Gravenspine":"墳脊","Greyform":"灰形","Griswold's Edge":"格里斯瓦得的銳利","Hellcast":"地獄鑄","Hellclap":"地獄霹靂","Hellplague":"地獄瘟疫","Hellrack":"地獄架","Hotspur":"馬刺","Howltusk":"嚎牙","Iceblink":"冰眨","Ironstone":"鐵石","Lightsabre":"光劍","Magefist":"法師之拳","Nagelring":"納格戒指","Nightsmoke":"夜煙","Ormus' Robes":"奧瑪斯的長袍","Pluckeye":"挖眼","Rakescar":"耙疤","Ravenlore":"鴉之傳說","Razortail":"剃刀之尾","Rockfleece":"岩羊毛","Rusthandle":"鏽柄","Saracen's Chance":"薩拉森的機會","Shadowfang":"影牙","Snakecord":"蛇索","Soulflay":"剝魂","Spineripper":"裂脊","Stealskull":"竊顱","Steelclash":"鋼擊","Steelrend":"裂鋼","Stoneraven":"石鴉","Stormeye":"風暴之眼","Stormguild":"風暴之會","Stormspike":"風暴之刺","Stormstrike":"風暴之擊","Stormtree":"風暴之樹","Tearhaunch":"撕腿","Thunderstroke":"雷擊","Toothrow":"齒列","Twitchthroe":"抽搐","Witherstring":"枯弦","Wizardspike":"巫師之刺","Woestave":"悲哀之杖","Wolfhowl":"狼嚎","Blastbark":"爆樹皮","Beetleburst":"甲蟲爆裂","Bladebuckle":"刃扣","Metalgrid":"金屬網格","Leadcrow":"鉛鴉","Hellmouth":"地獄之口","Maelstrom":"大漩渦","Lacerator":"撕裂者","Widowmaker":"寡婦製造者","Chance Guards":"運氣守護","Hand of Blessed Light":"祝福之光之手","Amber":"琥珀","Arcing":"彎曲","Azure":"天青","Bahamut's":"巴哈姆特的","Beryl":"海藍","Blessed":"祝福的","Boreal":"北風","Bronze":"青銅","Brutal":"野蠻的","Buzzing":"嗡鳴的","Chromatic":"彩色的","Cobalt":"鈷","Coral":"珊瑚","Corosive":"腐蝕的","Crimson":"棗紅","Cruel":"殘酷的","Deadly":"致命的","Dragon's":"龍的","Drake's":"飛龍的","Ember":"餘燼的","Envenomed":"淬毒的","Felicitous":"幸運的","Ferocious":"殘暴的","Fine":"精良","Flaming":"燃燒","Fortuitous":"偶然的","Garnet":"深紅","Glimmering":"微光的","Glorious":"光榮的","Glowing":"發光","Godly":"如神的","Grandmaster's":"大宗師的","Great Wyrm's":"巨龍的","Hibernal":"冬季的","Holy":"神聖的","Iron":"鐵","Jade":"翠綠","Jagged":"鋸齒","King's":"國王的","Knight's":"騎士的","Lapis":"天藍","Lizard's":"蜥蜴","Lord's":"領主的","Massive":"巨大的","Master's":"大師","Merciless":"無情的","Meteoric":"流星的","Mnemonic":"記憶的","Ocher":"赭色的","Pestilent":"瘟疫","Platinum":"白金","Prismatic":"稜鏡的","Rainbow":"彩虹的","Russet":"赤褐","Saintly":"聖潔的","Savage":"凶猛的","Scintillating":"閃爍的","Scorching":"灼熱的","Septic":"腐敗","Serpent's":"海蛇","Sharp":"尖銳","Shimmering":"閃耀","Shivering":"顫抖","Shocking":"震撼","Silver":"白銀的","Smoking":"煙霧","Smoldering":"悶燒","Snake's":"蛇","Snowflake":"雪花的","Soldier's":"士兵的","Static":"靜態","Steel":"鋼","Strange":"奇異的","Strong":"強壯的","Sturdy":"堅固的","Tangerine":"紅柑","Toxic":"劇毒","Vicious":"惡毒的","Viridian":"銘綠","Warrior's":"戰士的","Weird":"怪異的","Wyrm's":"巨龍的","of Chance":"機運之","of Dexterity":"敏捷之","of Energy":"精力之","of Fire":"火焰之","of Health":"健康之","of Life":"生命之","of Life Everlasting":"永生之","of Lightning":"閃電之","of Skill":"技巧之","of Speed":"速度之","of Strength":"力量之","Gloom":"陰鬱","Gray":"灰色","Dire":"恐怖","Black":"黑色","Shadow":"暗影","Haze":"迷霧","Wind":"疾風","Storm":"風暴","Warp":"扭曲","Night":"暗夜","Moon":"月亮","Star":"星辰","Pit":"深坑","Flame":"火焰","Ice":"寒冰","Seethe":"沸騰","Ash":"灰燼","Stone":"岩石","Rust":"鐵鏽","Mold":"黴菌","Blight":"枯萎","Plague":"瘟疫","Rot":"腐爛","Ooze":"軟泥","Puke":"嘔吐","Snot":"鼻涕","Bile":"膽汁","Blood":"鮮血","Pulse":"脈動","Gut":"腸","Gore":"血腥","Flesh":"血肉","Bone":"骨","Spine":"脊椎","Mind":"心智","Spirit":"靈魂","Soul":"魂","Wrath":"憤怒","Grief":"悲傷","Foul":"污穢","Vile":"邪惡","Sin":"罪","Chaos":"混沌","Dread":"恐懼","Doom":"末日","Bane":"災禍","Death":"死亡","Viper":"毒蛇","Dragon":"龍","Devil":"惡魔","Touch":"之觸","Spell":"咒語","Feast":"盛宴","Wound":"創傷","Grin":"獰笑","Maim":"致殘","Hack":"劈砍","Bite":"之咬","Rend":"撕裂","Burn":"灼燒","Ripper":"撕裂者","Kill":"殺戮","Call":"呼喚","Vex":"煩擾","Web":"之網","Killer":"殺手","Razor":"剃刀","Drinker":"飲者","Shifter":"變形者","Crawler":"爬行者","Dancer":"舞者","Bender":"扭曲者","Weaver":"編織者","Eater":"吞噬者","Widow":"寡婦","Maggot":"蛆","Spawn":"之子","Wight":"屍妖","Grumble":"咕噥","Growler":"咆哮者","Snarl":"咆哮","Wolf":"狼","Crow":"烏鴉","Hawk":"鷹","Cloud":"雲","Bang":"轟","Head":"頭","Brow":"眉","Eye":"之眼","Maw":"巨口","Tongue":"舌","Fang":"尖牙","Horn":"號角","Thorn":"荊棘","Claw":"爪","Fist":"拳","Heart":"之心","Shank":"脛","Skin":"之皮","Wing":"之翼","Pox":"痘","Fester":"潰爛","Blister":"水泡","Pus":"膿","Slime":"黏液","Drool":"口水","Froth":"泡沫","Sludge":"淤泥","Poison":"毒","Break":"破碎","Shard":"碎片","Thirst":"之渴","Lust":"慾望","Beast":"野獸","Eagle":"鷹","Ghoul":"食屍鬼","Grim":"陰森","Rune":"符文","Wraith":"幽魂","Pain":"痛苦","Havoc":"浩劫","Gale":"狂風","Brimstone":"硫磺","Vengeance":"復仇","Badge":"徽章","Band":"指環","Beads":"念珠","Branch":"枝","Buckle":"扣環","Carapace":"甲殼","Clasp":"扣","Clutches":"爪握","Coat":"外衣","Coil":"盤繞","Collar":"項圈","Cord":"繩","Cowl":"兜帽","Crack":"裂痕","Crest":"頂飾","Cry":"哭號","Dart":"飛鏢","Edge":"之刃","Emblem":"紋章","Finger":"指","Fletch":"箭羽","Flight":"飛翔","Gnarl":"節瘤","Goad":"刺棒","Gorget":"護頸","Grip":"握","Guard":"守衛","Gutter":"溝","Gyre":"旋轉","Hand":"之手","Hew":"砍","Hide":"皮","Hold":"掌握","Hood":"兜帽","Jack":"夾克","Knell":"喪鐘","Knot":"結","Knuckle":"指節","Lash":"鞭","Lock":"鎖","Loop":"環","Mallet":"木槌","Mangler":"絞肉者","Mantle":"披風","Mark":"印記","Nails":"之釘","Necklace":"項鍊","Needle":"針","Nock":"箭扣","Noose":"絞索","Pelt":"毛皮","Prod":"戳刺","Quarrel":"弩箭","Quill":"羽刺","Road":"之路","Saw":"鋸","Scalpel":"手術刀","Scarab":"聖甲蟲","Scratch":"抓痕","Shroud":"裹屍布","Slippers":"拖鞋","Smasher":"粉碎者","Song":"之歌","Sphere":"球","Spike":"尖刺","Spiral":"螺旋","Spire":"尖塔","Splitter":"劈裂者","Spur":"馬刺","Stake":"木樁","Stalk":"莖","Stinger":"螫刺","Strap":"皮帶","Suit":"套裝","Sunder":"分裂","Talisman":"護符","Torc":"金屬項圈","Tower":"高塔","Track":"足跡","Trample":"踐踏","Turn":"轉折","Veil":"面紗","Visage":"面容","Wrack":"毀滅","Chant":"頌歌","Blazer":"烈焰","Abaddon":"亞巴頓","Abominable":"可憎雪人","Abyss Knight":"深淵騎士","Afflicted":"受折磨者","Apparition":"幻影","Arach":"阿拉克蛛","Arcane":"秘法","Assailant":"襲擊者","Axe Dweller":"斧居者","Balrog":"炎魔","Barracks":"兵營","Bishibosh":"比西博什","Black Archer":"黑暗弓箭手","Black Lancer":"黑暗槍兵","Black Locusts":"黑蝗蟲","Black Raptor":"黑猛禽","Black Raptor Nest":"黑猛禽巢","Black Rogue":"黑暗羅格","Black Soul":"黑魂","Blaze Ripper":"烈焰撕裂者","Blood Boss":"血頭目","Blood Bringer":"帶血者","Blood Clan":"血族","Blood Diver":"血潛者","Blood Hawk Nest":"血鷹巢","Blood Lord":"血王","Blood Maggot":"血蛆","Blood Maggot Egg":"血蛆卵","Blood Maggot Young":"幼血蛆","Blood Temptress":"血之誘惑者","Blood Wing":"血翼","Blunderbore":"笨熊巨人","Bog Creature":"沼澤生物","Bone Archer":"骷髏弓箭手","Bone Ash":"骨灰","Bone Mage":"骷髏法師","Bone Scarab":"骨甲蟲","Bone Warrior":"骷髏戰士","Bonebreaker":"碎骨者","Bramble Hulk":"荊棘巨人","Brute":"野獸人","Burning Dead":"燃燒亡者","Burning Dead Archer":"燃燒亡者弓箭手","Burning Dead Mage":"燃燒亡者法師","Burning Soul":"燃燒之魂","Cadaver":"屍體","Cantor":"吟唱者","Carrion Bird":"腐肉鳥","Carver":"雕刻者","Carver Shaman":"雕刻者薩滿","Cave Leaper":"洞穴跳躍者","Claw Viper":"利爪蝮蛇","Cliff Lurker":"懸崖潛伏者","Cloud Stalker":"雲中追蹤者","Coldcrow":"寒鴉","Corpse Spitter":"屍體噴吐者","Corpsefire":"屍火","Corpulent":"肥胖者","Council Member":"議會成員","Crush Beast":"粉碎獸","Crusher":"粉碎者","Damned":"被詛咒者","Dark Archer":"黑暗弓箭手","Dark Familiar":"黑暗使魔","Dark Hunter":"黑暗獵手","Dark Lancer":"黑暗槍兵","Dark Lord":"黑暗領主","Dark One":"黑暗者","Dark Ranger":"黑暗遊俠","Dark Shaman":"黑暗薩滿","Dark Shape":"黑暗之形","Dark Spearwoman":"黑暗女槍兵","Dark Stalker":"黑暗追蹤者","Darkwing":"暗翼","Death Beetle":"死亡甲蟲","Death Berserker":"死亡狂戰士","Death Brawler":"死亡鬥士","Death Brigadier":"死亡准將","Death Clan":"死亡氏族","Death Lord":"死亡領主","Death Mauler":"死亡重擊者","Death Slasher":"死亡斬擊者","Decayed":"腐朽者","Defiled Warrior":"褻瀆戰士","Demon Gremlin":"惡魔小鬼","Demon Imp":"惡魔小惡魔","Demon Rascal":"惡魔搗蛋鬼","Demon Sprite":"惡魔精靈","Demon Trickster":"惡魔騙子","Desert Wing":"沙漠之翼","Devilkin":"小惡魔","Devilkin Shaman":"小惡魔薩滿","Devourer":"吞噬者","Devourer Egg":"吞噬者卵","Devourer Young":"幼吞噬者","Disfigured":"毀容者","Doom Ape":"末日猿","Doom Caster":"末日施法者","Doom Knight":"末日騎士","Dried Corpse":"乾屍","Drowned Carcass":"溺斃的屍骸","Dune Beast":"沙丘獸","Dung Soldier":"糞甲蟲戰士","Embalmed":"防腐屍","Enslaved":"被奴役者","Faithful":"信徒","Fallen":"沉淪魔","Fallen Shaman":"沉淪魔巫師","Fangskin":"牙皮","Feeder":"進食者","Fetid Defiler":"惡臭褻瀆者","Fetish":"妖人","Fetish Shaman":"妖人薩滿","Fiend":"惡魔","Fire Boar":"火焰野豬","Flame Spider":"火焰蜘蛛","Flamespike the Crawler":"爬行者焰刺","Flayer":"剝皮者","Flayer Shaman":"剝皮者薩滿","Flesh Archer":"血肉弓箭手","Flesh Beast":"血肉獸","Flesh Hunter":"血肉獵手","Flesh Spawner":"血肉產卵者","Foul Crow":"污穢烏鴉","Foul Crow Nest":"污穢烏鴉巢","Frenzied Ice Spawn":"狂暴冰之子","Frozen Creeper":"冰凍爬行者","Frozen Scourge":"冰凍天譴","Frozen Terror":"冰凍恐懼","Frozenstein":"冰凍怪","Gargantuan Beast":"巨型野獸","Ghost":"鬼魂","Ghoul Lord":"食屍鬼領主","Giant Lamprey":"巨型七鰓鰻","Giant Lamprey Egg":"巨型七鰓鰻卵","Giant Lamprey Young":"幼巨型七鰓鰻","Gloam":"暮光","Gloombat":"陰鬱蝙蝠","Grotesque":"怪誕者","Grotesque Wyrm":"怪誕巨蟲","Guardian":"守衛者","Gull":"海鷗","Greater Hell Spawn":"大地獄之子","Heirophant":"祭司長","Hell Bovine":"地獄牛","Hell Buzzard":"地獄禿鷹","Hell Cat":"地獄貓","Hell Clan":"地獄氏族","Hell Lord":"地獄領主","Hell Slinger":"地獄投石者","Hell Spawn":"地獄之子","Hell Swarm":"地獄蟲群","Hell Temptress":"地獄誘惑者","Hell Whip":"地獄之鞭","Hell Witch":"地獄女巫","Hell's Belle":"地獄美人","Hollow One":"空洞者","Homunculus":"人造人","Horadrim Ancient":"赫拉迪姆先祖","Horror":"恐怖骷髏","Horror Archer":"恐怖弓箭手","Horror Mage":"恐怖法師","Humongous":"龐然巨人","Hungry Dead":"飢餓亡者","Huntress":"女獵手","Ice Boar":"冰霜野豬","Ice Spawn":"冰之子","Infidel":"異教徒","Invader":"入侵者","Itchies":"癢蟲","Jungle Hunter":"叢林獵手","Korlic":"科力克","Lasher":"鞭打者","Leaper":"跳躍者","Leviathan":"利維坦","Madawc":"馬道克","Marauder":"掠奪者","Mauler":"重擊者","Maw Fiend":"巨口惡魔","Minion of Destruction":"毀滅之僕","Misshapen":"畸形者","Moon Clan":"月之氏族","Moon Lord":"月之領主","Night Clan":"夜之氏族","Night Lord":"夜之領主","Night Marauder":"夜之掠奪者","Night Slinger":"夜之投石者","Night Tiger":"夜虎","Oblivion Knight":"遺忘騎士","Overlord":"霸主","Overseer":"督軍","Pindleskin":"暴躁外皮","Pit Lord":"深坑領主","Pit Viper":"深坑毒蛇","Pitspawn Fouldog":"深坑污犬","Plague Bearer":"疫病帶原者","Poison Spinner":"毒紡者","Preserved Dead":"保存的亡者","Prowling Dead":"徘徊亡者","Putrid Defiler":"腐爛褻瀆者","Radament":"拉達曼特","Rakanishu":"拉卡尼休","Rancid Defiler":"腐臭褻瀆者","Rat Man":"鼠人","Razor Spine":"剃刀脊","Reanimated Horde":"復甦部眾","Returned":"歸來者","Returned Archer":"歸來弓箭手","Returned Mage":"歸來法師","Riftwraith the Cannibal":"食人者裂隙幽魂","Rock Worm":"岩蟲","Rock Worm Egg":"岩蟲卵","Rock Worm Young":"幼岩蟲","Rot Walker":"腐行者","Saber Cat":"劍齒貓","Salamander":"火蜥蜴","Sand Leaper":"沙地跳躍者","Sand Maggot":"沙蛆","Sand Maggot Egg":"沙蛆卵","Sand Maggot Queen":"沙蛆女王","Sand Maggot Young":"幼沙蛆","Sand Raider":"沙漠掠奪者","Serpent Magus":"巨蛇法師","Sexton":"教堂司事","Siege Beast":"攻城獸","Siren":"海妖","Skeleton":"骷髏","Skeleton Archer":"骷髏弓箭手","Slayer":"殺戮者","Slime Prince":"黏液王子","Slinger":"投石者","Snow Drifter":"雪中漂泊者","Soul Killer":"靈魂殺手","Soul Killer Shaman":"靈魂殺手薩滿","Spear Cat":"標槍貓","Specter":"幽靈","Spider Magus":"蜘蛛法師","Spike Fiend":"尖刺惡魔","Steel Scarab":"鋼鐵甲蟲","Storm Caster":"風暴施法者","Strangler":"絞殺者","Stygian Dog":"冥河犬","Stygian Doll":"冥河玩偶","Stygian Fury":"冥河狂怒","Stygian Hag":"冥河女巫","Stygian Harlot":"冥河娼婦","Succubus":"魅魔","Sucker":"吸血者","Swamp Dweller":"沼澤居民","Taintbreeder":"污染繁殖者","Tainted":"受污染者","Talic":"塔力克","Temple Guard":"神殿守衛","The Banished":"被放逐者","The Tormentor":"折磨者","Thorn Beast":"荊棘獸","Thorned Hulk":"荊棘巨人","Thrasher":"鞭打者","Tomb Creeper":"墓穴爬行者","Tomb Viper":"墓穴毒蛇","Tree Lurker":"樹林潛伏者","Undead Flayer":"不死剝皮者","Undead Scavenger":"不死食腐者","Undead Soul Killer":"不死靈魂殺手","Undead Stygian Doll":"不死冥河玩偶","Unholy Corpse":"邪惡屍體","Unraveler":"解縛者","Urdar":"烏達","Venom Lord":"毒液領主","Vile Archer":"邪惡弓箭手","Vile Hunter":"邪惡獵手","Vile Lancer":"邪惡槍兵","Vile Temptress":"邪惡誘惑者","Vile Witch":"邪惡女巫","Vinvear Molech":"文維爾·莫洛克","Wailing Beast":"哀嚎獸","Warped One":"扭曲者","Warped Shaman":"扭曲薩滿","Winged Nightmare":"有翼夢魘","Wretched Defiler":"可悲褻瀆者","Yeti":"雪人","Zakarumite":"撒卡蘭姆信徒","Zealot":"狂熱者","Zombie":"殭屍","Goatman":"山羊人","Quill Rat":"刺鼠","Corrupt Rogue":"墮落羅格","Megademon":"巨型惡魔","Regurgitator":"反芻者","Succubus Witch":"魅魔女巫","Minion":"僕從","Ancient Tunnels":"古代通道","Arachnid Lair":"蜘蛛巢穴","Burial Grounds":"墓地","Canyon of the Magi":"眾法師之谷","Catacombs Level 1":"地下墓穴第 1 層","Catacombs Level 2":"地下墓穴第 2 層","Catacombs Level 3":"地下墓穴第 3 層","Cathedral":"大教堂","Causeway":"堤道","Cave Level 1":"洞穴第 1 層","Cave Level 2":"洞穴第 2 層","Claw Viper Temple Level 1":"利爪蝮蛇神殿第 1 層","Claw Viper Temple Level 2":"利爪蝮蛇神殿第 2 層","Crypt":"地穴","Desert":"沙漠","Disused Fane":"廢棄神廟","Disused Reliquary":"廢棄聖骨箱","Drifter Cavern":"漂流者洞穴","Durance":"囚牢","Durance of Hate Level 1":"憎恨囚牢第 1 層","Durance of Hate Level 2":"憎恨囚牢第 2 層","Flayer Dungeon Level 1":"剝皮者地牢第 1 層","Flayer Dungeon Level 2":"剝皮者地牢第 2 層","Flayer Dungeon Level 3":"剝皮者地牢第 3 層","Forgotten Reliquary":"被遺忘的聖骨箱","Forgotten Sands":"被遺忘的沙地","Forgotten Temple":"被遺忘的神殿","Frozen Abyss":"冰凍深淵","Furnace of Pain":"痛苦熔爐","Halls of Anguish":"苦惱大廳","Halls of Pain":"痛苦大廳","Halls of the Dead Level 1":"死亡大廳第 1 層","Halls of the Dead Level 2":"死亡大廳第 2 層","Halls of the Dead Level 3":"死亡大廳第 3 層","Harem Level 2":"後宮第 2 層","Hole Level 1":"地洞第 1 層","Hole Level 2":"地洞第 2 層","Icy Cellar":"冰冷地窖","Infernal Pit":"地獄深坑","Inner Cloister":"內修道院","Jail Level 1":"監獄第 1 層","Jail Level 2":"監獄第 2 層","Jail Level 3":"監獄第 3 層","Kurast":"庫拉斯特","Maggot Lair Level 1":"蛆蟲巢穴第 1 層","Maggot Lair Level 2":"蛆蟲巢穴第 2 層","Maggot Lair Level 3":"蛆蟲巢穴第 3 層","Matron's Den":"女族長之巢","Mausoleum":"陵墓","Monastery":"修道院","Moo Moo Farm":"哞哞農場","Nihlathak Temple":"尼拉塞克神殿","Outer Cloister":"外修道院","Palace Cellar Level 1":"宮殿地窖第 1 層","Palace Cellar Level 2":"宮殿地窖第 2 層","Palace Cellar Level 3":"宮殿地窖第 3 層","Pit Level 1":"地坑第 1 層","Pit Level 2":"地坑第 2 層","Pit of Acheron":"冥河之坑","Ruined Fane":"毀壞的神廟","Ruined Temple":"毀壞的神殿","Sewers Level 1":"下水道第 1 層","Sewers Level 2":"下水道第 2 層","Sewers Level 3":"下水道第 3 層","Spider Cavern":"蜘蛛洞穴","Stony Tomb Level 1":"石墓第 1 層","Stony Tomb Level 2":"石墓第 2 層","Swampy Pit Level 1":"沼澤地坑第 1 層","Swampy Pit Level 2":"沼澤地坑第 2 層","Swampy Pit Level 3":"沼澤地坑第 3 層","Tal Rasha's Chamber":"塔拉夏之室","The Ancients' Way":"先祖之路","The Chaos Sanctuary":"混沌避難所","Tomb":"古墓","Tower Cellar Level 1":"高塔地窖第 1 層","Tower Cellar Level 2":"高塔地窖第 2 層","Tower Cellar Level 3":"高塔地窖第 3 層","Tower Cellar Level 4":"高塔地窖第 4 層","Tower Cellar Level 5":"高塔地窖第 5 層","Tristram":"崔斯特姆","Underground Passage Level 1":"地下通道第 1 層","Underground Passage Level 2":"地下通道第 2 層","Worldstone Keep Level 1":"世界之石要塞第 1 層","Worldstone Keep Level 2":"世界之石要塞第 2 層","Worldstone Keep Level 3":"世界之石要塞第 3 層","Blood Moor":"鮮血荒地","Cold Plains":"冰冷之原","Stony Field":"石塊曠野","Dark Wood":"黑暗森林","Black Marsh":"黑色荒地","Tamoe Highland":"泰摩高地","Rocky Waste":"岩石荒地","Dry Hills":"乾燥高地","Far Oasis":"遙遠綠洲","Lost City":"遺忘之城","Valley of Snakes":"蛇谷","Absorbs Fire Damage":"吸收火焰傷害","Attacker Takes Damage of":"攻擊者受到傷害","Attacker Takes Lightning Damage of":"攻擊者受到閃電傷害","Better Chance of Getting Magic Items":"尋獲魔法物品機率提高","Bonus to Attack Rating":"攻擊準確率加成","Chance of Crushing Blow":"壓碎性打擊機率","Chance of Open Wounds":"撕裂傷口機率","Cold Absorb":"冰寒吸收","Fire Absorb":"火焰吸收","Lightning Absorb":"閃電吸收","Damage Reduced by":"傷害減少","Damage Taken Goes To Mana":"受到的傷害轉為法力","Damage to Demons":"對惡魔的傷害","Damage to Undead":"對不死生物的傷害","Defense vs. Missile":"對飛射物防禦","Drain Life":"吸取生命","Enhanced Maximum Damage":"增強最大傷害","Enhanced Minimum Damage":"增強最小傷害","Extra Gold from Monsters":"從怪物身上獲得額外金幣","Freezes target":"冰凍目標","Half Freeze Duration":"冰凍時間減半","Heal Stamina Plus":"耐力恢復加成","Hit Causes Monster to Flee":"擊中使怪物逃跑","Increase Maximum Mana":"提高法力上限","Increased Chance of Blocking":"提高格擋機率","Increased Stack Size":"提高堆疊數量","Life after each Demon Kill":"每殺死一隻惡魔恢復生命","Life after each Kill":"每次擊殺恢復生命","Magic Damage Reduced by":"魔法傷害減少","Maximum Stamina":"耐力上限","Piercing Attack":"穿透攻擊","Poison Length Reduced by":"中毒時間減少","Regenerate Mana":"法力恢復","Replenishes quantity":"補充數量","Slower Stamina Drain":"耐力消耗減緩","Slows Target by":"目標緩速","Target Defense":"目標防禦","to Amazon Skill Levels":"亞馬遜技能等級","to Attack Rating":"攻擊準確率","to Attack Rating against Demons":"對惡魔的攻擊準確率","to Attack Rating against Undead":"對不死生物的攻擊準確率","to Cold Skill Damage":"冰寒技能傷害","to Dexterity":"敏捷","to Enemy Fire Resistance":"敵人火焰抗性","to Enemy Lightning Resistance":"敵人閃電抗性","to Enemy Poison Resistance":"敵人毒素抗性","to Energy":"精力","to Fire Skill Damage":"火焰技能傷害","to Fire Skills":"火焰技能","to Life":"生命","to Light Radius":"照亮範圍","to Lightning Skill Damage":"閃電技能傷害","to Mana":"法力","to Mana after each Kill":"每次擊殺恢復法力","to Maximum Cold Damage":"最大冰寒傷害","to Maximum Damage":"最大傷害","to Maximum Fire Damage":"最大火焰傷害","to Maximum Fire Resist":"最大火焰抗性","to Maximum Lightning Damage":"最大閃電傷害","to Maximum Lightning Resist":"最大閃電抗性","to Maximum Poison Damage":"最大毒素傷害","to Maximum Poison Resist":"最大毒素抗性","to Minimum Cold Damage":"最小冰寒傷害","to Minimum Damage":"最小傷害","to Minimum Fire Damage":"最小火焰傷害","to Minimum Lightning Damage":"最小閃電傷害","to Minimum Poison Damage":"最小毒素傷害","to Monster Defense Per Hit":"每次擊中降低怪物防禦","to Strength":"力量","to Vitality":"體力","(Based on Character Level)":"（依角色等級）","Repairs %d durability per second":"每秒修復 %d 耐久度","Act I":"第一幕","ACT I":"第一幕","Act II":"第二幕","ACT II":"第二幕","Act III":"第三幕","ACT III":"第三幕","Act IV":"第四幕","ACT IV":"第四幕","Act V":"第五幕","ACT V":"第五幕","casts":"施放","cast":"施放","chills":"冰冷","chill":"冰冷","crawls":"爬行","crawl":"爬行","explodes":"爆炸","explode":"爆炸","hunts down its":"追擊","hunt down their":"追擊","it hits":"命中處","they hit":"命中處","it passes":"經過處","they pass":"經過處","pecks":"啄擊","peck":"啄擊","pierces":"穿透","pierce":"穿透","spirals":"盤旋","spiral":"盤旋","a bolt":"彈矢","a spark":"一道火花","an arrow":"箭矢","a fire arrow":"一支火焰箭","a magic arrow":"一支魔法箭","a hammer":"戰鎚","a javelin":"標槍","a kick":"一次踢擊","a skeleton":"一具骷髏","a swift blow":"一次快速攻擊","a twister":"一道扭曲旋風","a web":"一張網","a monster":"一隻怪物","Evolves":"進化","into":"為","also":"還","needs:":"需要：","Spells":"法術","Chain":"連鎖","Frozen":"冰封","Glacial":"冰河","Cold Spells":"冰寒法術","Lightning Spells":"閃電法術","Fire Spells":"火焰法術","Exit":"離開","EXIT":"離開","OK":"確定","Back":"返回","BACK":"返回","CANCEL":"取消","CONTINUE":"繼續","COPIED":"已複製","Copied":"已複製","Export":"匯出","Import":"匯入","Replace":"取代","UPDATES":"更新","LINK":"連結","OFF":"關","ON":"開","MUSIC":"音樂","SOUND":"音效","MUTE":"靜音","PREVIOUS HERO":"上一位英雄","INVENTORY":"物品欄","Inventory":"物品欄","Stash":"儲物箱","Shared Stash":"共用儲物箱","Skills":"技能","Passives":"被動技能","Upgrades":"升級","Items":"物品","Experience":"經驗值","Requirements":"需求","Repair":"修理","Sell":"出售","Buy":"購買","Reroll":"重抽","Skip":"略過","Banish":"放逐","Maxed":"已達上限","Choose":"選擇","Click":"點擊","Tap":"點一下","Enter":"Enter","Space":"空白鍵","Boss":"首領","Champion":"精英","Regular":"一般","Survivor":"倖存者","Strength":"力量","Dexterity":"敏捷","Vitality":"體力","Energy":"精力","Weapon":"武器","Armor":"盔甲","Shield":"盾牌","Gloves":"手套","Ring":"戒指","Amulet":"護身符","Damage":"傷害","Attack":"攻擊","Knockback":"擊退","Masteries":"專精","Warcries":"戰嚎","Curses":"詛咒","Traps":"陷阱","Barrel":"木桶","Urn":"甕","Brazier":"火盆","Corpse":"屍體","One hit":"一擊","Coming soon":"即將推出","Build complete":"建置完成","Not learned":"尚未習得","New skill":"新技能","New passive":"新被動技能","Empty skill slot":"空的技能欄","Empty passive slot":"空的被動欄","Skill Tree":"技能樹","Everything is maxed":"全部都已達上限","Nothing sold to buy back":"沒有可回購的物品","Put an item down on this panel":"把物品放到這個面板上","Shift-click an item, or put it down here":"Shift＋點擊物品，或放到這裡","Click a ware to buy it":"點擊貨品即可購買","Tap again for every skill":"再點一次檢視所有技能","Tap again to drop":"再點一次丟棄","Tap an item, then tap it again":"點選物品後再點一次","You do not have enough gold":"你的金幣不足","Your inventory is full":"你的物品欄已滿","Your inventory is full (C to make room)":"你的物品欄已滿（按 C 整理空間）","Your inventory is full (tap Character to make room)":"你的物品欄已滿（點「角色」整理空間）","Your stash is full":"你的儲物箱已滿","Slay the act boss to reach the next act":"擊敗本幕首領才能前往下一幕","Pick a card to banish it for this run":"選一張卡片，本輪將它放逐","Pick with 1–3 or click":"按 1～3 或點擊選擇","Arrows or drag to adjust - Esc to go back":"方向鍵或拖曳調整 - Esc 返回","Enter: play again - T: Charsi's wares - Esc: main menu":"Enter：再玩一次 - T：恰西的貨品 - Esc：主選單","← → to choose · Enter to continue · N for a new run":"← → 選擇 · Enter 繼續 · N 開始新的一輪","← → to choose · Enter to play":"← → 選擇 · Enter 開始遊戲","Charsi's wares (B)":"恰西的貨品（B）","Charsi's wares (G)":"恰西的貨品（G）","Making the code…":"正在產生代碼…","The highest level a hero can reach":"英雄能達到的最高等級","Taken: ":"已取得：",": stash it":"：放進儲物箱",": stash it at Charsi's":"：到恰西那裡放進儲物箱",", needs:":"，需要："," - ready to evolve":" - 可以進化","A hit, and a second:":"一擊，再一擊：","Heals 30 Life":"恢復 30 生命","Restores all Life":"恢復全部生命","Restores all life":"恢復全部生命","Regenerate 1 life per second":"每秒恢復 1 生命","Wirt's Leg + Tome of Town Portal":"維特之腳 ＋ 城鎮傳送之書","This browser's gold, upgrades and gear give way to the code's. Export them first to keep a copy.":"此瀏覽器的金幣、升級與裝備會被代碼內容取代。請先匯出保留一份。","Unofficial fan project. Not affiliated with or endorsed by Blizzard Entertainment. Diablo® is a trademark of Blizzard Entertainment, Inc.":"非官方粉絲作品，與 Blizzard Entertainment 無關，亦未獲其認可。Diablo® 為 Blizzard Entertainment, Inc. 的商標。","Unofficial fan project. Not affiliated with or endorsed by Blizzard Entertainment.":"非官方粉絲作品，與 Blizzard Entertainment 無關，亦未獲其認可。","Diablo® is a trademark of Blizzard Entertainment, Inc.":"Diablo® 為 Blizzard Entertainment, Inc. 的商標。","Blizzard Entertainment":"Blizzard Entertainment","Blizzard Entertainment, Inc":"Blizzard Entertainment, Inc","Diablo®":"Diablo®","Diablo®, Diablo II®, Lord of Destruction® and Blizzard Entertainment® are trademarks or registered trademarks of Blizzard Entertainment, Inc. in the U.S. and/or other countries. All Diablo II game content (graphics, sounds, music, fonts, text and data) is © Blizzard Entertainment, Inc. and remains their property.":"Diablo®、Diablo II®、Lord of Destruction® 與 Blizzard Entertainment® 為 Blizzard Entertainment, Inc. 在美國及／或其他國家的商標或註冊商標。所有 Diablo II 遊戲內容（圖像、音效、音樂、字型、文字與資料）版權歸 Blizzard Entertainment, Inc. 所有。","If you represent Blizzard Entertainment and want anything changed or removed, contact the maintainer through the repository and it will be addressed promptly, including taking the project down.":"若您代表 Blizzard Entertainment 並希望修改或移除任何內容，請透過程式庫聯絡維護者，我們會儘速處理，包括下架本專案。","This notice describes the project’s intent and policies. It is not legal advice.":"本聲明說明本專案的目的與政策，並非法律意見。","No Blizzard files are distributed":"不散布任何 Blizzard 的檔案","Bring your own Diablo II: nothing is downloaded from Blizzard, and the app holds no Blizzard file. On first launch it finds your Diablo II and Lord of Destruction and extracts their art and sound once, in about a minute and a half. From then on it plays offline.":"請使用你自己的 Diablo II：程式不會從 Blizzard 下載任何東西，也不含任何 Blizzard 檔案。第一次啟動時會找到你的 Diablo II 與毀滅之王，花約一分半鐘擷取一次圖像與音效，之後即可離線遊玩。","Diablo II and Lord of Destruction, patched to 1.14, installed\nmacOS on Apple silicon, or Windows 10 or 11 (x64)\nAbout 1.5 GB of free disk space":"已安裝 Diablo II 與毀滅之王，並更新至 1.14\nApple 晶片的 macOS，或 Windows 10／11（x64）\n約 1.5 GB 可用磁碟空間","If it can’t find Diablo II, point it at the folder that holds d2data.mpq.":"如果找不到 Diablo II，請指定含有 d2data.mpq 的資料夾。","Run the installer. It isn’t signed, so SmartScreen warns about it: click More info, then Run anyway. This build is new and not yet tested on a real PC.":"執行安裝程式。程式沒有數位簽章，SmartScreen 會跳出警告：請按「其他資訊」再按「仍要執行」。此版本是新版，尚未在實體電腦上測試過。","Made by framara - @framara on X":"製作：framara - X 上的 @framara","D2 SURVIVORS":"D2 SURVIVORS","Slain Monsters Rest in Peace":"被殺的怪物安息","on attack":"攻擊時","Armor Shrine":"護甲神殿","Combat Shrine":"戰鬥神殿","Experience Shrine":"經驗神殿","Exploding Shrine":"爆炸神殿","Fire Shrine":"火焰神殿","Gem Shrine":"寶石神殿","Monster Shrine":"怪物神殿","Refilling Shrine":"補充神殿","Skill Shrine":"技能神殿","Mana Recharge Shrine":"法力充能神殿","Stamina Shrine":"耐力神殿","Resist Fire Shrine":"火焰抗性神殿","Resist Cold Shrine":"冰寒抗性神殿","Resist Lightning Shrine":"閃電抗性神殿","Resist Poison Shrine":"毒素抗性神殿","Poison Shrine":"毒素神殿","Portal Shrine":"傳送門神殿","Shrine":"神殿","You feel more skillful.":"你覺得技巧更純熟了。","You feel ready for battle.":"你覺得已經準備好戰鬥了。","You feel refreshed.":"你覺得精神煥發。","Your experience teaches you well.":"你的經驗讓你學到很多。","Your skin hardens.":"你的皮膚變硬了。","A circle of flame...":"一圈火焰……","A fiery death...":"火熱的死亡……","A marvelous gem...":"一顆神奇的寶石……","Death's advocate approaches.":"死亡的代言人逼近了。","Bow and\nCrossbow\nSkills":"弓與\n十字弓\n技能","Javelin\nand Spear\nSkills":"標槍與\n長矛\n技能","Passive\nand Magic\nSkills":"被動與\n魔法\n技能","Poison\nand Bone\nSpells":"毒素與\n白骨\n法術","Poison and Bone Spells":"毒素與白骨法術","Close Mini Panel":"關閉迷你面板","Open Mini Panel":"開啟迷你面板","Game Menu (Esc)":"遊戲選單（Esc）","Message Log":"訊息紀錄","Party Screen":"隊伍畫面","Quest Log":"任務紀錄","Skilled with the spear and the bow, she is a very versatile fighter.":"擅長使用長矛與弓，是一位非常全能的戰士。","Schooled in the Martial Arts, her mind and body are deadly weapons.":"受過武學訓練，她的心靈與身體都是致命的武器。","Summoning undead minions and cursing his enemies are his specialties.":"召喚不死僕從與詛咒敵人是他的專長。","He is unequaled in close-quarters combat and mastery of weapons.":"他在近身肉搏與武器運用上無人能及。","He is a natural party leader, holy man, and blessed warrior.":"他是天生的隊伍領袖、聖職者，也是受祝福的戰士。","She has mastered the elemental magicks -- fire, lightning, and ice.":"她精通元素魔法——火焰、閃電與冰霜。","Commanding the forces of nature, he summons wild beasts and raging storms to his side.":"他號令自然之力，召喚野獸與狂暴的風暴相助。","the Axe":"斧頭","the Cold":"冰冷者","the Hammer":"戰鎚","Dragonscale":"龍鱗","Festering Appendages":"潰爛附肢","Gorebelly":"血腹","Magma Torquer":"熔岩扭轉者","Tarnhelm":"隱身盔","Charsi":"恰西","Amazon":"亞馬遜","Assassin":"刺客","Barbarian":"野蠻人","Druid":"德魯伊","Necromancer":"死靈法師","Paladin":"聖騎士","Sorceress":"女巫","(Amazon Only)":"（亞馬遜專用）","(Assassin Only)":"（刺客專用）","(Barbarian Only)":"（野蠻人專用）","(Druid Only)":"（德魯伊專用）","(Necromancer Only)":"（死靈法師專用）","(Paladin Only)":"（聖騎士專用）","(Sorceress Only)":"（女巫專用）","Bows, javelins and a warrior’s reflexes":"弓、標槍與戰士的反應","Bone, poison, curses and the raised dead":"白骨、毒素、詛咒與復甦的亡者","Elemental storms, summoned beasts and shape shifting":"元素風暴、召喚野獸與變形","Fire, cold and lightning":"火焰、冰寒與閃電","Holy auras, combat skills and the Blessed Hammer":"神聖靈氣、戰鬥技能與祝福之錘","Weapon masteries, war cries and Whirlwind":"武器專精、戰嚎與旋風斬","Bow and Crossbow Skills":"弓與十字弓技能","Passive and Magic Skills":"被動與魔法技能","Javelin and Spear Skills":"標槍與長矛技能","Fire Skills":"火焰技能","Cold Skills":"冰寒技能","Combat Skills":"戰鬥技能","Elemental Skills":"元素技能","Poison and Bone Skills":"毒素與白骨技能","Shape Shifting Skills":"變形技能","Summoning Skills":"召喚技能","Damage Reduced":"傷害減少","Maximum Damage":"最大傷害","Minimum Damage":"最小傷害","Spells, auras and summons don't use it":"法術、靈氣與召喚物不會用到","More damage from every skill: gear's +% Damage and shrines":"提高所有技能傷害：裝備的 +% 傷害與神殿","More damage from weapon skills (arrows, javelins, blows, throws): the weapon's damage, Dexterity, gear's +% Attack Damage":"提高武器技能傷害（箭矢、標槍、近戰、投擲）：武器傷害、敏捷、裝備的 +% 攻擊傷害","More gold from what monsters drop":"怪物掉落更多金幣","Every blow lands here: Attack Rating is critical strike chance instead":"此處攻擊必定命中：攻擊準確率改為致命一擊機率","Chance of a critical strike: double damage":"致命一擊機率：雙倍傷害","Chance a physical hit makes the monster bleed for 8 seconds":"物理命中使怪物流血 8 秒的機率","Physical hits heal you by a share of their damage, less from monsters D2 drains less":"物理命中依傷害比例治療你；在 D2 中吸取較少的怪物效果也較低","Raises each armour's own Damage Reduction: counted in Damage Reduced":"提高每件護甲自身的傷害減免：計入傷害減少","Added to every weapon blow: its average goes to Attack Damage":"加到每次武器攻擊：平均值計入攻擊傷害","Added to every weapon blow: its share of the average goes to Attack Damage":"加到每次武器攻擊：其平均值比例計入攻擊傷害","Adds 0.4% Attack Damage a percent":"每 1% 增加 0.4% 攻擊傷害","Each point past the class's: +0.2% critical strike chance, +0.6% Attack Damage":"超過職業初始值的每一點：+0.2% 致命一擊機率、+0.6% 攻擊傷害","Each point past the class's: +1% physical damage":"超過職業初始值的每一點：+1% 物理傷害","No mana here: Faster Cast Rate, a quarter of a percent a point":"這裡沒有法力：改為快速施法率，每點 0.25%","No mana here: Faster Cast Rate, as what fighting pours in":"這裡沒有法力：改為快速施法率，隨戰鬥累積","No mana here: each point past the class's is +1% fire, cold, lightning, poison and magic damage":"這裡沒有法力：超過職業初始值的每一點為 +1% 火焰、冰寒、閃電、毒素與魔法傷害","Come back at half life\nonce more per run, per rank":"以一半生命復活\n每級每輪多一次","One more level-up banish per run, per rank":"每級每輪多一次升級放逐","One more level-up reroll per run, per rank":"每級每輪多一次升級重抽","One more level-up skip per run, per rank":"每級每輪多一次升級略過","+0.5 life per second per rank":"每級每秒 +0.5 生命","+1% chance of a critical strike, +3% Attack Damage":"+1% 致命一擊機率、+3% 攻擊傷害","+10% better chance of magic items per rank":"每級 +10% 尋獲魔法物品機率","+10% cold damage":"+10% 冰寒傷害","+10% fire damage":"+10% 火焰傷害","+10% gold per rank":"每級 +10% 金幣","+10% lightning damage":"+10% 閃電傷害","+10% magic damage (Teeth, Bone Spear, Bone Spirit)":"+10% 魔法傷害（骨牙、骨矛、骨魂）","+10% movement speed":"+10% 移動速度","+10% poison damage":"+10% 毒素傷害","+20 maximum life":"+20 生命上限","+20 to 40 maximum life, by class":"+20～40 生命上限，依職業而定","+5 points":"+5 點","+5% fire, cold, lightning, poison and magic damage":"+5% 火焰、冰寒、閃電、毒素與魔法傷害","+5% physical damage":"+5% 物理傷害","+7% movement speed and 4% shorter cooldowns":"+7% 移動速度，冷卻時間縮短 4%","+8% movement speed":"+8% 移動速度","2% less damage taken per rank":"每級受到的傷害減少 2%","Skills recharge 8% faster":"技能冷卻快 8%","Take 7% less damage":"受到的傷害減少 7%","Take 8% less damage":"受到的傷害減少 8%","You take 30% less damage and have 35% more life, renewed every 12s":"受到的傷害減少 30%、生命增加 35%，每 12 秒重新生效","Every few seconds a double of you appears nearby, drawing monsters (more often, for longer)":"每隔幾秒在附近出現你的分身吸引怪物（更頻繁、更持久）","Battle Orders, and +1 to all your skills":"戰鬥命令，並使所有技能 +1","Aura: +10% magic damage (Blessed Hammer, Holy Bolt, Holy Shield)":"靈氣：+10% 魔法傷害（祝福之槌、聖光彈、神聖之盾）","Aura: +10% physical damage (Zeal, Smite, Charge)":"靈氣：+10% 物理傷害（熱誠、重擊、衝鋒）","Aura: burns every monster around you each second":"靈氣：每秒灼燒你周圍的所有怪物","Aura: lightning jolts every monster around you each second":"靈氣：每秒以閃電電擊你周圍的所有怪物","Aura: monsters around you are slowed by half and chilled each second":"靈氣：你周圍的怪物每秒被緩速一半並冰冷","Aura: monsters around you take 10% more damage from everything, +5% a level":"靈氣：你周圍的怪物受到的所有傷害增加 10%，每級 +5%","Aura: skills recharge 5% faster, +4% physical damage":"靈氣：技能冷卻快 5%，+4% 物理傷害","Aura: take 6% less damage":"靈氣：受到的傷害減少 6%","2 bolts that jump between up to 8 monsters, 45 damage each":"2 道在最多 8 隻怪物間跳躍的彈矢，各 45 傷害","2 molten boulders roll through all in their path, 95 damage, knockback, leaving fire":"2 顆熔岩巨石輾過路徑上的一切，95 傷害並擊退，留下火焰","3 fire balls at the nearest monsters, bursting on impact for 55 damage around":"向最近的怪物發射 3 顆火球，命中時爆炸對周圍造成 55 傷害","6 axes thrown at the monsters around you, 55 damage each, passing through 3":"向周圍怪物投擲 6 把斧頭，各 55 傷害，可穿透 3 隻","6 blades thrown at the monsters around you, 36 damage each, passing through one":"向周圍怪物投擲 6 把刀刃，各 36 傷害，可穿透 1 隻","6 frenzied blows over the monsters in a wide reach (every other at a boss), 26 damage each":"對大範圍內的怪物狂亂攻擊 6 次（每隔一次打首領），各 26 傷害","A blast of the mind over the nearest pack, 90 damage and a 2s stun to all in it":"對最近的怪物群釋放心靈衝擊，90 傷害並暈眩 2 秒","A focused blow at the toughest monster in reach, 200 damage, splashing 60 to those beside it":"集中攻擊範圍內最強的怪物，200 傷害，對旁邊的怪物濺射 60","A wall of fire across the path ahead that burns for 4s":"在前方路徑上築起火牆，燃燒 4 秒","An orb that sprays chilling ice shards in every direction, 22 damage each":"向四面八方噴射冰冷碎片的法球，每片 22 傷害","Blades spin around you, 32 damage to all beside you 3 times a second, and fly off at monsters for 28":"刀刃環繞你旋轉，每秒 3 次對身旁所有怪物造成 32 傷害，並飛向怪物造成 28 傷害","Charge 3 times along your path, 60 damage in the way, a holy burst at each stop":"沿路徑衝鋒 3 次，對路上怪物造成 60 傷害，每次停下時神聖爆發","Leap where you run (at a foe when still) and strike: 320 damage, 100 around":"往奔跑方向跳躍（靜止時跳向敵人）並攻擊：320 傷害，周圍 100","Lightning keeps striking monsters around you, 70 damage":"閃電持續打擊你周圍的怪物，70 傷害","Meteors crash onto 3 monsters, 90 damage, and leave the ground burning":"隕石砸向 3 隻怪物，90 傷害，並使地面燃燒","The Hammerdin: 4 blessed hammers at once, whirling faster and wider, 40 damage to all they pass":"錘丁：一次 4 把祝福之槌，旋轉得更快更廣，對經過的怪物造成 40 傷害","a bash":"猛擊","a blade":"刀刃","a bolt from the sky":"天降彈矢","a bolt or blow back":"彈矢或反擊","a burst of fire, cold or lightning":"火焰、冰寒或閃電爆發","a cut or a thrown blade":"斬擊或飛刃","a fire ball":"火球","a kick or its fire":"踢擊或其火焰","a mage's bolt":"法師的彈矢","a meteor":"隕石","a monster around you":"你周圍的怪物","a monster in it":"其中的怪物","a monster in the blast":"爆炸中的怪物","a monster in the ring":"環內的怪物","a monster it lands among":"落點處的怪物","a second of a bite's poison":"撕咬毒素的一秒","a second of its poison":"其毒素的一秒","a spear":"長矛","a spear thrust":"長矛刺擊","a thrust at each monster around":"刺擊周圍每隻怪物","a tick of a fire":"火焰每次造成傷害時","a tornado":"龍捲風","an arrow or its blast":"箭矢或其爆炸","an arrow or its burst":"箭矢或其爆發","an axe":"斧頭","to Life (Based on Character Level)":"生命（依角色等級）","to Mana (Based on Character Level)":"法力（依角色等級）","Magic Arrow":"魔法箭","Fire Arrow":"火焰箭","Inner Sight":"內視","Critical Strike":"致命攻擊","Jab":"搓刺","Cold Arrow":"冰箭","Multiple Shot":"多重箭","Dodge":"閃躲","Power Strike":"威力一擊","Poison Javelin":"毒槍","Exploding Arrow":"爆裂箭","Slow Missiles":"慢速箭","Avoid":"躲避","Impale":"刺爆","Lightning Bolt":"閃電球","Ice Arrow":"急凍箭","Guided Arrow":"導引箭","Penetrate":"刺入","Charged Strike":"衝能一擊","Plague Javelin":"瘟疫標槍","Strafe":"掃射","Immolation Arrow":"犧牲之箭","Dopplezon":"分身","Decoy":"誘餌","Evade":"迴避","Fend":"擊退","Freezing Arrow":"凍結之箭","Valkyrie":"女武神","Pierce":"穿刺","Lightning Strike":"閃電攻擊","Lightning Fury":"閃電之怒","Fire Bolt":"火彈","Warmth":"溫暖","Charged Bolt":"衝能彈","Ice Bolt":"冰彈","Frozen Armor":"冰封裝甲","Inferno":"地獄火","Static Field":"靜態立場","Telekinesis":"心靈傳動","Frost Nova":"霜之新星","Ice Blast":"冰風暴","Blaze":"火焰之路","Fire Ball":"火球","Nova":"新星","Lightning":"閃電","Shiver Armor":"碎 冰甲","Fire Wall":"火牆","Enchant":"附魔","Chain Lightning":"連鎖閃電","Teleport":"傳送","Glacial Spike":"冰尖柱","Meteor":"隕石","Thunder Storm":"雷雲風暴","Energy Shield":"能量護盾","Blizzard":"暴風雪","Chilling Armor":"寒冰裝甲","Fire Mastery":"支配火燄","Hydra":"九頭蛇","Lightning Mastery":"支配閃電","Frozen Orb":"冰封球","Cold Mastery":"支配冰冷","Amplify Damage":"傷害加深","Teeth":"牙","Bone Armor":"白骨裝甲","Skeleton Mastery":"支配骷髏","Raise Skeleton":"復甦骷髏","Dim Vision":"微暗靈視","Weaken":"虛弱","Poison Dagger":"淬 毒匕首","Corpse Explosion":"屍體爆炸","Clay Golem":"黏 土石模","Iron Maiden":"攻擊反噬","Terror":"恐懼","Bone Wall":"骨牆","Golem Mastery":"支配石魔","Raise Skeletal Mage":"復甦骷髏法師","Confuse":"混亂","Life Tap":"偷取生命","Poison Explosion":"毒爆","Bone Spear":"骨矛","Blood Golem":"鮮血石魔","Attract":"吸引","Decrepify":"衰老","Bone Prison":"骨牢","Summon Resist":"召喚反抗","Iron Golem":"鋼鐵石魔","Lower Resist":"降低抵抗","Poison Nova":"劇毒新星","Bone Spirit":"白骨之魂","Fire Golem":"火焰石魔","Revive":"復活","Bash":"猛擊","Sword Mastery":"支配長劍","Axe Mastery":"支配斧頭","Mace Mastery":"支配釘頭錘","Howl":"嚎叫","Find Potion":"找尋葯劑","Leap":"跳躍","Double Swing":"雙手揮擊","Pole Arm Mastery":"長柄武器專精","Throwing Mastery":"支配飛擲","Spear Mastery":"支配長矛","Taunt":"嘲弄","Shout":"吶喊","Stun":"擊暈","Double Throw":"雙手投擲","Increased Stamina":"增加耐力","Find Item":"找尋物品","Leap Attack":"跳躍攻擊","Concentrate":"專心","Iron Skin":"鐵布衫","Battle Cry":"戰嗥","Frenzy":"狂亂","Increased Speed":"加速","Battle Orders":"戰鬥體制","Grim Ward":"殘酷嚇阻","Whirlwind":"旋風斬","Berserk":"狂戰士","Natural Resistance":"自然抵抗","War Cry":"戰鬥狂嗥","Battle Command":"戰鬥指揮","Sacrifice":"犧牲","Smite":"重擊","Might":"威能","Prayer":"祈禱","Resist Fire":"抗火","Holy Bolt":"聖光彈","Holy Fire":"聖火","Thorns":"荊棘","Defiance":"反抗","Resist Cold":"抗冰冷","Zeal":"熱誠","Charge":"衝鋒","Blessed Aim":"祝福瞄準","Cleansing":"淨化","Resist Lightning":"抵抗閃電","Blessed Hammer":"祝福之鎚","Concentration":"專注","Holy Freeze":"神聖冰凍","Vigor":"活力","Conversion":"轉化","Holy Shield":"神聖之盾","Holy Shock":"神聖衝擊","Sanctuary":"庇護所","Meditation":"冥想","Fist of the Heavens":"天堂之拳","Fanaticism":"狂熱","Conviction":"信念","Redemption":"救贖","Salvation":"救援","Raven":"烏鴉","Poison Creeper":"猛毒花藤","Werewolf":"狼人","Lycanthropy":"變狼術","Firestorm":"火風暴","Oak Sage":"橡木智者","Summon Spirit Wolf":"召喚鬼狼","Werebear":"熊人","Molten Boulder":"熔 漿巨岩","Arctic Blast":"極地風暴","Carrion Vine":"食屍藤","Feral Rage":"野性狂暴","Fissure":"火山裂隙","Cyclone Armor":"颶風裝甲","Heart of Wolverine":"狼獾之心","Summon Dire Wolf":"召喚狂狼","Summon Fenris":"召喚芬里爾","Rabies":"狂犬病","Fire Claws":"火焰之爪","Twister":"扭曲旋風","Solar Creeper":"太陽藤","Hunger":"飢餓","Shock Wave":"震波","Volcano":"火山","Tornado":"龍捲風","Spirit of Barbs":"荊棘之靈","Summon Grizzly":"召喚灰熊","Fury":"狂怒","Armageddon":"末日浩劫","Hurricane":"颶風","Cycle of Life":"生命循環","Claw Mastery":"支配利爪","Psychic Hammer":"心靈戰錘","Tiger Strike":"猛虎擊","Dragon Talon":"龍爪","Fire Blast":"火焰爆震","Burst of Speed":"速度爆發","Fists of Fire":"火焰之拳","Dragon Claw":"雙龍爪","Charged Bolt Sentry":"電能守衛","Wake of Fire":"火焰復甦","Wake of Fire Sentry":"火焰復甦守衛","Weapon Block":"武器格檔","Cloak of Shadows":"魔影斗篷","Cobra Strike":"眼鏡蛇攻擊","Blade Fury":"刃之怒","Fade":"消逝","Shadow Warrior":"影子戰士","Claws of Thunder":"雷電爪","Dragon Tail":"神龍擺尾","Lightning Sentry":"雷光守衛","Wake of Inferno":"復甦獄火","Mind Blast":"心靈爆震","Blades of Ice":"寒冰刃","Dragon Flight":"飛龍在天","Death Sentry":"亡者守衛","Blade Shield":"刀刃之盾","Blade Sentinel":"刃之守衛","Venom":"毒牙","Shadow Master":"支配影子","Phoenix Strike":"鳳凰攻擊","Aura Enchanted":"靈氣附魔","Cold Enchanted":"冰寒強化","Fire Enchanted":"火焰強化","Magic Resistant":"魔法抗性","Mana Burn":"燃燒法力","Teleportation":"瞬間移動","Cursed":"被詛咒","Possessed":"被附身","Fire Trauma":"火焰創傷","Fire Eye":"火眼","Prevent Monster Heal":"阻止怪物恢復","Replenish Life":"補充生命","Fires Explosive Arrows or Bolts":"射出爆裂箭或彈矢","Fires Magic Arrows":"射出魔法箭","Horror Arctic Blast":"恐怖極地寒風","Baal Inferno":"巴爾地獄火","Catacombs Level 4":"地下墓穴第 4 層","Durance of Hate Level 3":"憎恨囚牢第 3 層","Duriel's Lair":"督瑞爾之巢","Nihlathak's Temple":"尼拉塞克神殿","The Secret Cow Level":"秘密奶牛關","The Countess":"女伯爵","The Summoner":"召喚者","assassin upkeep":"刺客維持","barbarian upkeep":"野蠻人維持","druid upkeep":"德魯伊維持","sorceress upkeep":"女巫維持","Acrobat's":"特技","Alma Negra":"阿爾瑪 尼格拉","Arachnid Mesh":"蜘蛛之網","Arioc's Needle":"愛理歐克之針","Arkaine's Valor":"阿凱尼的榮耀","Arm of King Leoric":"李奧瑞克王的武器","Arreat's Face":"亞瑞特的面容","Astreon's Iron Ward":"愛斯特龍之鐵的保護區","Bane Ash":"禍根之灰","Baranar's Star":"巴拉那之星","Bartuc's Cut-Throat":"巴特克的猛擊","Biggin's Bonnet":"畢格因的軟帽","Blackhand Key":"黑手之鑰","Blinkbat's Form":"眨眼蝙蝠的外觀","Blood Crescent":"血紅新月","Blood Raven's Charge":"血鳥的襲擊","Bul-Kathos' Wedding Band":"布爾凱索之戒","Buriza-Do Kyanon":"布里撒 多 凱南","Burning":"燃燒","Bverrit Keep":"貝弗提的紀念","Captain's":"隊長","Carin Shard":"凱恩碎片","Cerebus' Bite":"地獄之吻","Chilling":"寒意","Crown of Ages":"年紀之冠","Crown of Thieves":"盜賊皇冠","Darkforce Spawn":"魔力肇生","Death Cleaver":"死亡之刀","Death's Web":"死亡之網","Demonhorn's Edge":"惡魔號角的邊緣","Dimoak's Hew":"迪馬克之劈砍","Dwarf Star":"矮人之星","Entrapping":"誘騙","Eschuta's Temper":"艾斯屈塔的脾氣","Expert's":"專家","Fanatic":"狂信者","Fletcher's":"製箭者","Fungal":"黴菌","Gargoyle's Bite":"石像鬼之噬","Gerke's Sanctuary":"基爾克的聖堂","Gloom's Trap":"陰影陷阱","Gore Rider":"蝕肉騎士","Graverobber's":"盜墓者","Griffon's Eye":"格利風之眼","Halaberd's Reign":"海拉柏得的國度","Harlequin Crest":"諧角之冠","Harpoonist's":"魚叉手","Hawk Branded":"老鷹烙印","Herald of Zakarum":"撒卡蘭姆使者","Hexing":"詛咒","Highlord's Wrath":"大君之怒","Husoldal Evo":"胡索丹 依弗","Iron Pelt":"擲鐵","Jade Talon":"碧玉爪","Jalal's Mane":"加爾的長髮","Kinemil's Awl":"金麥爾的錐子","Kira's Guardian":"奇拉的守護","Knell Striker":"敲擊喪鐘者","Langer Briser":"蘭格 布里瑟","Lidless Wall":"警戒之牆","Life":"生命","Lion Branded":"獅子烙印","Lycander's Aim":"雷山德的指標","Lycander's Flank":"雷山德的側腹","Mara's Kaleidoscope":"馬拉的萬花筒","Medusa's Gaze":"梅杜莎的凝視","Mentalist's":"心智","Nature's":"自然","Nature's Peace":"大自然的和平","Nightwing's Veil":"夜翼面紗","Nosferatu's Coil":"吸血聖王之圈","Passion":"熱情","Pelta Lunata":"新月小盾","Preserver's":"保護者","Que-Hegan's Wisdom":"魁黑剛的智慧","Radament's Sphere":"達羅門特之球體","Raven Claw":"渡鳥之爪","Raven Frost":"烏鴉之霜","Rixot's Keen":"瑞克撒特的輓歌","Rose Branded":"玫瑰烙印","Seraph's Hymn":"熾天使之韻","Shadow Dancer":"影舞者","Shadow Killer":"影殺者","Shock Web":"雷電網","Shogukusha's":"將軍","Skin of the Vipermagi":"蛇魔法師之皮","Skullder's Ire":"詩寇蒂的憤怒","Sounding":"鳴響","Sparking":"火光","Sparking Mail":"火花之甲","Spectral Shard":"妖怪碎片","Spire of Honor":"榮耀的尖塔","Spire of Lazarus":"拉撒羅斯之螺旋","Spirit Keeper":"靈魂看守者","Spirit Ward":"魂系結界","Spiritual":"精神","Steel Pillar":"鐵柱","Suicide Branch":"自殺支系","The Cat's Eye":"貓眼","The Chieftain":"族長","The Dragon Chang":"張龍","The Eye of Etlich":"艾利屈之眼","The Face of Horror":"恐懼之臉","The Fetid Sprinkler":"惡臭散佈者","The Gladiator's Bane":"鬥士的禍根","The Gnasher":"牙齒","The Hand of Broc":"柏克之手","the Impaler":"穿刺者","The Iron Jang Bong":"鐵檢棒","The Meat Scraper":"刮肉者","The Oculus":"眼球","The Patriarch":"族長","The Rising Sun":"旭日東昇","The Salamander":"火精靈","The Scalper":"圓鑿","The Tannr Gorerod":"坦之血杖","The Ward":"囚房","Thundergod's Vigor":"雷神之力","Titan's Revenge":"泰坦的復仇","Torch of Iro":"衣洛的火炬","Trainer's":"訓練師","Treads of Cthon":"凱松的征服","Umbral Disk":"陰影圓盤","Ume's Lament":"烏米的慟哭","Veil of Steel":"鋼鐵面紗","Verdungo's Hearty Cord":"維爾登戈的心結","Volcanic":"火山","War Traveler":"戰爭旅者","Wisp Projector":"鬼火投射者","Zakarum's Hand":"撒卡蘭姆之手"},"patterns":[["Holy Shield at its height for good, +{}% Chance to Block, smiting back; a holy blast every 4s throws monsters back, 50 damage","神聖之盾永遠維持最強，+{1}% 格擋機率並反擊；每 4 秒神聖爆發擊退怪物，50 傷害"],["A heavy blow at the toughest monster in reach, {} damage; each costs you {}% of your life, held back below {}% life","重擊範圍內最強的怪物，{1} 傷害；每次消耗你 {2}% 生命，生命低於 {3}% 時暫停"],["A sentry fires lightning 5 times, {} damage, and blows up a corpse near it each time for {} plus {}% of its life","守衛發射 5 次閃電，{1} 傷害，每次並引爆附近屍體造成 {2} 加上屍體生命的 {3}%"],["A Tome of Town Portal, transmuted with Wirt's Leg\nin the Horadric Cube: a portal to {}\nopens after Mephisto {}","城鎮傳送之書與維特之腳\n放進赫拉迪克方塊合成：通往{1}的傳送門\n會在擊敗墨菲斯托後開啟{2}"],["A trap near the nearest pack breathes fire at monsters 10 times, 5 flames of {} damage to all in their path","最近怪物群附近的陷阱向怪物噴火 10 次，每次 5 道火焰，對路徑上所有敵人造成 {1} 傷害"],["Bless your shield for {}s: +{}% Chance to Block, +{}% Defense; smite what you block for {}, and Smite hits harder","祝福你的盾牌 {1} 秒：+{2}% 格擋機率、+{3}% 防禦；格擋時重擊對方 {4}，重擊威力更強"],["A grizzly, {} damage a swipe, and the pack +{}% damage; with 3 dire wolves, 5 spirit wolves and {} ravens","一隻灰熊，每次揮擊 {1} 傷害，獸群傷害 +{2}%；另有 3 隻恐狼、5 隻狼靈與 {3} 隻烏鴉"],["Heart of Wolverine: +{}% damage to your blows and your summons', +{}% Attack Rating; Oak Sage's +{}% life","狼獾之心：你與召喚物的攻擊傷害 +{1}%、攻擊準確率 +{2}%；橡木智者 +{3}% 生命"],["Curse, {}s: monsters within {} of the nearest turn on each other with their own blows (not act bosses)","詛咒 {1} 秒：最近目標 {2} 範圍內的怪物會互相攻擊（幕首領除外）"],["A thrust at the toughest monster in reach, 120 damage; lightning chains on through {} more, 110 each","刺擊範圍內最強的怪物，120 傷害；閃電再連鎖 {1} 隻，各 110"],["The Worldstone is safe. You cleared all five acts{} in {}, at level {#}, having slain {#} monsters. +{#} gold.{}","世界之石已安全。你以 {2} 通過了全部五幕{1}，等級 {3}，共擊殺 {4} 隻怪物。+{5} 金幣。{6}"],["A charged thrust at the toughest monster in reach, 100 damage; {} bolts crackle on from it, 50 each","對範圍內最強的怪物充能刺擊，100 傷害；並迸出 {1} 道電彈，各 50"],["A solar creeper eats corpses: each speeds recharge {}% for {}s, up to {}%; the vine and {} creepers stay","日光藤吞食屍體：每具使技能冷卻加快 {1}%，持續 {2} 秒，最多 {3}%；藤蔓與 {4} 株毒藤會留下"],["Curse, {}s: monsters within {} of a target, ranged first, only see you beside them (not act bosses)","詛咒 {1} 秒：目標 {2} 範圍內的怪物（優先遠程）只看得到身邊的你（幕首領除外）"],["Blow up a corpse near monsters: {} damage plus {}% of its life, radius {}. Its own dead don't blow up","引爆怪物附近的屍體：{1} 傷害加上屍體生命的 {2}%，範圍 {3}。它造成的屍體不會連鎖引爆"],["Ice shards rain on the nearest pack for 2.4s, 24 shards of {} damage each, chilling what they hit","冰碎片落在最近的怪物群 2.4 秒，共 24 片，各 {1} 傷害並冰冷"],["When monsters crowd you, those around you flee in terror for {}s (bosses less, act bosses never)","被怪物包圍時，周圍的怪物會恐懼逃跑 {1} 秒（首領較短，幕首領不受影響）"],["A kick at the toughest in reach, {} damage, exploding in fire for {} around, releasing all charges","踢擊範圍內最強的敵人，{1} 傷害，爆炸對周圍造成 {2} 火焰傷害，釋放所有蓄能"],["Curse the toughest of the nearest pack, {}s: those within {} turn on it, passing on when it falls","詛咒最近怪物群中最強的一隻，{1} 秒：{2} 範圍內的怪物會攻擊它，它倒下後轉移"],["A blow at the toughest monster in reach: {} fire, cold and lightning each, half to those beside","攻擊範圍內最強的怪物：火焰、冰寒、閃電各 {1}，旁邊的怪物受一半"],["A golem of iron, {} life, {} damage, with a Thorns aura: what strikes it takes back {}% of the blow","鋼鐵石魔，{1} 生命，{2} 傷害，帶有荊棘靈氣：攻擊它的敵人承受 {3}% 反傷"],["{} javelins trailing poison that burst into a spreading cloud, 240 poison over {}s to all within {}","{1} 支拖曳毒素的標槍，爆出擴散毒雲，{3} 範圍內所有敵人 {2} 秒內受到 240 毒素傷害"],["Near a crowd or boss, blind all around you {}s: they take {}% more damage (act bosses unblinded)","靠近怪物群或首領時，使周圍敵人目盲 {1} 秒：受到的傷害增加 {2}%（幕首領不會目盲）"],["Werebear for {}s near monsters: 25% less damage taken, +{}% life, splashing blows of {}; no spells","靠近怪物時變身熊人 {1} 秒：受到的傷害減少 25%、+{2}% 生命，濺射攻擊 {3}；無法施法"],["Spirit of Barbs: monsters that strike you take back {}% of the damage, plus Wolverine's boons","荊棘之靈：攻擊你的怪物承受 {1}% 的反傷，並獲得狼獾之心的增益"],["Aura: +{}% chance of a critical strike (double damage) with Zeal, Smite, Charge and Sacrifice","靈氣：熱誠、重擊、衝鋒與犧牲 +{1}% 致命一擊機率（雙倍傷害）"],["Plant a totem among the nearest pack, and howl: for {}s monsters within {} of it flee in terror","在最近的怪物群中插下圖騰並嚎叫：{1} 秒內 {2} 範圍內的怪物恐懼逃跑"],["The strongest monster near you fights for you for {}s, harder; up to {}, no champions or bosses","你附近最強的怪物為你作戰 {1} 秒並更強；最多 {2} 隻，精英與首領除外"],["Up to 3 dire wolves, {} damage a bite, and the pack +{}% life; with 5 spirit wolves and {} ravens","最多 3 隻恐狼，每次撕咬 {1} 傷害，獸群生命 +{2}%；另有 5 隻狼靈與 {3} 隻烏鴉"],["Monsters near her take {}% more damage (except those with an immunity, which it can't break)","她附近的怪物受到的傷害增加 {1}%（無法破除免疫）"],["Summons take {}% less damage from monsters whose blows carry fire, cold, lightning or poison","召喚物受到帶有火焰、冰寒、閃電或毒素的怪物攻擊時，傷害減少 {1}%"],["A sentry near the nearest pack fires lightning through monsters in line 10 times, {} damage","最近怪物群附近的守衛發射 10 次貫穿直線怪物的閃電，{1} 傷害"],["A carrion vine eats corpses near you, each healing {} life + {}% of maximum; {} poison creepers","腐屍藤吞食你附近的屍體，每具恢復 {1} 生命 + 上限的 {2}%；{3} 株毒藤"],["Two blows in a wide reach, 45 damage each; hits speed your swings and steps, up to {} times","大範圍攻擊兩次，各 45 傷害；命中會加快揮擊與移動，最多疊加 {1} 次"],["The toughest monster nearby charges you for {}s, blows {}% weaker (act bosses only weakened)","附近最強的怪物向你衝來 {1} 秒，攻擊減弱 {2}%（幕首領只會被削弱）"],["Claws at the toughest in reach, {} damage; every fourth blow drains {} more, healing {}% of it","爪擊範圍內最強的敵人，{1} 傷害；每第四擊額外吸取 {2}，並恢復其中 {3}%"],["Curse, {}s: monsters within {} of a target slow by half, deal {}% less damage and take {}% more","詛咒 {1} 秒：目標 {2} 範圍內的怪物緩速一半，造成的傷害減少 {3}%、受到的傷害增加 {4}%"],["Curse, {}s: monsters within {} of the nearest take back {}% of their blows on you and summons","詛咒 {1} 秒：最近目標 {2} 範圍內的怪物攻擊你與召喚物時承受 {3}% 反傷"],["A jet of flame at the nearest monster within {}: {} flames, {} damage each to all in its path","向 {1} 範圍內最近的怪物噴出火焰：{2} 道火焰，對路徑上所有敵人各造成 {3} 傷害"],["Aura: +{}% cold resistance, and +{}% to its maximum (75%) a level; chill wears off {}% faster","靈氣：+{1}% 冰寒抗性，每級 +{2}% 抗性上限（75%）；冰冷效果消退快 {3}%"],["Aura: monsters close to you are hurt and thrown out, {} damage twice a second, +{} a level","靈氣：靠近你的怪物受到傷害並被彈開，每秒兩次 {1} 傷害，每級 +{2}"],["Bash the toughest monster in reach with your shield, {} damage, knocked back and stunned","用盾牌猛擊範圍內最強的怪物，{1} 傷害，擊退並暈眩"],["2 spikes at the nearest monsters burst for {} damage, freezing all in the burst for 1.5s","向最近的怪物射出 2 根冰刺，爆炸造成 {1} 傷害並冰凍範圍內敵人 1.5 秒"],["Claws at the toughest in reach, {} damage; every fourth blow releases 3 charges, +{}% each","爪擊範圍內最強的敵人，{1} 傷害；每第四擊釋放 3 層蓄能，每層 +{2}%"],["Claws at the toughest in reach, {} damage; every fourth blow bursts in fire, {} around it","爪擊範圍內最強的敵人，{1} 傷害；每第四擊爆出火焰，對周圍造成 {2}"],["Wereform blows add 32 poison over {}s; a bitten monster that dies passes it to {} near it","變身後的攻擊附加 {1} 秒 32 毒素傷害；被咬的怪物死亡時傳染給附近 {2}"],["Slain monsters have a {}% chance to leave gold (champions {}%), and now and then an item","被殺的怪物有 {1}% 機率掉落金幣（精英 {2}%），偶爾掉落物品"],["A golem of fire, {} life, {} damage, with a Holy Fire aura that burns everything near it","火焰石魔，{1} 生命，{2} 傷害，帶有灼燒周圍一切的聖火靈氣"],["A three-headed hydra near the nearest pack for {}s, spitting fire bolts, {} damage each","在最近的怪物群附近召喚三頭九頭蛇 {1} 秒，噴出火彈，各 {2} 傷害"],["{} arrows that burst into freezing ice, 90 damage around what they hit and a 3s chill","{1} 支爆出冰霜的箭，對命中處周圍造成 90 傷害並冰冷 3 秒"],["Werebear for {}s: blows of {}, each {} more a charge up to 13 (the last stuns); no spells","變身熊人 {1} 秒：攻擊 {2}，每層蓄能多 {3}，最多 13 層（最後一擊暈眩）；無法施法"],["{} trailing poison clouds, {} damage and {} poison over {}s to every monster in the clouds","拖曳毒雲的{1}，對雲中每隻怪物造成 {2} 傷害並在 {4} 秒內造成 {3} 毒素傷害"],["Thrown axes deal {}% more damage and have +{}% chance to fly on through what they hit","投擲的斧頭傷害增加 {1}%，並有 +{2}% 機率穿透目標"],["Curse, {}s: damage you and summons deal monsters within {} of the nearest heals you {}%","詛咒 {1} 秒：你與召喚物對最近目標 {2} 範圍內怪物造成的傷害，會恢復你 {3}%"],["A blow at the toughest monster in reach, {} damage, stunning it for {}s (bosses less)","攻擊範圍內最強的怪物，{1} 傷害，暈眩 {2} 秒（首領較短）"],["Claws, 36 damage; every fourth blow shatters ice, {} damage around and a long chill","爪擊，36 傷害；每第四擊震碎寒冰，對周圍造成 {1} 傷害並長時間冰冷"],["Maul as a werebear for {}s; every {}rd swing a stomp, {} damage within {} yards, stunning","以熊人形態重擊 {1} 秒；每第 {2} 次揮擊會踐踏，{4} 碼內 {3} 傷害並暈眩"],["Curse, {}s: monsters within {} of the nearest flee and don't attack (not act bosses)","詛咒 {1} 秒：最近目標 {2} 範圍內的怪物逃跑且不攻擊（幕首領除外）"],["A trap near the nearest pack sends out 5 waves of fire, {} damage to all they pass","最近怪物群附近的陷阱發出 5 波火焰，對經過的一切造成 {1} 傷害"],["When monsters close in, blink on ahead where they're fewest; ready again after {}s","怪物逼近時瞬移到前方怪物最少處；{1} 秒後可再次使用"],["Your shadow fights beside you, {} damage a blow, {} life; every third blow is a kick","你的影子在身旁作戰，每次攻擊 {1} 傷害，{2} 生命；每第三擊是踢擊"],["A spear thrust charged with lightning at the toughest monster in reach, {} damage","對範圍內最強的怪物發出帶電刺擊，{1} 傷害"],["A spinning blade shuttles between you and the nearest pack for {}s, {} damage a cut","旋轉的刀刃在你與最近的怪物群之間來回 {1} 秒，每次斬擊 {2} 傷害"],["An army: up to {} skeletons, and slain monsters rise to fight for you (up to {}, {}s)","大軍：最多 {1} 具骷髏，被殺的怪物會復活為你作戰（最多 {2} 隻，{3} 秒）"],["Blink to the toughest monster ahead and kick it, {} damage, releasing all charges","瞬移到前方最強的怪物並踢擊，{1} 傷害，釋放所有蓄能"],["For {}s burning rocks fall around you, the toughest monsters most, 90 damage each","{1} 秒內燃燒岩石落在你周圍（最強的怪物最多），各 90 傷害"],["A sentry near the nearest pack fires 5 bursts of 5 charged bolts, {} damage each","最近怪物群附近的守衛發射 5 輪、每輪 5 道充能彈，各 {1} 傷害"],["For {}s a storm rages within {} yards: 45 cold damage 2.5 times a second, chilling","{1} 秒內，{2} 碼範圍內颳起風暴：每秒 2.5 次 45 冰寒傷害並冰冷"],["The ground erupts under the nearest pack for {}s, across {} yards, {} damage a burst","最近的怪物群下方地面爆發 {1} 秒，範圍 {2} 碼，每次爆發 {3} 傷害"],["Two blasts of cold in a fan before you, {} damage each, chilling what they touch","向前方扇形噴出兩道寒氣，各 {1} 傷害並冰冷"],["{} fire trails, {} yards, at the nearest monster, burning {} damage 4 times a second","向最近的怪物放出 {1} 道 {2} 碼的火焰路徑，每秒 4 次造成 {3} 傷害"],["Claws, 32 damage; every fourth blow a thunder nova, {} damage, and charged bolts","爪擊，32 傷害；每第四擊發出雷霆新星，{1} 傷害，並放出充能彈"],["A rapid volley of {} arrows spread over the monsters around you, 40 damage each","對周圍怪物快速連射 {1} 支箭，各 40 傷害"],["A volcano under the nearest pack for {}s, raining burning rocks, 65 damage each","在最近的怪物群下方召喚火山 {1} 秒，降下燃燒岩石，各 65 傷害"],["Dash through the monsters in your path, {} damage to each and a blow at the end","衝過路徑上的怪物，各造成 {1} 傷害，最後再攻擊一次"],["Leap the way you run (at a pack when still); the landing knocks back, {} damage","往奔跑方向跳躍（靜止時跳向怪物群）；落地時擊退，{1} 傷害"],["Two claw blows at the toughest in reach, {} damage each, releasing all charges","對範圍內最強的敵人揮爪兩次，各 {1} 傷害，釋放所有蓄能"],["Werewolf for {}s near monsters: +{}% life, claws of {} every {}s, +{}% crit; no spells","靠近怪物時變身狼人 {1} 秒：+{2}% 生命，每 {4} 秒爪擊 {3}，+{5}% 致命一擊；無法施法"],["Aura: monsters that strike you in melee take back {}% of the blow, +{}% a level","靈氣：近戰攻擊你的怪物承受 {1}% 的反傷，每級 +{2}%"],["A crushing blow at the toughest monster in reach, {} damage, knocking it back","對範圍內最強的怪物壓碎性打擊，{1} 傷害並擊退"],["A golem of clay holds the horde back and slows what it hits, {} life, {} damage","黏土石魔擋住怪物群並緩速被擊中的目標，{1} 生命，{2} 傷害"],["A spear thrust at every monster around you in turn (up to {}), 60 damage each","依序刺擊你周圍的每隻怪物（最多 {1} 隻），各 60 傷害"],["A golem of blood, {} life, {} damage; every blow it lands heals you for {}% of it","血石魔，{1} 生命，{2} 傷害；它的每次攻擊會以傷害的 {3}% 治療你"],["Wereforms last {}s longer, {}s more a level, and give +{}% more life, +{}% a level","變身持續時間延長 {1} 秒（每級再加 {2} 秒），並增加 +{3}% 生命（每級 +{4}%）"],["A corpse by the nearest monster bursts into poison: {} over {}s to all within {}","最近怪物旁的屍體爆出毒素：{3} 範圍內所有怪物 {2} 秒內受到 {1}"],["A heavy spear thrust at the toughest monster in reach, {} damage, {} to a boss","對範圍內最強的怪物重重刺擊，{1} 傷害，對首領 {2}"],["3 tornadoes wander the horde, {} damage and a stun to each monster they pass","3 道龍捲風在怪物群中遊蕩，對經過的怪物造成 {1} 傷害並暈眩"],["Werewolf for {}s: a flurry of {} blows at all in reach, {} damage each, every {}s","變身狼人 {1} 秒：每 {4} 秒對範圍內所有敵人連續攻擊 {2} 次，各 {3} 傷害"],["A bomb thrown at the nearest monster, bursting for {} fire damage around it","向最近的怪物投擲炸彈，爆炸對周圍造成 {1} 火焰傷害"],["Bone walls cage the {} near you for {}s, bosses too (act bosses half as long)","白骨之牆將你附近的{1}囚禁 {2} 秒，首領也會（幕首領時間減半）"],["You fell in {} after {}, at level {#}, having slain {#} monsters. +{#} gold (best: {}).","你在{1}倒下，歷時 {2}，等級 {3}，共擊殺 {4} 隻怪物。+{5} 金幣（最佳：{6}）。"],["Whirl {} yards through the horde, {} damage to each monster 5 times a second","在怪物群中旋轉 {1} 碼，每秒 5 次對每隻怪物造成 {2} 傷害"],["{} javelins that burst into lightning forking to {} monsters, 70 damage each","{1} 支爆出閃電的標槍，分岔擊中 {2} 隻怪物，各 70 傷害"],["Frozen Armor for {}s: melee attackers get a {}s chill; {}% of their blows miss","冰封裝甲 {1} 秒：近戰攻擊者被冰冷 {2} 秒；他們的攻擊有 {3}% 落空"],["You have {} gold · What a hero sells stays here until that hero's next run","你有 {1} 金幣 · 英雄出售的物品會留在這裡，直到該英雄開始下一輪"],["Aura: monsters slain near you heal you {} life, {}% of the time, +{}% a level","靈氣：在你附近被殺的怪物有 {2}% 機率為你恢復 {1} 生命，每級 +{3}%"],["A ring of poison out to 230: 180 poison over {}s to everything it touches","向外擴散至 230 的毒環：碰到的一切 {1} 秒內受到 180 毒素傷害"],["{} arrows that explode for 90 damage and leave the ground burning for 3s","{1} 支爆炸的箭，造成 90 傷害並使地面燃燒 3 秒"],["Aura: +{}% fire, cold and lightning resistance; chill wears off {}% faster","靈氣：+{1}% 火焰、冰寒與閃電抗性；冰冷效果消退快 {2}%"],["A ring of frost out to {} range, {} damage, chilling all it touches for {}s","向外擴散至 {1} 距離的冰霜環，{2} 傷害，冰冷碰到的一切 {3} 秒"],["{} bone spirits, each hunting down one of the nearest monsters, {} damage","{1} 道骨魂，各自追擊一隻最近的怪物，{2} 傷害"],["Spirits' boons and vines' meals are {}% stronger, creepers' poison too","靈體的增益與藤蔓的吞食效果強 {1}%，藤蔓的毒素也是"],["+{}% chance for her attacks (and the Valkyrie's) to deal double damage","她（與女武神）的攻擊 +{1}% 機率造成雙倍傷害"],["Up to 5 spirit wolves fight beside you, {} damage a bite; and {} ravens","最多 5 隻狼靈在你身旁作戰，每次撕咬 {1} 傷害；另有 {2} 隻烏鴉"],["Monsters within {} lose {}% of their life (a third of that for elites)","{1} 範圍內的怪物失去 {2}% 生命（精英為三分之一）"],["Aura: +{}% lightning resistance, and +{}% to its maximum (75%) a level","靈氣：+{1}% 閃電抗性，每級 +{2}% 抗性上限（75%）"],["{} quick spear thrusts at the nearest monster in reach, {} damage each","對範圍內最近的怪物快速刺擊 {1} 次，各 {2} 傷害"],["+{}% chance for arrows and javelins to fly on through what they hit","箭矢與標槍 +{1}% 機率穿透目標"],["{} at the toughest in reach, {} damage; the last releases all charges","對範圍內最強的敵人{1}，{2} 傷害；最後一擊釋放所有蓄能"],["{} that seek monsters, {} damage and a stun to each they pass through","追蹤怪物的{1}，對經過的每隻怪物造成 {2} 傷害並暈眩"],["{} spears of bone that pierce every monster in their path, {} damage","{1} 支貫穿路徑上所有怪物的骨矛，{2} 傷害"],["{} of sparks over the nearest pack for {}s, {} damage 4 times a second","{1}火花籠罩最近的怪物群 {2} 秒，每秒 4 次 {3} 傷害"],["Hurts every monster around you for {} damage and stuns them for {}s","對你周圍所有怪物造成 {1} 傷害並暈眩 {2} 秒"],["Ravens, wolves, the grizzly and creepers get +{}% life and damage","烏鴉、狼、灰熊與藤蔓獲得 +{1}% 生命與傷害"],["+{}% chance to sidestep a monster's hit while you're on the move","移動時 +{1}% 機率閃開怪物的攻擊"],["Aura: +{}% fire resistance, and +{}% to its maximum (75%) a level","靈氣：+{1}% 火焰抗性，每級 +{2}% 抗性上限（75%）"],["{} guided arrows that hunt through 6 monsters each, 65 damage","{1} 支導引箭，各追擊穿過 6 隻怪物，65 傷害"],["Monsters around you, bosses too, take {}% more damage for {}s","你周圍的怪物（包括首領）受到的傷害增加 {1}%，持續 {2} 秒"],["Curse, {}s: monsters within {} of a target deal {}% less damage","詛咒 {1} 秒：目標 {2} 範圍內的怪物造成的傷害減少 {3}%"],["Curse, {}s: monsters within {} of a target take {}% more damage","詛咒 {1} 秒：目標 {2} 範圍內的怪物受到的傷害增加 {3}%"],["+{}% physical damage; as a werewolf, {}% faster run (up to {}%)","+{1}% 物理傷害；狼人形態跑速快 {2}%（最多 {3}%）"],["Aura: +{}% movement speed, up to +{}%; Charge reaches further","靈氣：+{1}% 移動速度，最多 +{2}%；衝鋒距離更遠"],["Slain monsters have a {}% chance to leave a healing potion","被殺的怪物有 {1}% 機率掉落治療藥水"],["Leave a trail of fire behind you for {}s, {} damage per tick","在身後留下火焰路徑 {1} 秒，每次 {2} 傷害"],["Take 4% less damage; poison and chill wear off {}% faster","受到的傷害減少 4%；中毒與冰冷消退快 {1}%"],["Take 6% less damage; poison and chill wear off {}% faster","受到的傷害減少 6%；中毒與冰冷消退快 {1}%"],["A Valkyrie fights at your side, {} damage a spear thrust","女武神在你身旁作戰，每次刺擊 {1} 傷害"],["Two swift blows at the monsters in reach, {} damage each","對範圍內的怪物快速攻擊兩次，各 {1} 傷害"],["{} arrows that freeze what they hit solid for {}s, {} damage","{1} 支箭，將命中目標冰凍 {2} 秒，{3} 傷害"],["+{}% physical damage and +{}% chance of a critical strike","+{1}% 物理傷害與 +{2}% 致命一擊機率"],["{} of holy light that {} {}, {} damage (double to the undead)","{1}聖光，{2}{3}，{4} 傷害（對不死生物加倍）"],["Your claws and blades poison, {} damage a second for {}s","你的爪與刀刃附帶毒素，每秒 {1} 傷害，持續 {2} 秒"],["A fan of {} teeth at the nearest monster, {} damage each","向最近的怪物扇形射出 {1} 顆骨牙，各 {2} 傷害"],["{} of lightning through every monster in line, {} damage","{1}閃電貫穿直線上所有怪物，{2} 傷害"],["Skeletons, mages and revives get +{}% life and damage","骷髏、骷髏法師與復活怪物獲得 +{1}% 生命與傷害"],["Your fire skills burn {}% harder, the Hydra's bolts {}%","你的火焰技能傷害提高 {1}%，九頭蛇的火彈提高 {2}%"],["A blow of the mind at {}, {} damage, knocking them back","對{1}發出心靈衝擊，{2} 傷害並擊退"],["Werewolf and werebear blows heal {}% of their damage","狼人與熊人的攻擊會恢復傷害的 {1}%"],["+{}% chance to block a monster's hit with your claws","+{1}% 機率用爪格擋怪物的攻擊"],["+{}% chance to sidestep a monster's missile entirely","+{1}% 機率完全閃開怪物的飛射物"],["Absorbs Lightning Damage (+{} per Character Level)","吸收閃電傷害（每角色等級 +{1}）"],["{} that jump between up to {} monsters, {} damage each","{1}，在最多 {2} 隻怪物間跳躍，各 {3} 傷害"],["{} {} fire, cold, lightning or poison bolts, {} damage","{1}{2}火焰、冰寒、閃電或毒素彈，{3} 傷害"],["+{}% chance to sidestep a monster's hit entirely","+{1}% 機率完全閃開怪物的攻擊"],["Transmuted: a portal to {}\nopens after Mephisto {}","已合成：通往{1}的傳送門\n會在擊敗墨菲斯托後開啟{2}"],["Stab {} within reach, {} damage and {} poison over {}s","刺擊範圍內的{1}，{2} 傷害並在 {4} 秒內造成 {3} 毒素傷害"],["{} {} after monsters, {} poison over {}s a bite, {} life","{1}{2}怪物，每次撕咬在 {4} 秒內造成 {3} 毒素傷害，{5} 生命"],["{}% chance of a critical strike: double damage","{1}% 致命一擊機率：雙倍傷害"],["The cow portal will open after Mephisto, on {}","奶牛關傳送門會在擊敗墨菲斯托後開啟（{1}）"],["Only the {} can use that: stash it at Charsi's","只有{1}能使用：到恰西那裡放進儲物箱"],["Absorbs Cold Damage (+{} per Character Level)","吸收冰寒傷害（每角色等級 +{1}）"],["Absorbs Fire Damage (+{} per Character Level)","吸收火焰傷害（每角色等級 +{1}）"],["Each point past the class's: +{} maximum life","超過職業初始值的每一點：+{1} 生命上限"],["+{}% fire damage; wereform claws burn with it","+{1}% 火焰傷害；變身後的爪擊也會帶火焰"],["No room for that with the {} or in the stash","{1}身上和儲物箱都沒有空間"],["A ring of lightning out to {} range, {} damage","向外擴散至 {1} 距離的閃電環，{2} 傷害"],["{} from the class, {} from level-ups and gear","職業 {1}，升級與裝備 {2}"],["You cleared all five acts{} in {}, at level {#}.","你以 {2} 通過了全部五幕{1}，等級 {3}。"],["The Oak Sage follows you: +{}% maximum life","橡木智者跟隨你：+{1}% 生命上限"],["Aura: poison and chill wear off {}% faster","靈氣：中毒與冰冷效果消退快 {1}%"],["a javelin, or its burst's poison over {}s","標槍，或其爆炸毒素（{1} 秒）"],["Up to {} fight beside you, {} life, {} damage","最多{1}在你身旁作戰，{2} 生命，{3} 傷害"],["{}% Better Chance of Getting Magic Items","尋獲魔法物品機率提高 {1}%"],["Your {} one level higher, past their max","你的{1}提高一級，可超過上限"],["+{}% cold damage and take 5% less damage","+{1}% 冰寒傷害，受到的傷害減少 5%"],["{}% Chance to cast level {} {} when you Die","死亡時有 {1}% 機率施放等級 {2} 的{3}"],["Every skill recharges in {} of its time","所有技能冷卻時間變為原本的 {1}"],["{}% Chance to cast level {} {} on striking","擊中時有 {1}% 機率施放等級 {2} 的{3}"],["{}% Chance to cast level {} {} when struck","被擊中時有 {1}% 機率施放等級 {2} 的{3}"],["+{}% per level of {} skills and passives","{2}技能與被動每級 +{1}%"],["Throw an axe from each hand, {} damage{}","雙手各投擲一把斧頭，{1} 傷害{2}"],["Attacker Takes Lightning Damage of {}","攻擊者受到 {1} 閃電傷害"],["{} at monsters in reach, {} damage each","對範圍內的怪物{1}，各 {2} 傷害"],["{} that crackle forward, {} damage each","向前劈啪竄出的{1}，各 {2} 傷害"],["{} {} at monsters, {} damage, {} times each","{1}向怪物{2}，{3} 傷害，各 {4} 次"],["Adds {}-{} Poison Damage over {} Seconds","增加 {1}-{2} 毒素傷害，持續 {3} 秒"],["{}% Chance to cast level {} {} on attack","攻擊時有 {1}% 機率施放等級 {2} 的{3}"],["Build {} is ready: see the main menu","版本 {1} 已就緒：請到主選單查看"],["{} that pierces {} and chills, {} damage","{1}，穿透 {2} 隻並冰冷，{3} 傷害"],["Aura: heal {} life a second, up to {}","靈氣：每秒恢復 {1} 生命，最多 {2}"],["{} at the nearest monsters, {} damage","向最近的怪物發射{1}，{2} 傷害"],["{} {} out around you, {} damage to all {}","{1}向你周圍{2}，對所有{4}造成 {3} 傷害"],["{} at the nearest monster, {} damage","向最近的怪物發射{1}，{2} 傷害"],["Only the {} can use that: stash it","只有{1}能使用：放進儲物箱"],["Levels gear adds to every {} skill","裝備增加的等級套用到每個{1}技能"],["{} that pierce {} and chill, {} damage","{1}，穿透 {2} 隻並冰冷，{3} 傷害"],["+{}% Attack Rating against Demons","+{1}% 對惡魔的攻擊準確率"],["+{}% Attack Rating against Undead","+{1}% 對不死生物的攻擊準確率"],["Ready: a chest evolves it into {}","就緒：寶箱會將它進化為{1}"],["You fell in {} after {}, at level {#}.","你在{1}倒下，歷時 {2}，等級 {3}。"],["Monsters' missiles fly {}% slower","怪物的飛射物速度減慢 {1}%"],["a javelin, or its poison over {}s","標槍，或其毒素（{1} 秒）"],["{} that {} for {} damage around what {}","{1}，在{4}{2}，造成 {3} 範圍傷害"],["{}% Increased Chance of Blocking","格擋機率提高 {1}%"],["Her attacks deal {}% more damage","她的攻擊造成的傷害增加 {1}%"],["Aura: skills recharge {}% faster","靈氣：技能冷卻快 {1}%"],["A fan of {} arrows, {} damage each","扇形射出 {1} 支箭，各 {2} 傷害"],["+{} Poison Damage over {} Seconds","+{1} 毒素傷害，持續 {2} 秒"],["Ready: a chest evolves {} into {}","就緒：寶箱會將{1}進化為{2}"],["Hit Causes Monster to Flee {}%","擊中使怪物逃跑 {1}%"],["For {}s you take {}% less damage","{1} 秒內受到的傷害減少 {2}%"],["{} comes when the bar runs out","量條用完時{1}就會出現"],["Missile Damage Reduced by {}%","飛射物傷害減少 {1}%"],["Level {} when the globe fills","球體填滿時升到等級 {1}"],["Evolves {} into {}, also needs:","將{1}進化為{2}，還需要："],["A portal to Act {} has opened","通往第 {1} 幕的傳送門已開啟"],["{}% Extra Gold from Monsters","從怪物身上多獲得 {1}% 金幣"],["Level {} {} Aura When Equipped","裝備時獲得等級 {1} 的{2}靈氣"],["Poison Length Reduced by {}%","中毒時間減少 {1}%"],["+{}% Bonus to Attack Rating","+{1}% 攻擊準確率加成"],["+{}% Increased Attack Speed","+{1}% 提高攻擊速度"],["{}% Chance of Crushing Blow","{1}% 機率造成壓碎性打擊"],["{}% Deadly Strike per Level","每級 {1}% 致命攻擊"],["Attacker Takes Damage of {}","攻擊者受到 {1} 傷害"],["Level {} now and {} at level {}","目前等級 {1}，在等級 {3} 時為 {2}"],["Next {} at character level {}","角色等級 {2} 時獲得下一個{1}"],["The portal takes you in {}…","傳送門將在 {1} 後帶你離開…"],["{}% Chance to cast level {} {} {}","{4}有 {1}% 機率施放等級 {2} 的{3}"],["Magic Damage Reduced by {}","魔法傷害減少 {1}"],["Base Damage Reduction: {}%","基礎傷害減免：{1}%"],["Skills recharge {}% faster","技能冷卻快 {1}%"],["Press {} or click to drink","按 {1} 或點擊飲用"],["{}% Chance of Open Wounds","{1}% 機率造成撕裂傷口"],["{} Receives Bonuses From:","{1} 從以下技能獲得加成："],["+{}% damage per level of {}","{2}每級 +{1}% 傷害"],["+{}% per level of {} skills","{2}技能每級 +{1}%"],["A portal to {} has opened","通往{1}的傳送門已開啟"],["+{} Life after each Kill","每次擊殺 +{1} 生命"],["+{}% Faster Hit Recovery","+{1}% 快速打擊恢復"],["{}: {} at character level {}","{1}：角色等級 {3} 時 {2}"],["+5 starting {} per rank\n{}","每級起始 {1} +5\n{2}"],["Only the {} can use that{}","只有{1}能使用{2}"],["{}% Life Stolen Per Hit","擊中偷取 {1}% 生命"],["{}% Mana Stolen Per Hit","擊中偷取 {1}% 法力"],["One-Hand Damage: {} to {}","單手傷害：{1} 至 {2}"],["Two-Hand Damage: {} to {}","雙手傷害：{1} 至 {2}"],["+{}% Faster Block Rate","+{1}% 快速格擋率"],["Synergies: +{}% damage","協同加成：+{1}% 傷害"],["in your next run on {}","在你下一輪的{1}難度"],["+{} to Life per Level","每級 +{1} 生命"],["+{} to Mana per Level","每級 +{1} 法力"],["+{}% Damage to Demons","+{1}% 對惡魔的傷害"],["+{}% Damage to Undead","+{1}% 對不死生物的傷害"],["+{}% Enhanced Defense","+{1}% 增強防禦"],["+{}% Faster Cast Rate","+{1}% 快速施法率"],["Level {} {} ({}/{} Charges)","等級 {1} {2}（{3}/{4} 次）"],["Lightning Resist +{}%","閃電抗性 +{1}%"],["Damage Reduced by {}%","傷害減少 {1}%"],["Evolves from {} with {}","由{1}搭配{2}進化而來"],["Another run as the {}","以{1}再玩一輪"],["Slay Baal on {} first","請先在{1}難度擊敗巴爾"],["The {} is coming soon","{1}即將推出"],["+{} to {} Skill Levels","+{1} {2}技能等級"],["+{} Lightning Absorb","+{1} 閃電吸收"],["+{}% Enhanced Damage","+{1}% 增強傷害"],["+{}% Faster Run/Walk","+{1}% 移動速度加乘"],["Lightning Absorb {}%","閃電吸收 {1}%"],["Damage Reduced by {}","傷害減少 {1}"],["{} shorter cooldowns","冷卻時間縮短 {1}"],["The portal to Act {}","通往第 {1} 幕的傳送門"],["Less {} damage taken{}","受到的{1}傷害減少{2}"],["{} · Level {#} · {#} kills","{1} · 等級 {2} · {3} 擊殺"],["-{}% Target Defense","-{1}% 目標防禦"],["{}% Piercing Attack","{1}% 穿透攻擊"],["All Resistances +{}","所有抗性 +{1}"],["Slows Target by {}%","目標緩速 {1}%"],["Attack Damage: +{}%","攻擊傷害：+{1}%"],["{#} Damage per Level","每級 {1} 傷害"],["{} is open to the {}.","{1}已向{2}開放。"],["+{} Average Damage","+{1} 平均傷害"],["+{}% Attack Damage","+{1}% 攻擊傷害"],["+{}% Pickup Radius","+{1}% 拾取範圍"],["Poison Resist +{}%","毒素抗性 +{1}%"],["Freezes Target +{}","冰凍目標 +{1}"],["Replenish Life +{}","補充生命 +{1}"],["Required Level: {}","需要等級：{1}"],["+{}% per level of {}","{2}每級 +{1}%"],["Monsters slain: {}","擊殺怪物：{1}"],["Up to {#} skeletons","最多 {1} 具骷髏"],["+{} to All Skills","+{1} 所有技能"],["+{}% maximum life","+{1}% 生命上限"],["{}% Deadly Strike","{1}% 致命攻擊"],["Base Damage: +{}%","基礎傷害：+{1}%"],["Sells for {} gold","售價 {1} 金幣"],["Sold {} for {} gold","以 {2} 金幣賣出{1}"],["Experience: {} / {}","經驗值：{1} / {2}"],["{} evolved into {}!","{1}已進化為{2}！"],["Build {} is ready","版本 {1} 已就緒"],["Adds {}-{} {} Damage","增加 {1}-{2} {3}傷害"],["+{} magic damage","+{1} 魔法傷害"],["Cold Resist +{}%","冰寒抗性 +{1}%"],["Fire Resist +{}%","火焰抗性 +{1}%"],["{} over {} seconds","{1}，持續 {2} 秒"],["You have {} gold","你有 {1} 金幣"],["Evolves into {}:","進化為{1}："],["{#} hits a second","每秒 {1} 次"],["{#} charged bolts","{1} 道充能彈"],[" (+{} from gear)","（裝備 +{1}）"],["Adds {}-{} Damage","增加 {1}-{2} 傷害"],["+{} Cold Absorb","+{1} 冰寒吸收"],["+{} Fire Absorb","+{1} 火焰吸收"],["Cold Absorb {}%","冰寒吸收 {1}%"],["Fire Absorb {}%","火焰吸收 {1}%"],["Now +{}% damage","目前 +{1}% 傷害"],["Loading the {}…","正在載入{1}…"],["{} on Nightmare","{1}（惡夢）"],[" on Nightmare","（惡夢）"],["{#} magic arrows","{1} 支魔法箭"],["Evolved from {}","由{1}進化而來"],["+{} to {} Skills","+{1} {2}技能"],["Sold by the {}","由{1}出售"],["Per second: {}","每秒：{1}"],["Keeps level {}","保留等級 {1}"],["{}: {} at level {}","{1}：等級 {3} 時 {2}"],["Back to the {}","回到{1}"],["{#} fire arrows","{1} 支火焰箭"],["{#} magic arrow","{1} 支魔法箭"],["{#} swift blows","{1} 次快速攻擊"],["when you Die","死亡時"],["{#} {} per Level","每級 {1} {2}"],["Best time: {}","最佳紀錄：{1}"],["Passives {}/6","被動技能 {1}/6"],["from level {}","從等級 {1} 起"],["{} approaches","{1}逼近了"],["{#} fire bolts","{1} 道火彈"],["{#} fire balls","{1} 顆火球"],["{#} fire arrow","{1} 支火焰箭"],["{#} swift blow","{1} 次快速攻擊"],["when struck","被擊中時"],["on striking","擊中時"],["{#} per Level","每級 {1}"],["{#} per level","每級 {1}"],["and {} more.","還有 {1} 個。"],["{#} ice bolts","{1} 道冰彈"],["{#} skeletons","{1} 具骷髏"],["Level {#} to {#}","等級 {1} → {2}"],["+{#} {} Damage","+{1} {2}傷害"],["+{}% Damage","+{1}% 傷害"],["If worn: {}","裝備時：{1}"],["Level {} / {}","等級 {1} / {2}"],["Life: {} / {}","生命：{1} / {2}"],["Skills {}/6","技能 {1}/6"],["Replaces {}","取代{1}"],["{} has come","{1}來了"],["{#} javelins","{1} 支標槍"],["{#} monsters","{1} 隻怪物"],["{#} javelins","{1} 支標槍"],["{#} monsters","{1} 隻怪物"],["{#} skeleton","{1} 具骷髏"],["{#} twisters","{1} 道扭曲旋風"],["Saved in {}","儲存於{1}"],["Rank {} / {}","等級 {1} / {2}"],["Act {}: {}. {}","第 {1} 幕：{2}。{3}"],["{} weakens","{1}變弱了"],["{#} Regular","{1} 一般"],["{#} hammers","{1} 把戰鎚"],["{#} meteors","{1} 顆隕石"],["{} on Hell","{1}（地獄）"],[" on Hell","（地獄）"],["{#} hammers","{1} 把祝福之槌"],["{#} javelin","{1} 支標槍"],["{#} monster","{1} 隻怪物"],["{#} twister","{1} 道扭曲旋風"],["{} Level {#}","{1}第 {2} 層"],["{} upkeep","{1}維持"],["{#} arrows","{1} 支箭"],["{#} spears","{1} 支矛"],["{#} blades","{1} 把刀刃"],["{#} arrows","{1} 支箭"],["{#} hammer","{1} 把祝福之槌"],["{#} sparks","{1} 道火花"],["+{#}% to {}","+{1}% {2}"],["+{} gold","+{1} 金幣"],["Cost: {}","價格：{1}"],["Level {#}","等級 {1}"],["level {#}","等級 {1}"],["Up to {#}","最多 {1}"],["New {} {}/{}","新{1} {2}/{3}"],["Drop {}?","丟棄{1}？"],["Act {}: {}","第 {1} 幕：{2}"],["{} (Esc)","{1}（Esc）"],["{#} bolts","{1} 道彈矢"],["{#} kills","{1} 擊殺"],["{#} arrow","{1} 支箭"],["{#} bolts","{1} 道彈矢"],["{#} kicks","{1} 次踢擊"],["{#} spark","{1} 道火花"],["Up to {}","最多 {1}"],["max {#}/{#},","上限 {1}/{2}，"],["max {#}/{#}.","上限 {1}/{2}。"],["+{#} to {}","+{1} {2}"],["-{#} to {}","-{1} {2}"],["{#}% to {}","{1}% {2}"],["{#} gold","{1} 金幣"],["best {}","最佳 {1}"],["{} trap","{1}陷阱"],["{#} of 3","{1} / 3"],["{}: OFF","{1}：關"],["{#} axes","{1} 把斧頭"],["{#} bolt","{1} 道彈矢"],["{#} kick","{1} 次踢擊"],["{#} webs","{1} 張網"],["max {#}/{#}","上限 {1}/{2}"],["ACT {#}","第 {1} 幕"],["Act {#}","第 {1} 幕"],["{#} web","{1} 張網"]],"skillTags":{"Magic Arrow":"魔法","Fire Arrow":"魔法","Cold Arrow":"魔法","Exploding Arrow":"魔法","Multiple Shot":"物理","Guided Arrow":"物理","Jab":"物理","Power Strike":"魔法","Poison Javelin":"魔法","Impale":"物理","Lightning Bolt":"魔法","Valkyrie":"物理","Ice Arrow":"魔法","Strafe":"物理","Fend":"物理","Charged Strike":"魔法","Lightning Strike":"魔法","Plague Javelin":"魔法","Lightning Fury":"魔法","Freezing Arrow":"魔法","Immolation Arrow":"魔法","Widowmaker":"物理","Fire Bolt":"魔法","Ice Bolt":"魔法","Charged Bolt":"魔法","Nova":"魔法","Blaze":"魔法","Inferno":"魔法","Hydra":"魔法","Frost Nova":"魔法","Ice Blast":"魔法","Fire Ball":"魔法","Meteor":"魔法","Frozen Orb":"魔法","Chain Lightning":"魔法","Thunder Storm":"魔法","Fire Wall":"魔法","Glacial Spike":"魔法","Blizzard":"魔法","Shiver Armor":"魔法","Chilling Armor":"魔法","Teeth":"魔法","Poison Dagger":"魔法","Raise Skeleton":"物理","Raise Skeletal Mage":"魔法","Clay Golem":"物理","Bone Spear":"魔法","Bone Spirit":"魔法","Poison Explosion":"魔法","Poison Nova":"魔法","Revive":"物理","Blood Golem":"物理","Iron Golem":"物理","Fire Golem":"魔法","Fire Blast":"魔法","Shock Web":"魔法","Charged Bolt Sentry":"魔法","Blade Sentinel":"物理","Tiger Strike":"物理","Cobra Strike":"物理","Fists of Fire":"魔法","Dragon Talon":"物理","Psychic Hammer":"魔法","Shadow Warrior":"物理","Wake of Fire":"魔法","Wake of Inferno":"魔法","Lightning Sentry":"魔法","Death Sentry":"魔法","Blade Fury":"物理","Blade Shield":"物理","Phoenix Strike":"魔法","Claws of Thunder":"魔法","Blades of Ice":"魔法","Dragon Claw":"物理","Dragon Tail":"魔法","Dragon Flight":"物理","Mind Blast":"魔法","Shadow Master":"物理","Double Swing":"物理","Bash":"物理","Stun":"物理","Leap":"物理","Double Throw":"物理","Whirlwind":"物理","War Cry":"物理","Frenzy":"物理","Concentrate":"物理","Berserk":"魔法","Leap Attack":"物理","Lacerator":"物理","Blessed Hammer":"魔法","Holy Bolt":"魔法","Zeal":"物理","Charge":"物理","Holy Shield":"魔法","Smite":"物理","Sacrifice":"物理","Vengeance":"魔法","Zakarum's Hand":"魔法","Fist of the Heavens":"魔法","Passion":"物理","Herald of Zakarum":"物理","Exile":"魔法","Firestorm":"魔法","Arctic Blast":"魔法","Fissure":"魔法","Twister":"物理","Raven":"物理","Poison Creeper":"魔法","Werewolf":"物理","Werebear":"物理","Molten Boulder":"魔法","Volcano":"魔法","Armageddon":"魔法","Tornado":"物理","Hurricane":"魔法","Summon Spirit Wolf":"物理","Summon Dire Wolf":"物理","Summon Grizzly":"物理","Fury":"物理","Maul":"物理","Shock Wave":"物理"}};
@@ -2581,6 +3930,367 @@ prefix: { Beast: '野獸', Eagle: '老鷹', Raven: '渡鴉', Viper: '蝮蛇', Gh
 suffix: { Bite: '咬', Scratch: '抓', Scalpel: '小刀', Fang: '尖牙', Gutter: '血槽', Thirst: '渴望', Razor: '剃刀', Scythe: '鐮刀', Edge: '刃', Saw: '鋸', Splitter: '劈裂者', Cleaver: '切肉刀', Sever: '斷裂者', Sunder: '撕碎者', Rend: '撕裂', Mangler: '亂砍者', Slayer: '屠殺者', Reaver: '強奪者', Spawn: '子嗣', Gnash: '咬牙', Star: '星', Blow: '重擊', Smasher: '擊碎者', Bane: '剋星', Crusher: '壓碎者', Breaker: '破壞者', Grinder: '研磨者', Crack: '破裂', Mallet: '木槌', Knell: '喪鐘', Lance: '長槍', Spike: '釘', Impaler: '刺穿者', Skewer: '串列者', Prod: '戳刺', Scourge: '鞭', Wand: '魔杖', Wrack: '摧殘', Barb: '倒鉤', Needle: '針', Dart: '鏢', Bolt: '箭矢', Quarrel: '弩箭', Fletch: '箭雨', Flight: '翔', Nock: '箭尾', Horn: '角', Stinger: '有刺者', Quill: '羽', Goad: '刺棒', Branch: '枝', Spire: '尖塔', Song: '歌', Call: '呼喚', Cry: '哭號', Spell: '法術', Chant: '吟唱', Weaver: '編織者', Gnarl: '樹瘤', Visage: '臉', Crest: '頂飾', Circlet: '飾環', Veil: '面紗', Hood: '兜帽', Mask: '面具', Brow: '額頭', Casque: '盔', Visor: '面甲', Cowl: '蒙頭斗蓬', Hide: '獸皮', Pelt: '毛皮', Carapace: '甲殼', Coat: '外衣', Wrap: '包裹', Suit: '套裝', Cloak: '斗蓬', Shroud: '壽衣', Jack: '皮甲', Mantle: '披風', Guard: '守衛', Badge: '徽章', Rock: '磐石', Aegis: '庇護', Ward: '保護', Tower: '高塔', Shield: '盾護', Wing: '翼', Mark: '標記', Emblem: '象徵', Hand: '手', Fist: '拳', Claw: '爪', Clutches: '手爪', Grip: '緊握', Grasp: '抓取', Hold: '掌握', Touch: '觸碰', Finger: '手指', Knuckle: '指節', Shank: '脛', Spur: '馬刺', Tread: '踏步', Stalker: '潛行者', Greaves: '脛甲', Blazer: '烈焰', Nails: '釘', Trample: '蹂躪', Brogues: '粗皮鞋', Track: '足跡', Slippers: '便鞋', Clasp: '扣鉤', Buckle: '釦帶', Harness: '挽具', Lock: '鎖', Fringe: '邊飾', Winding: '捲繞', Chain: '鏈條', Strap: '皮帶', Lash: '鞭笞', Cord: '繩索', Knot: '繩結', Circle: '環', Loop: '圈', Eye: '之眼', Turn: '迴旋', Spiral: '螺旋', Coil: '盤繞', Gyre: '旋迴', Band: '箍', Whorl: '螺層', Talisman: '護符', Heart: '心', Noose: '套索', Necklace: '項鍊', Collar: '項圈', Beads: '串珠', Torc: '金絲項圈', Gorget: '頸甲', Scarab: '聖甲蟲', Wood: '木', Brand: '烙印', Bludgeon: '棍棒', Cudgel: '木棒', Loom: '織布機', Harp: '豎琴', Master: '專家', Bar: '鐵棒', Hew: '劈砍', Crook: '鉤', Mar: '損毀', Shell: '甲殼', Stake: '棍子', Picket: '尖木', Pale: '尖樁', Flange: '凸緣' }
 },
 text: {
+// 遊戲 20261122.1：協助檢查紀錄、線上遊戲重新解壓縮遊戲檔案
+"HELP CHECK RUNS": "協助檢查紀錄",
+"HELP CHECK RUNS: *": "協助檢查紀錄：{0}",
+"Helps check other players' runs while the app is open": "電腦版開著時，協助檢查其他玩家的紀錄",
+"Online play needs this build's copy of your game files, and yours differs. RE-EXTRACT copies them again from your Diablo II.": "線上遊戲需要用這個版本複製的遊戲檔案，但你的檔案不一樣。按「重新解壓縮」會從你的暗黑破壞神 II 重新複製。",
+"Your heroes are kept. Re-extract game files is also in the app menu. Online play needs an unmodded Diablo II.": "你的英雄都會保留。程式選單裡也有「重新解壓縮遊戲檔案」。線上遊戲需要沒有安裝模組的暗黑破壞神 II。",
+"RE-EXTRACT": "重新解壓縮",
+// 遊戲 20261120.1：線上遊戲（帳號、排隊、斷線）、恰西熔爐復原／淬鍊上限、物品過濾新行、16 個 D2R 符文之語
+"After an update, the beta reloads itself into the new version when you're in the menus or the camp, never during a run": "更新後，測試版會在你待在選單或營地時自動重新載入成新版本，不會在遊戲進行中重新載入",
+"Click again to sell": "再點一次出售",
+"Tap again to sell": "再點一下出售",
+"Sell *?": "出售{0}？",
+"Fire Absorb from Auras": "靈氣提供的火焰吸收",
+"Cold Absorb from Auras": "靈氣提供的冰寒吸收",
+"Lightning Absorb from Auras": "靈氣提供的閃電吸收",
+"Picks up a copy that rolls higher than yours on a stat and lower on none, and sells the rest": "只撿有任一數值比你的高、且沒有任何數值比較低的那件，其餘出售",
+"One of each adds a Pandemonium level beside your Terror offers": "三種各一把，會在恐懼層選項旁多一個混沌關卡",
+"The Forge's lock message now says the lock is for good and the item still works": "熔爐的鎖定訊息現在會說明是永久鎖定，而且物品仍然可以使用",
+"Imbue it into a unique": "灌注成獨特物品",
+"On one monster with no resistance of its own: your -% to Enemy Resistance and your hireling's auras count": "以單一隻本身沒有抗性的怪物計算：會算入你的降低敵人抗性和傭兵的靈氣",
+"Not in it: more monsters hit at once, curses and auras on them (Battle Cry, Conviction), Static Field, Crushing Blow and items' skills": "不包含：同時打中多隻怪物、怪物身上的詛咒和靈氣（戰嗥、信念）、靜態力場、壓碎性打擊和物品附帶的技能",
+"On the beta, an imported save, START OVER and your progress are kept after a reload, even when the phone's storage is nearly full": "測試版中，匯入的存檔、重新開始和你的進度在重新載入後都會保留，即使手機儲存空間快滿了也一樣",
+"This browser would not store the imported save: its storage is full, or turned off. It plays only until this page is closed. Free up space, or allow this site to keep data, then import it again.": "這個瀏覽器無法儲存匯入的存檔：儲存空間已滿或被關閉。關閉這個頁面後就會消失。請釋放空間，或允許這個網站儲存資料，再重新匯入一次。",
+"Shift-click: all points": "Shift＋點擊：投入全部點數",
+"Hold: all points": "長按：投入全部點數",
+"Sound is off. Press * to turn it on": "聲音已關閉。按 {0} 開啟",
+"Sound is off. Turn it on in SOUND OPTIONS": "聲音已關閉。請到「音效選項」開啟",
+"The screenshot was refused. Leave it out and try again.": "截圖被拒收。請拿掉截圖再試一次。",
+"The server refused the report, and not for its text. Try again later, or copy the diagnostics and send them on Discord.": "伺服器拒收了這份回報，原因不是文字內容。請稍後再試，或複製診斷資訊到 Discord 傳送。",
+"Evolutions held: * of *": "已有進化：{0} / {1}",
+"ETHEREAL UNIQUES": "└ 無形獨特必撿",
+"ETHEREAL RUNEWORDS": "└ 無形符文之語必撿",
+"Leaves magic items except charms and jewels on the floor, unnamed": "魔法物品（護符和珠寶除外）留在地上，不顯示名稱",
+"Sells magic items except charms and jewels as you pick them up": "撿起魔法物品（護符和珠寶除外）時直接出售",
+"Sells magic and rare items except charms and jewels as you pick them up": "撿起魔法和稀有物品（護符和珠寶除外）時直接出售",
+"Hides blue items except those kept by *": "隱藏藍色物品，{0}保留的除外",
+"Hides blue items except those kept by the * line": "隱藏藍色物品，「{0}」這一行保留的除外",
+"Hides blue items except those kept by the * and * lines": "隱藏藍色物品，「{0}」和「{1}」這兩行保留的除外",
+"Hides blue items except those kept by the *, * and * lines": "隱藏藍色物品，「{0}」、「{1}」和「{2}」這幾行保留的除外",
+"Hides blue items except those kept by the *, * and * more lines": "隱藏藍色物品，「{0}」、「{1}」和另外 {2} 行保留的除外",
+"Hides yellow items except those kept by *": "隱藏黃色物品，{0}保留的除外",
+"Hides yellow items except those kept by the * line": "隱藏黃色物品，「{0}」這一行保留的除外",
+"Hides yellow items except those kept by the * and * lines": "隱藏黃色物品，「{0}」和「{1}」這兩行保留的除外",
+"Hides yellow items except those kept by the *, * and * lines": "隱藏黃色物品，「{0}」、「{1}」和「{2}」這幾行保留的除外",
+"Hides yellow items except those kept by the *, * and * more lines": "隱藏黃色物品，「{0}」、「{1}」和另外 {2} 行保留的除外",
+"Sells blue items except those kept by *": "出售藍色物品，{0}保留的除外",
+"Sells blue items except those kept by the * line": "出售藍色物品，「{0}」這一行保留的除外",
+"Sells blue items except those kept by the * and * lines": "出售藍色物品，「{0}」和「{1}」這兩行保留的除外",
+"Sells blue items except those kept by the *, * and * lines": "出售藍色物品，「{0}」、「{1}」和「{2}」這幾行保留的除外",
+"Sells blue items except those kept by the *, * and * more lines": "出售藍色物品，「{0}」、「{1}」和另外 {2} 行保留的除外",
+"Sells yellow items except those kept by *": "出售黃色物品，{0}保留的除外",
+"Sells yellow items except those kept by the * line": "出售黃色物品，「{0}」這一行保留的除外",
+"Sells yellow items except those kept by the * and * lines": "出售黃色物品，「{0}」和「{1}」這兩行保留的除外",
+"Sells yellow items except those kept by the *, * and * lines": "出售黃色物品，「{0}」、「{1}」和「{2}」這幾行保留的除外",
+"Sells yellow items except those kept by the *, * and * more lines": "出售黃色物品，「{0}」、「{1}」和另外 {2} 行保留的除外",
+"Hides and sells blue items except those kept by *": "隱藏並出售藍色物品，{0}保留的除外",
+"Hides and sells blue items except those kept by the * line": "隱藏並出售藍色物品，「{0}」這一行保留的除外",
+"Hides and sells blue items except those kept by the * and * lines": "隱藏並出售藍色物品，「{0}」和「{1}」這兩行保留的除外",
+"Hides and sells blue items except those kept by the *, * and * lines": "隱藏並出售藍色物品，「{0}」、「{1}」和「{2}」這幾行保留的除外",
+"Hides and sells blue items except those kept by the *, * and * more lines": "隱藏並出售藍色物品，「{0}」、「{1}」和另外 {2} 行保留的除外",
+"Hides and sells yellow items except those kept by *": "隱藏並出售黃色物品，{0}保留的除外",
+"Hides and sells yellow items except those kept by the * line": "隱藏並出售黃色物品，「{0}」這一行保留的除外",
+"Hides and sells yellow items except those kept by the * and * lines": "隱藏並出售黃色物品，「{0}」和「{1}」這兩行保留的除外",
+"Hides and sells yellow items except those kept by the *, * and * lines": "隱藏並出售黃色物品，「{0}」、「{1}」和「{2}」這幾行保留的除外",
+"Hides and sells yellow items except those kept by the *, * and * more lines": "隱藏並出售黃色物品，「{0}」、「{1}」和另外 {2} 行保留的除外",
+"Sells what isn't for your class, except charms and jewels": "出售不是本職業用的物品，護符和珠寶除外",
+"Keeps only charms, jewels and the rares your class can use": "只保留護符、珠寶和本職業能用的稀有物品",
+"NOT FOR MY CLASS hides quivers too. Set QUIVERS to KEEP to keep them": "「非本職業」也會隱藏箭筒。要留著箭筒請把「箭筒」設為「保留」",
+"NOT FOR MY CLASS sells quivers too. Set QUIVERS to KEEP to keep them": "「非本職業」也會出售箭筒。要留著箭筒請把「箭筒」設為「保留」",
+"A second copy of a unique or set item in your Uniques tab goes by IN MY COLLECTION alone, a runeword's by RUNEWORDS": "獨特物品分頁裡已有的獨特或套裝物品，第二件只看「已收藏」這一行；符文之語則看「符文之語」這一行",
+"This ends your Uber Tristram run: its organs are lost. Click again": "這會結束你的超級崔斯特姆：器官會失去。再點一次確認",
+"This ends your Uber Tristram run: its organs are lost. Tap again": "這會結束你的超級崔斯特姆：器官會失去。再點一下確認",
+"This ends your Pandemonium run: its keys are lost. Click again": "這會結束你的混沌關卡：鑰匙會失去。再點一次確認",
+"This ends your Pandemonium run: its keys are lost. Tap again": "這會結束你的混沌關卡：鑰匙會失去。再點一下確認",
+"Summons a shadow that mimics your skills at #% damage. # life at level #.": "召喚一個模仿你技能的影子，造成 {0}% 傷害。{2} 級時有 {1} 生命。",
+"Summons a powerful shadow that mimics your skills at #% damage. # life at level #.": "召喚一個模仿你技能的強大影子，造成 {0}% 傷害。{2} 級時有 {1} 生命。",
+"+#% fire damage. Lowers enemy fire resistance #%, a fifth of that if immune.": "+{0}% 火焰傷害。降低敵人火焰抗性 {1}%，對免疫的敵人只有五分之一。",
+"+#% cold damage. Lowers enemy cold resistance #%, a fifth of that if immune.": "+{0}% 冰寒傷害。降低敵人冰寒抗性 {1}%，對免疫的敵人只有五分之一。",
+"+#% lightning damage. Lowers enemy lightning resistance #%, a fifth of that if immune.": "+{0}% 閃電傷害。降低敵人閃電抗性 {1}%，對免疫的敵人只有五分之一。",
+"Flickering Flame": "閃爍火焰",
+"Mist": "迷霧",
+"Obsession": "執念",
+"Pattern": "圖紋",
+"Unbending Will": "不屈意志",
+"Wisdom": "智慧",
+"Hysteria": "歇斯底里",
+"Mania": "狂躁",
+"Mosaic": "馬賽克",
+"Metamorphosis": "變形",
+"Ground": "接地",
+"Hearth": "爐火",
+"Cure": "治癒",
+"+*% chance for finishing moves to not consume charges": "+{0}% 機率終結技不消耗蓄能",
+"Mark of the Bear": "熊之印記",
+"Right Click, then click the item to socket": "按右鍵，再點要鑲嵌的物品",
+"Hold, then tap the item to socket": "長按，再點一下要鑲嵌的物品",
+"* went to the stash, shared tab *": "{0}已放進儲物箱共用分頁 {1}",
+"* went to your personal stash tab": "{0}已放進你的個人儲物箱分頁",
+"Locked for good after an older save was loaded. The item still works": "讀取較舊的存檔後已永久鎖定。物品仍然可以使用",
+"Your experience brings you fortune.": "你的經驗為你帶來好運。",
+"Pending": "等待中",
+"PLAY ONLINE": "線上遊戲",
+"PLAY OFFLINE": "離線遊戲",
+"Email address": "電子郵件地址",
+"ENTER THE CODE": "輸入驗證碼",
+"Six digits": "六位數字",
+"CHOOSE A NAME": "取一個名字",
+"DELETE YOUR ACCOUNT?": "要刪除你的帳號嗎？",
+"That isn't an email address.": "這不是電子郵件地址。",
+"The check that you're not a script didn't pass. Try again.": "真人驗證沒有通過，請再試一次。",
+"Too many tries. Wait a while, then try again.": "嘗試太多次了，請等一下再試。",
+"The code is six digits.": "驗證碼是六位數字。",
+"The email couldn't be sent just now. Try again in a minute.": "郵件暫時無法寄出，請一分鐘後再試。",
+"Wrong code. # tries left.": "驗證碼錯誤，還可以試 {0} 次。",
+"SEND CODE": "寄送驗證碼",
+"SIGN IN": "登入",
+"NEW CODE": "重寄驗證碼",
+"SIGN OUT": "登出",
+"DELETE ACCOUNT": "刪除帳號",
+"Online play didn't open": "線上遊戲無法開啟",
+"ONLINE PLAY DIDN'T OPEN": "線上遊戲無法開啟",
+"SIGN IN WITH GOOGLE": "用 Google 登入",
+"SIGN IN WITH DISCORD": "用 Discord 登入",
+"SIGN IN WITH EMAIL": "用電子郵件登入",
+"ACCOUNT": "帳號",
+"You sign in with": "你的登入方式",
+"Email": "電子郵件",
+"The server is full": "伺服器已滿",
+"The server is full.": "伺服器已滿。",
+"THE SERVER IS FULL": "伺服器已滿",
+"START HERE": "在這裡開始",
+"LAY TO REST": "安息",
+"Something went wrong on our side. Try again in a minute.": "我們這邊出了問題，請一分鐘後再試。",
+"Online: *, *": "線上：{0}，{1}",
+"Connecting to the server...": "正在連線到伺服器…",
+"Signing in...": "正在登入…",
+"Online heroes are kept on the server, and only they rank on the boards.": "線上英雄存在伺服器上，只有線上英雄會列入排行榜。",
+"A code comes to this address. No password.": "驗證碼會寄到這個信箱，不需要密碼。",
+"One more step: tick Cloudflare's box below.": "還差一步：請勾選下方的 Cloudflare 驗證框。",
+"Please wait...": "請稍候…",
+"Your browser opened to sign in with *. Finish there, and the game goes on by itself.": "已開啟瀏覽器用 {0} 登入。在瀏覽器完成後，遊戲會自動繼續。",
+"Closed it by mistake? CANCEL, then sign in again.": "不小心關掉了？按「取消」，再重新登入。",
+"Sign-in with * was cancelled.": "已取消用 {0} 登入。",
+"Sign-in with * didn't finish. Try again.": "用 {0} 登入沒有完成，請再試一次。",
+"A 6-digit code went to": "6 位數驗證碼已寄到",
+"It works for 10 minutes. Not there? Look in spam, or send a new one.": "驗證碼 10 分鐘內有效。沒收到？請看垃圾郵件，或重寄一封。",
+"A new code is on its way.": "新的驗證碼已寄出。",
+"Other players see it on the boards. 2 to 15 letters, with one - or _ inside at most.": "其他玩家會在排行榜上看到這個名字。2 到 15 個字元，中間最多只能有一個 - 或 _。",
+"A moderator reset your name: a name may not insult, show hate or pretend to be someone else. Keep this one or choose another.": "管理員重設了你的名字：名字不能辱罵他人、帶有仇恨或冒充別人。可以保留這個名字，或另外取一個。",
+"Too many wrong codes. Wait an hour, then send a new one.": "驗證碼錯太多次了。請等一小時後再重寄一封。",
+"That code ran out. Send a new one.": "這個驗證碼已過期，請重寄一封。",
+"Wrong code, and that was the last try. Send a new one.": "驗證碼錯誤，而且這是最後一次機會。請重寄一封。",
+"That name is taken.": "這個名字已經有人用了。",
+"That name can't be used.": "這個名字不能使用。",
+"BETA CODE": "測試邀請碼",
+"Online beta is invite-only. Enter your code.": "線上測試只限受邀玩家，請輸入你的邀請碼。",
+"Beta code": "測試邀請碼",
+"That code isn't right. Check it and try again.": "邀請碼不正確，請檢查後再試一次。",
+"That code was already used. Ask for a new one.": "這個邀請碼已經用過了，請索取新的邀請碼。",
+"That code no longer works. Ask for a new one.": "這個邀請碼已經失效，請索取新的邀請碼。",
+"Online beta is invite-only. PLAY ONLINE to enter your code.": "線上測試只限受邀玩家。按「線上遊戲」輸入你的邀請碼。",
+"Email can't be sent to that address. Try another.": "無法寄信到這個信箱，請換一個。",
+"ONLINE HEROES": "線上英雄",
+"Online heroes start from nothing. Your offline heroes stay on this device, as they are.": "線上英雄從零開始。你的離線英雄會照原樣留在這台裝置上。",
+"Carried over from this device:": "從這台裝置帶過去的：",
+"Tyrael's Wings, for *": "泰瑞爾之翼，給{0}",
+"The golden glow, for the * *": "金色光芒，給{0}{1}",
+"Nothing from the * save: the game marks it edited.": "{0}存檔的內容都不會帶過去：遊戲把它標記為修改過。",
+"Nothing from the * save: another account claimed it.": "{0}存檔的內容都不會帶過去：已被另一個帳號領取。",
+"Pick a mode. Each has its own online heroes.": "選擇模式。每個模式有各自的線上英雄。",
+"WAITING IN LINE": "排隊中",
+"You go in on your own as soon as a place frees. Keep this screen open.": "一有空位就會自動進入。請讓這個畫面保持開啟。",
+"Place in line: #": "排隊順位：{0}",
+"Your online heroes, their gear, the stash and your runs on the boards, Softcore's and Hardcore's, are deleted for good.": "你的線上英雄、他們的裝備、儲物箱，以及你在一般模式和專家模式排行榜上的紀錄，都會永久刪除。",
+"This can't be undone.": "這個動作無法復原。",
+"ACCOUNT DELETED": "帳號已刪除",
+"Your account and its heroes are gone. Signing in again makes a new account.": "你的帳號和英雄都已刪除。重新登入會建立新的帳號。",
+"CAN'T CONNECT": "無法連線",
+"The server can't be reached. Check your connection, then try again.": "無法連上伺服器。請檢查網路連線後再試一次。",
+"Offline play is open meanwhile.": "這段時間仍然可以離線遊戲。",
+"ONLINE PLAY IS CLOSED": "線上遊戲暫停中",
+"Online play is closed for a while. Your online heroes are safe on the server.": "線上遊戲暫停一段時間。你的線上英雄安全地存在伺服器上。",
+"Online play closed for a while. Your hero is safe on the server, as of your last change.": "線上遊戲暫停一段時間。你的英雄安全地存在伺服器上，保留到你最後一次變更為止。",
+"A NEW BUILD IS OUT": "新版本已推出",
+"Online play needs the newest build. Reload to update. Nothing is lost.": "線上遊戲需要最新版本。重新載入即可更新，不會失去任何東西。",
+"Online play needs the newest build. The app is downloading it: restart once it's ready.": "線上遊戲需要最新版本。程式正在下載，下載好後請重新開啟。",
+"ONLINE NEEDS HOSTED FILES": "線上遊戲需要線上檔案",
+"Online play needs the game's hosted files for now. Your heroes are kept.": "線上遊戲目前需要使用遊戲的線上檔案。你的英雄會保留。",
+"ACCOUNT CLOSED": "帳號已停用",
+"This account can no longer play online. Offline play is still yours.": "這個帳號不能再進行線上遊戲，仍然可以離線遊戲。",
+"To ask why, write on the Discord.": "想知道原因，請到 Discord 詢問。",
+"The server can't be reached, so the game opened offline. Your online heroes are safe on the server. PLAY ONLINE tries again.": "無法連上伺服器，所以遊戲以離線模式開啟。你的線上英雄安全地存在伺服器上。按「線上遊戲」可以重試。",
+"SIGNED OUT": "已登出",
+"Your session ended, so the game opened offline. PLAY ONLINE to sign in again.": "你的登入已過期，所以遊戲以離線模式開啟。按「線上遊戲」重新登入。",
+"You were away over 10 minutes, and the server filled meanwhile. Wait for a place under PLAY ONLINE.": "你離開超過 10 分鐘，這段時間伺服器已經滿了。請到「線上遊戲」排隊等候空位。",
+"Nothing in the Training Ground is saved, online or offline": "訓練場裡的一切都不會存檔，不論線上或離線",
+"Can't reach the server. Your changes are kept and sent once it's back.": "無法連上伺服器。你的變更會保留，連線恢復後再送出。",
+"Pick Softcore or Hardcore under PLAY ONLINE": "請在「線上遊戲」選擇一般模式或專家模式",
+"Starting the run...": "正在開始這一局…",
+"THE RUN DIDN'T START": "這一局無法開始",
+"This run couldn't start. Try again in a moment.": "這一局無法開始，請稍後再試。",
+"THIS HERO IS IN A RUN": "這位英雄正在遊戲中",
+"A run is under way on another device. Starting here ends that run, and it won't rank.": "另一台裝置上正在進行一局。在這裡開始會結束那一局，而且那一局不會列入排行榜。",
+"A lost connection never kills. Your hero can play again once the run's last seconds are saved.": "斷線不會害英雄死亡。這一局最後幾秒存好後，英雄就可以再玩。",
+"Your hero keeps what it earned up to then.": "英雄會保留到那時為止獲得的東西。",
+"CONNECTION LOST": "連線中斷",
+"The connection was lost for over a minute, so the run ended. It won't rank.": "連線中斷超過一分鐘，這一局已結束，不會列入排行榜。",
+"Your hero keeps what it earned before the connection dropped.": "英雄會保留斷線前獲得的東西。",
+"The run stopped and won't rank.": "這一局已停止，不會列入排行榜。",
+"THE RUN ENDED": "這一局已結束",
+"The game was closed or reloaded during the run, so the run ended. It won't rank.": "遊戲中途被關閉或重新載入，這一局已結束，不會列入排行榜。",
+"YOUR HERO IS WAITING": "英雄等待中",
+"This hero's last run is still being saved. It can play again once that's done, usually within a minute.": "這位英雄的上一局還在存檔中。存好後就可以再玩，通常在一分鐘內。",
+"This hero's last run is still on the device that played it. Open the game online on that device to save it.": "這位英雄的上一局還在玩那一局的裝置上。請在那台裝置上以線上模式開啟遊戲來存檔。",
+"Still waiting after a day? LAY TO REST counts this hero as dead, and the class starts again.": "等了一天還沒好？按「安息」會把這位英雄算成死亡，這個職業重新開始。",
+"LAY THIS HERO TO REST?": "要讓這位英雄安息嗎？",
+"Your hero is buried as a death in Hardcore, with the gear worn. A new hero of the class can start at once.": "英雄會連同身上的裝備，以專家模式死亡的方式埋葬。這個職業可以馬上建立新英雄。",
+"LAY TO REST opens once this hero has waited a whole day": "這位英雄等滿一整天後才能按「安息」",
+"Your hero's last run is saved. It can play again.": "英雄的上一局已存好，可以再玩了。",
+"YOUR HERO HAS DIED": "你的英雄已死亡",
+"Your hero fell in the last run, just before the connection was lost.": "你的英雄在上一局斷線前就已陣亡。",
+"Connection lost. The run ends in # seconds unless it's back.": "連線中斷。若沒有恢復，這一局將在 {0} 秒後結束。",
+"A lost connection never kills.": "斷線不會害英雄死亡。",
+"Connection back.": "連線已恢復。",
+"Online update in # minutes. Finish your run or SAVE AND EXIT: your hero is kept.": "線上更新將在 {0} 分鐘後開始。請打完這一局或「儲存並離開」：英雄會保留。",
+"Online update in # minute. Finish your run or SAVE AND EXIT: your hero is kept.": "線上更新將在 {0} 分鐘後開始。請打完這一局或「儲存並離開」：英雄會保留。",
+"Online update in 1 minute. Finish your run or SAVE AND EXIT: your hero is kept.": "線上更新將在 1 分鐘後開始。請打完這一局或「儲存並離開」：英雄會保留。",
+"Online update in # minutes. New runs can start once it's done.": "線上更新將在 {0} 分鐘後開始。更新完成後才能開新的一局。",
+"Online update in # minute. New runs can start once it's done.": "線上更新將在 {0} 分鐘後開始。更新完成後才能開新的一局。",
+"Online update in 1 minute. New runs can start once it's done.": "線上更新將在 1 分鐘後開始。更新完成後才能開新的一局。",
+"Too many short runs this hour. Your hero can start a new run in # minutes.": "這一小時內太多短局了。英雄 {0} 分鐘後才能開新的一局。",
+"Too many short runs this hour. Your hero can start a new run in # minute.": "這一小時內太多短局了。英雄 {0} 分鐘後才能開新的一局。",
+"Too many short runs this hour. Your hero can start a new run in 1 minute.": "這一小時內太多短局了。英雄 1 分鐘後才能開新的一局。",
+"ONLINE IS UPDATING": "線上更新中",
+"Back at about *. Your hero is safe on the server. Offline play is open meanwhile.": "預計 {0} 左右恢復。你的英雄安全地存在伺服器上。這段時間仍然可以離線遊戲。",
+"Back in a few minutes. Your hero is safe on the server. Offline play is open meanwhile.": "幾分鐘後恢復。你的英雄安全地存在伺服器上。這段時間仍然可以離線遊戲。",
+"Online is updating. Your run goes on and is kept: play it out.": "線上正在更新。你這一局會繼續並保留：請把它打完。",
+"Your run is kept. Online is back at about *.": "你這一局已保留。線上預計 {0} 左右恢復。",
+"Your run is kept. Online is back in a few minutes.": "你這一局已保留。線上幾分鐘後恢復。",
+"Online is back, with a new version. RELOAD to play it.": "線上已恢復，並有新版本。按「重新載入」開始玩。",
+"Online is back, with a new version. The app is downloading it: restart once it's ready.": "線上已恢復，並有新版本。程式正在下載，下載好後請重新開啟。",
+"ONLINE IS BACK": "線上已恢復",
+"This run may pause # more minutes and still rank.": "這一局還可以暫停 {0} 分鐘，仍會列入排行榜。",
+"This run may pause 1 more minute and still rank.": "這一局還可以暫停 1 分鐘，仍會列入排行榜。",
+"Paused over 10 minutes, so this run no longer ranks.": "已暫停超過 10 分鐘，這一局不再列入排行榜。",
+"Pause # more minutes and this run no longer ranks.": "再暫停 {0} 分鐘，這一局就不會列入排行榜。",
+"Undo": "復原",
+"UNDO": "復原",
+"Temper and improve items": "淬鍊並強化物品",
+"Taken back:": "已復原：",
+"Undo only takes back a temper that just landed": "復原只能取消剛剛成功的那次淬鍊",
+"Takes back the temper that just landed": "取消剛剛成功的那次淬鍊",
+"Temper stops at #": "淬鍊最多 {0} 次",
+"Temper stops at #: use the Hellforge": "淬鍊最多 {0} 次：請改用地獄熔爐",
+"The Hellforge needs # tempers": "地獄熔爐需要 {0} 次淬鍊",
+"Up to # tempers on this item": "這件物品最多淬鍊 {0} 次",
+"2 tempers a line, up to 10 an item": "每一行 2 次，每件物品最多 10 次",
+"Tempers: # / #": "淬鍊：{0} / {1}",
+"Tempered (#/#)": "已淬鍊 ({0}/{1})",
+"Each line gives 2 tempers, up to 10": "每一行可淬鍊 2 次，最多 10 次",
+"This item holds its # tempers: Hellforge or Undo": "這件物品已淬鍊滿 {0} 次：可以用地獄熔爐或復原",
+"(this item: # lines)": "（這件物品：{0} 行）",
+"(this item: 1 line)": "（這件物品：1 行）",
+"OTHER MUSIC": "其他音樂",
+"Plays beside other apps' music, and follows the silent switch": "可以和其他 App 的音樂同時播放，並遵循靜音開關",
+"Confirm": "確認",
+"Press again to undo the last temper": "再按一次取消上一次淬鍊",
+"PULL LOOT": "吸取掉落物",
+"Gear and chests fly to you": "裝備和寶箱會飛到你身邊",
+"THE CAMP DIDN'T LOAD": "營地沒有載入",
+"Some of the Rogue Encampment's pictures didn't load, so the campfire stands in. The camp tries again after your next run, and reloading the page tries at once.": "羅格營地有些圖片沒有載入，所以暫時用營火代替。下一局結束後營地會再試一次，重新載入頁面則會馬上重試。",
+"TRY AGAIN": "再試一次",
+"'NefPulVex'": "'內夫・普爾・伐克斯'",
+"'ChamShaelGulThulIth'": "'查姆・夏・古爾・書爾・伊司'",
+"'ZodIstLemLumIoNef'": "'薩德・伊斯特・藍姆・盧姆・伊歐・內夫'",
+"'TalOrtThul'": "'塔爾・歐特・書爾'",
+"'ChamShaelUm'": "'查姆・夏・烏姆'",
+"'FalIoIthEldElHel'": "'法爾・伊歐・伊司・艾德・艾爾・海爾'",
+"'PulIthEld'": "'普爾・伊司・艾德'",
+"'ShaelKoEld'": "'夏・科・艾德'",
+"'MalGulAmn'": "'馬爾・古爾・安姆'",
+"'IoChamFal'": "'伊歐・查姆・法爾'",
+"'ShaelIoOrt'": "'夏・伊歐・歐特'",
+"'ShaelIoRal'": "'夏・伊歐・拉爾'",
+"'ShaelIoThul'": "'夏・伊歐・書爾'",
+"'ShaelIoTal'": "'夏・伊歐・塔爾'",
+"'ShaelIoSol'": "'夏・伊歐・索爾'",
+// 遊戲 20261105.2／.3：箭筒、物品過濾「隱藏並出售」「無形必撿」、淬鍊上限、恐懼層重玩、角色畫面多 3 頁數值、獨特物品分頁的符文之語底材
+"QUIVERS": "箭筒",
+"HIDE AND SELL": "隱藏並出售",
+// 物品過濾的預設方案（V60 修正：HIDE 被逐字翻成「皮」）
+"HIDE MAGIC": "隱藏魔法物品",
+"SELL MAGIC": "出售魔法物品",
+"SELL MAGIC AND RARE": "出售魔法和稀有物品",
+// 「已收藏」和「符文之語」底下各有一行開關，英文兩行都叫 ETHEREAL ONLY：加「└」表示是上面那一行的附屬開關（V61）
+"ETHEREAL ONLY": "└ 無形必撿",
+// 書籤加的兩個選項（d2lootInstall）
+"SELL MAGIC AND BELOW": "撿取並出售魔法以下",
+"SELL RARE AND BELOW": "撿取並出售稀有以下",
+"At ON, ethereal copies are always picked up and the line above acts on the rest": "開啟時一律撿起無形的物品，上面那一行的設定只套用在其他物品",
+"Not shown on the floor. Sold when you walk onto it or click where it lies": "不會顯示在地上。走過去或點擊它所在的位置就會直接賣掉",
+"Once: double or lose all tempers": "限一次：淬鍊全部加倍或全部失去",
+"Already on its elite base: *": "已經是精英底材：{0}",
+"Up to 10 tempers an item": "每件物品最多淬鍊 10 次",
+"Temper stops at 10: use the Hellforge": "淬鍊最多 10 次：請改用地獄熔爐",
+"Temper stops at 10": "淬鍊最多 10 次",
+"This item has used its Hellforge": "這件物品已經用過地獄熔爐",
+"Once per item": "每件物品限一次",
+"Magic items can't be tempered": "魔法物品不能淬鍊",
+"Charsi returned a Burning Essence of Terror": "恰西退回了 1 個燃燒的恐懼精華",
+"Charsi returned # Burning Essences of Terror": "恰西退回了 {0} 個燃燒的恐懼精華",
+"This item is locked: an older save was loaded": "這件物品已鎖住：曾讀取較舊的存檔",
+"Bases # / #": "底材 {0} / {1}",
+"One-Hand Weapons": "單手武器",
+"Two-Hand Weapons": "雙手武器",
+"REPLAY TERROR #": "重玩恐懼第 {0} 層",
+"Enter: next tier - R: replay * - T: Charsi's wares - Esc: end the run": "Enter：下一層 - R：重玩{0} - T：恰西的貨品 - Esc：結束這一輪",
+"Enter: replay * - T: Charsi's wares - Esc: end the run": "Enter：重玩{0} - T：恰西的貨品 - Esc：結束這一輪",
+"Enter: replay * - T: Charsi's wares - Esc: main menu": "Enter：重玩{0} - T：恰西的貨品 - Esc：主選單",
+"Enter: * - R: replay * - T: Charsi's wares - Esc: main menu": "Enter：{0} - R：重玩{1} - T：恰西的貨品 - Esc：主選單",
+"Enter: * - T: Charsi's wares - Esc: main menu": "Enter：{0} - T：恰西的貨品 - Esc：主選單",
+"Enter: * - T: Charsi's wares - Esc: end the run": "Enter：{0} - T：恰西的貨品 - Esc：結束這一輪",
+"Previous Page: *": "上一頁：{0}",
+"Next Page: *": "下一頁：{0}",
+"Offense": "攻擊",
+"Finds and Breakpoints": "尋獲與速度門檻",
+"Finds": "尋獲",
+"Casting": "施法",
+"Hits": "擊中效果",
+"Hit Recovery": "打擊恢復",
+"Frames": "影格",
+"Breakpoints: *": "門檻：{0}",
+"Next: *% for * frames": "下一個：{0}% 時 {1} 影格",
+"At the last breakpoint": "已達最後一個門檻",
+"Faster Cast Rate has no breakpoints here:": "這個遊戲的快速施法率沒有門檻：",
+"every point shortens cooldowns": "每一點都會縮短冷卻時間",
+"* of their time": "原本時間的 {0}",
+"Enemy Resistances": "敵人抗性",
+"Enemy Resistances but Magic": "敵人抗性（魔法除外）",
+"Enemy * Resistance": "敵人{0}抗性",
+"Enemy Fire Resistance": "敵人火焰抗性",
+"Enemy Cold Resistance": "敵人冰寒抗性",
+"Enemy Lightning Resistance": "敵人閃電抗性",
+"Enemy Poison Resistance": "敵人毒素抗性",
+"Enemy Magic Resistance": "敵人魔法抗性",
+"Enemy Physical Resistance": "敵人物理抗性",
+"Slows Target": "目標緩速",
+"Attacker Takes * Damage": "攻擊者受到{0}傷害",
+"Attacker Takes Fire Damage": "攻擊者受到火焰傷害",
+"Attacker Takes Cold Damage": "攻擊者受到冰寒傷害",
+"Attacker Takes Lightning Damage": "攻擊者受到閃電傷害",
+"Attacker Takes Poison Damage": "攻擊者受到毒素傷害",
+"Attacker Takes Magic Damage": "攻擊者受到魔法傷害",
+"Missile Damage Reduced": "遠程傷害減少",
+"Melee Damage Reduced": "近戰傷害減少",
+"* (* running)": "{0}（跑步時 {1}）",
+"*% / max *% / *% in all": "{0}% / 上限 {1}% / 總計 {2}%",
+"*% / max *%": "{0}% / 上限 {1}%",
+"Curse Length Reduced by": "詛咒時間減少",
+"Experience Gained": "獲得經驗值",
+"Light Radius": "照亮範圍",
 // 遊戲 20261105.1：恰西的鐵砧（淬鍊／清除／地獄熔爐／升級）、燃燒的恐懼精華、鑰匙說明、武器技能新說明
 "Quantity: #": "數量：{0}",
 "Keep in the Charms Window to Gain Bonus (*)": "放在護符欄（{0}）才有效果",
@@ -2762,7 +4472,7 @@ text: {
 "Set it to SELL once every hero has read all ten": "每位英雄都讀完十本後，可以設成「出售」",
 "Larzuk's Essence": "拉蘇克的精華",
 "Quantity:": "數量：",
-"Choose the item to which you wish to add sockets.": "選擇你要加上凹槽的物品。",
+"Choose the item to which you wish to add sockets.": "按右鍵（手機長按）使用，再點要加上凹槽的物品",
 "That item has sockets already": "這件物品已經有凹槽了",
 "That item can't hold sockets": "這件物品不能打凹槽",
 "JEWELS": "珠寶",
@@ -3721,7 +5431,7 @@ text: {
 'Lacerate': '撕裂', 'Storm Fangs': '風暴之牙', 'Quake Paw': '震地熊掌', 'Grudge': '積怨', 'Retaliate': '報復', 'Earthquake': '地震', 'Tremor': '顫動', 'Molten Stomp': '熔岩踐踏', 'Barbed': '倒刺', 'Clench': '緊握', 'Splinter': '碎裂', 'Grave Chill': '墓寒', 'Venom Puff': '毒霧', 'Pen': '囚籠', 'Bulwark': '堡壘', 'Hunter\'s Mark': '獵人印記', 'Cursed Ground': '詛咒之地', 'Siphon': '汲取', 'Fog': '迷霧', 'Spite': '怨恨', 'Judas': '猶大', 'Blood Pact': '血之契約', 'Leech': '吸取', 'Attuned': '協調',
 'Twins': '雙子', 'Mire': '泥沼', 'Hulk': '巨像', 'Boomerang': '迴力鏢', 'Ossuary': '藏骨堂', 'Restless': '不安', 'Reaper': '死神', 'Spectral Fire': '幽靈之火', 'Miasma': '瘴氣', 'Vile Burst': '邪惡爆發', 'Plague Wave': '瘟疫之波', 'Withering Ground': '枯萎之地', 'Madding Ground': '瘋狂之地', 'Bedlam': '混亂', 'Regicide': '弒君', 'Bloodbond': '血之羈絆', 'Grapple': '擒抱', 'Anvil': '鐵砧', 'Forge': '鍛爐', 'Storm Golem': '風暴石魔', 'Half its blow is lightning': '攻擊的一半轉為閃電',
 'Tight Orbit': '緊密環繞', 'Retribution': '懲罰', 'Bloodletting': '放血', 'Atonement': '贖罪', 'Fealty': '忠誠', 'Redeemed': '得贖', 'Judgement': '審判', 'Twin Strike': '雙重打擊', 'Fervor': '熱忱', 'Crusade': '十字軍', 'Cascade': '瀑流', 'Wide Wave': '寬波', 'Fault Line': '斷層線', 'Whirl': '迴旋', 'Hemorrhage': '大出血', 'Crowd': '人群', 'Thunderhead': '雷雲', 'Bloodrush': '血潮', 'Momentum': '動能', 'Steadfast': '堅定', 'Brand': '烙印', 'Sundering': '破甲', 'Executioner': '處刑者',
-'Stunning': '暈眩', 'Stride': '大步', 'Rebuke': '斥責', 'Vigil': '守夜', 'Reserve': '儲備', 'Benediction': '祝禱', 'Absorb': '吸收', 'Retort': '反擊', 'Purge': '淨化', 'Rapture': '狂喜', 'Contemplation': '沉思', 'Ascension': '升天', 'Sacrament': '聖禮', 'Hallowed': '神聖', 'Consecrate': '奉獻', 'LOOT FILTER': '物品過濾', 'PRESET': '預設', 'CUSTOM': '自訂', 'NOT FOR MY CLASS': '非本職業', 'WEAPONS': '武器', 'SHIELDS': '盾牌', 'HELMS': '頭盔', 'BELTS': '腰帶', 'RINGS': '戒指', 'AMULETS': '護身符',
+'Stunning': '暈眩', 'Stride': '大步', 'Rebuke': '斥責', 'Vigil': '守夜', 'Reserve': '儲備', 'Benediction': '祝禱', 'Absorb': '吸收', 'Retort': '反擊', 'Purge': '淨化', 'Rapture': '狂喜', 'Contemplation': '沉思', 'Ascension': '升天', 'Sacrament': '聖禮', 'Hallowed': '神聖', 'Consecrate': '奉獻', 'LOOT FILTER': '物品過濾', 'PRESET': '方案', 'CUSTOM': '自訂', 'NOT FOR MY CLASS': '非本職業', 'WEAPONS': '武器', 'SHIELDS': '盾牌', 'HELMS': '頭盔', 'BELTS': '腰帶', 'RINGS': '戒指', 'AMULETS': '護身符',
 'HIDDEN': '隱藏', 'MY CLASS ONLY': '只要本職業', 'RARES FOR MY CLASS': '本職業的稀有物品', 'Picks up everything, as D2 does': '全部撿起，跟 D2 一樣', 'Leaves magic items on the floor, unnamed': '魔法物品留在地上，不顯示名稱', 'Sells magic items as you pick them up': '撿起魔法物品時立刻賣掉', 'Sells magic and rare items as you pick them up': '撿起魔法和稀有物品時立刻賣掉', 'Sells what isn\'t for your class': '賣掉不是本職業用的物品',
 'Keeps only rares your class can use': '只留本職業能用的稀有物品', 'What you pick up, hide or sell': '要撿起、隱藏或賣掉的物品', 'Blue items of every kind': '所有種類的藍色物品', 'Yellow items of every kind': '所有種類的黃色物品', 'Another class\'s gear, or a weapon yours doesn\'t use': '其他職業的裝備，或本職業不用的武器', 'Tap a line to change it': '點一下項目來變更', 'Enter or arrows to change - Esc to go back': 'Enter 或方向鍵變更 - Esc 返回',
 'D2 Survivors can’t find its way into your Diablo II: Resurrected files.': 'D2 Survivors 無法讀取你的 Diablo II: Resurrected 檔案。', 'In Steam, right-click Diablo II: Resurrected, choose Properties, Installed Files, then Verify integrity of game files. Start the game once, then try again.': '請在 Steam 對 Diablo II: Resurrected 按右鍵，選「內容」→「已安裝檔案」→「驗證遊戲檔案完整性」。先啟動一次遊戲，再試一次。',
@@ -3911,7 +5621,7 @@ text: {
 'Strikes the toughest monster in reach with a heavy blow for # damage, sweeping #% through the monsters beside it. Each blow costs #% of your life, none below #%.': '對攻擊範圍內最強的怪物重擊，造成 {0} 傷害，並對旁邊的怪物橫掃 {1}%。每擊消耗 {2}% 生命，低於 {3}% 時不消耗。', 'A chest now evolves * into *': '現在寶箱會把{0}進化為{1}', 'A chest now evolves it into *': '現在寶箱會把它進化為{0}',
 'All your * go up one level, even past their maximum': '所有{0}的等級 +1，可以超過等級上限',
 // 技能樹 +1 卡片的副標（這一系最多加 3 次）
-'# of 3': '第 {0} 次（最多 3 次）', '+# to * # of 3': '+{0} {1}（第 {2} 次，最多 3 次）', 'Tapanother option to switch to it, or the one on to turn it off': '點一下其他選項切換過去，點已開啟的選項則關閉', 'Click another option to switch to it, or the one on to turn it off': '點擊其他選項切換過去，點已開啟的選項則關閉', 'No points are free. Turn off another skill\'s option to free one.': '沒有可用點數。關掉其他技能的改造來空出一點。', '* every * seconds': '每 {1} 秒{0}',
+'# of 3': '第 {0} 次（最多 3 次）', '+# to * # of 3': '+{0} {1}（第 {2} 次，最多 3 次）', 'Tap another option to switch to it, or the one on to turn it off': '點一下其他選項切換過去，點已開啟的選項則關閉', 'Click another option to switch to it, or the one on to turn it off': '點擊其他選項切換過去，點已開啟的選項則關閉', 'No points are free. Turn off another skill\'s option to free one.': '沒有可用點數。關掉其他技能的改造來空出一點。', '* every * seconds': '每 {1} 秒{0}',
 '#% chance of a critical strike, which deals double damage': '{0}% 機率致命一擊，造成雙倍傷害', 'Each skill\'s hit, and its damage a second:': '每個技能的單次傷害和每秒傷害：', 'It casts 1.7 times as often, but each ring deals 55% of its damage.': '施放頻率 1.7 倍，但每圈只造成 55% 的傷害。', 'Only physical hits are reduced': '只減少物理攻擊', 'Raises the cast rate cap by the same amount': '施法速度上限也提高同樣的量',
 'Adds to all four, up to his maximum': '四種抗性都加，最多到他的上限', 'Raises his own Defense, not his gear\'s': '提高傭兵本身的防禦，不含裝備', 'Only a fifth of it works on an immune monster': '對免疫的怪物只有五分之一的效果', 'Your level-* * starts over at level 1. A copy of her is kept at Akara.': '你等級 {0} 的{1}從等級 1 重新開始。阿卡拉會保留她的一份副本。', 'Its gift is already yours, so it does nothing': '這份獎勵你已經拿過了，所以沒有作用',
 'Cain didn\'t give you this one, so it does nothing': '這不是凱恩給你的，所以沒有作用', 'Open the character screen (C) in a run or the camp to read it': '在遊戲中或營地開啟角色畫面（C）來閱讀', 'This ends your saved run. Click again': '這會結束你已儲存的這一輪。再點擊一次', 'This ends your saved run. Tap again': '這會結束你已儲存的這一輪。再點一下', 'This counts as a death. Click again': '這會算作死亡。再點擊一次', 'This counts as a death. Tap again': '這會算作死亡。再點一下',
@@ -4968,6 +6678,13 @@ const fcrCap = /^Your cap: ([\d.]+%) shorter/.exec(source);
 if (fcrCap) d2zhFcrCap = fcrCap[1];
 const fcrPast = /^\+(\d+)% of it is past your cap and does nothing now$/.exec(source.trim());
 if (fcrPast && d2zhFcrCap) return `其中 +${fcrPast[1]}% 超過上限，目前已達 ${d2zhFcrCap} 上限`;
+// 任務欄「破碎之光」的說明：接上下一塊碎片在哪裡出現（照存檔的塊數，不存進快取）
+if (source.trim() === 'A shard of light found. Others lie scattered across the world, off the beaten path.') {
+return '找到一塊光之碎片。' + d2shardNextText(d2shardCount(), true);   // 任務欄的框不大，用精簡版
+}
+// 打洞失敗：照剛被檢查的物品說出原因（不存進快取）
+const socketReason = window.__d2zhSocketText ? window.__d2zhSocketText(source) : null;
+if (socketReason) return socketReason;
 if (translatedTexts.has(source)) return translatedTexts.get(source);
 const fixed = /[A-Za-z]/.test(source) ? d2zhFix(source) : null;
 if (fixed !== null) { translatedTexts.set(source, fixed); return fixed; }
@@ -5391,7 +7108,7 @@ if (was !== !!pad) { render(); if (pad && dlg) toast('已連接遊戲手把：' 
 }
 };
 }
-d2padInstall();
+if (!D2ZH_ONLINE) d2padInstall();   // 線上模式只翻譯
 // ====== 技能進化提示補全 ======
 // 遊戲規則：技能練滿＋持有某個被動（＋角色等級）→ 寶箱把技能進化成新技能（遊戲自己的設定，build 20261020）。
 // 遊戲只在「技能」那一邊一定寫出要哪個被動；「被動」那一邊：
@@ -5478,7 +7195,7 @@ for (const n of r.addedNodes) if (n.nodeType === 1 && (n.matches('#hoverbox, .d2
 }).observe(document.body, { subtree: true, childList: true });
 window.addEventListener('d2-language-changed', schedule);
 }
-d2evoInstall();
+if (!D2ZH_ONLINE) d2evoInstall();   // 線上模式只翻譯
 // ====== 生命血球裡：可重生次數 ======
 // 恰西賣的「復活」每級每輪多一次半血復活（最多 2 級）：遊戲把剩下的次數放在 player.revives，上限是存檔的 ranks.resurrect。
 // 放在血球（#d2-life）的同一層、玻璃反光之上，位置每次照血球重算（直向手機血球會換位置）。
@@ -5506,7 +7223,7 @@ el.style.top = `${globe.offsetTop + globe.offsetHeight / 2}px`;
 el.style.color = p.revives > 0 ? '#e8dfcc' : '#ff5c5c';
 }, 250);
 }
-d2revivesInstall();
+if (!D2ZH_ONLINE) d2revivesInstall();   // 線上模式只翻譯
 // ====== 說明框不要超出視窗 ======
 // 遊戲在說明框出現時，用當下的高度決定位置（框在圖示上方時是「底邊對齊」）；之後中文合併字詞、補上「進化：…」那一行，
 // 框變高就往上長，最上面的技能名稱被視窗切掉。框的大小或位置一變，就把它推回視窗裡。
@@ -5570,6 +7287,73 @@ watch();
 new MutationObserver(watch).observe(document.body, { childList: true });
 }
 d2tagInstall();
+// ====== 排行榜「搜尋玩家」自動填入自己的名字 ======
+// 遊戲的搜尋是找排行榜上的「名字」（「你」分頁的「你的名字」，存在存檔 leaderboard.name），不是帳號 ID，玩家常不知道要打什麼。
+// 搜尋框（#leaderboard input.lb-name[type=search]）出現且是空的時，填入自己的名字並全選（直接打字就會換掉），按 Enter 就能查到自己；
+// 還沒設定名字的話，在框下方（遊戲放錯誤訊息的 .lb-why）說明要先去「你」分頁設定。遊戲之後顯示錯誤訊息會把這行換掉。
+// 一般／專家模式各自有存檔（d2-survivors/mode/v1 決定現在是哪個），名字跟著目前模式的存檔。
+function d2lbFindInstall() {
+const myName = () => {
+let key = 'd2-survivors/save/v1';
+try { if (localStorage.getItem('d2-survivors/mode/v1') === 'hardcore') key = 'd2-survivors/hc/v1'; } catch (_) {}
+try { const n = (JSON.parse(localStorage.getItem(key) || '{}') || {}).leaderboard?.name; return typeof n === 'string' ? n.trim() : ''; } catch (_) { return ''; }
+};
+const done = new WeakSet();
+const apply = input => {
+if (done.has(input)) return;
+done.add(input);
+const zh = d2zhLang() === 'zh-Hant', name = myName(), why = input.parentNode && input.parentNode.querySelector('.lb-why');
+let hint;
+if (name && name.length >= 2) {
+if (!input.value) {
+input.value = name;
+setTimeout(() => { if (document.activeElement === input && input.value === name) input.select(); }, 0);
+}
+hint = zh ? `已填入你的名字「${name}」，按 Enter 查自己的排名` : `Your name "${name}" is filled in: press Enter to find your runs`;
+} else {
+hint = zh ? '還沒設定名字：先到「你」分頁點「你的名字」設定，之後搜尋那個名字就能查到自己' : 'No name yet: set Your name on the You tab, then search for it to find your runs';
+}
+if (why && !why.childElementCount) {
+const el = document.createElement('div');
+el.className = 'd2zh-lbfind';
+el.textContent = hint;
+el.style.cssText = `font: 11px/1.3 ${D2ZH_FONT}; color: ${name ? '#c7b377' : '#d8d0c0'}; max-width: 300px; white-space: normal; pointer-events: none; text-shadow: 1px 1px 0 #000;`;
+why.append(el);
+}
+};
+const scan = () => document.querySelectorAll('#leaderboard input.lb-name[type="search"]').forEach(apply);
+// 「你」分頁：遊戲把每一行做成絕對定位的 button.lb-row（Game-*.js 的 pP 列表、QP 畫），最後一行是「修改過存檔或改過遊戲的紀錄不算」。
+// 在它下面的空白處加說明：搜尋分頁輸入自己的名字可查排名；啟用書籤時無法上榜，要用上榜模式（見 d2zhCleanModeOpen）。
+// 切分頁或重畫時遊戲會 replaceChildren 把說明拿掉，下一次變動再補上。
+const youNote = () => {
+const last = [...document.querySelectorAll('#leaderboard button.lb-row')].find(b => /^(Edited or modded runs|修改過存檔)/.test(b.getAttribute('aria-label') || ''));
+const box = last && last.parentNode;
+if (!box || box.querySelector(':scope > .d2zh-lbyou')) return;
+const zh = d2zhLang() === 'zh-Hant', name = myName();
+const top = (parseFloat(last.style.top) || last.offsetTop) + (parseFloat(last.style.height) || last.offsetHeight) + 12;
+const left = (parseFloat(last.style.left) || last.offsetLeft) + 40;
+const width = Math.max(160, (parseFloat(last.style.width) || last.offsetWidth) - 48);
+const el = document.createElement('div');
+el.className = 'd2zh-lbyou';
+el.style.cssText = `position: absolute; left: ${left}px; top: ${top}px; width: ${width}px; font: 14px/1.6 ${D2ZH_FONT}; color: #d8d0c0; white-space: normal; pointer-events: none; text-shadow: 1px 1px 0 #000;`;
+const line = (text, color) => { const p = document.createElement('div'); p.textContent = text; if (color) p.style.color = color; return p; };
+if (zh) {
+el.append(line(name ? `在「搜尋」分頁的搜尋欄位輸入你的名字「${name}」，就可以查詢自己的排名。` : '在「搜尋」分頁的搜尋欄位輸入你的名字，就可以查詢自己的排名（你還沒取名字，請先點上面的「你的名字」設定）。', '#c7b377'),
+line('但是啟用書籤狀態下無法上榜：請在「選項」中的「書籤修改」啟動「上榜模式」，使用原文通關。', '#ff8a66'));
+} else {
+el.append(line(name ? `Type your name "${name}" in the Find tab to look up your rank.` : 'Type your name in the Find tab to look up your rank (set Your name above first).', '#c7b377'),
+line('Runs played with the bookmark never rank: open Options → 書籤修改 → 上榜模式 and clear the run in the original game.', '#ff8a66'));
+}
+box.append(el);
+};
+new MutationObserver(records => {
+for (const r of records) for (const n of r.addedNodes) {
+if (n.nodeType === 1 && (n.matches('.lb-naming') || n.querySelector?.('input.lb-name'))) { scan(); break; }
+}
+if (records.some(r => r.target.nodeType === 1 && r.target.closest('#leaderboard'))) youNote();
+}).observe(document.body, { subtree: true, childList: true });
+}
+if (!D2ZH_ONLINE) d2lbFindInstall();   // 線上模式只翻譯
 // ====== 技能選單大小 ======
 // 點技能按鈕跳出的選單（#skill-popup）是「被動一排、主動一排」，各 8 格排很寬，開著技能樹時會蓋住技能樹。
 // 技能樹開著時用 transform 縮放選單（不影響遊戲算的位置；往選單靠螢幕邊的那個下角縮），旁邊放 ＋／－ 按鈕讓玩家自己調：
@@ -5666,7 +7450,7 @@ ctl.style.left = left + 'px'; ctl.style.top = top + 'px';
 }
 setInterval(update, 200);
 }
-d2skillPopupInstall();
+if (!D2ZH_ONLINE) d2skillPopupInstall();   // 線上模式只翻譯
 // ====== 儲物箱／獨特物品分頁的搜尋可以打中文 ======
 // 遊戲把物品的英文名稱、底材、屬性和稀有度（英文＋韓文，例如「unique 고유」）接成一串再 toLowerCase() 拿來比對，
 // 儲物箱用換行接（每行一項）、獨特物品分頁用空格接。這裡攔 toLowerCase，認出這種字串就把中文譯名接在後面，
@@ -5752,7 +7536,7 @@ mark.circle(x, y, 10 * pulse * k).stroke({ width: 5 * k, color: 0x000000, alpha:
 } catch (e) { /* 遊戲結構改了就不畫，不影響遊戲 */ }
 }, 100);
 }
-d2questInstall();
+if (!D2ZH_ONLINE) d2questInstall();   // 線上模式只翻譯
 // ====== 地上的護符：閃爍 ======
 // 護符沒有掉落圖，遊戲用一個依稀有度上色的圓點（art.pickups.item）代替，很容易漏看。這裡讓地上護符的圓點一閃一閃、微微放大縮小。
 function d2charmBlinkInstall() {
@@ -5774,11 +7558,83 @@ s.scale.set(b.x * k, b.y * k);
 } catch (e) { /* 遊戲結構改了就不閃，不影響遊戲 */ }
 }, 50);
 }
-d2charmBlinkInstall();
+if (!D2ZH_ONLINE) d2charmBlinkInstall();   // 線上模式只翻譯
+// ====== 過關吸取物品：打完這一幕時，地上的裝備和物品（鑰匙、精華、器官…）也一起飛到英雄身邊 ======
+// 遊戲過關後等傳送門時（Game-*.js 的 waitForPortal），每格呼叫 itemArt 的 Pb()：只把經驗寶石和金幣設成 magnet 飛過來，
+// 裝備類（pickup 有 item）不管，進傳送門時 travel→sweepFloor 只收寶石和寶箱，地上的裝備就消失了。
+// 判斷「正在等傳送門」：waitForPortal 每格呼叫 hud.noticesClearOf('above'|'below')，#notices 會掛 under-hero／from-top；
+// 離開這一幕或重開時遊戲傳 null 拿掉。物品移動照遊戲吸寶石的速度：min(距離, max(380, 距離×2.5)×經過的遊戲時間)，
+// 遊戲時間不走（升級選單、暫停）就不動。飛到英雄腳邊後交給遊戲自己撿（物品欄滿了照樣顯示遊戲的提示，留在腳邊不再拖著走）。
+// 不吸：自己丟下的（dropped）、物品過濾設成隱藏的（hide，hidesell 在不能賣時也算）、還在掉落翻轉動畫中的（flippy）。
+const D2ED_ENDPULL_KEY = 'd2zh:endPull';
+function d2edEndPullOn() {
+try { return localStorage.getItem(D2ED_ENDPULL_KEY) !== '0'; } catch (_) { return true; }
+}
+function d2endPullInstall() {
+const arrived = new WeakSet();   // 已經送到腳邊的（物品欄滿了撿不起來），之後不再拖著走
+let lastTime = null, lastWorld = null;
+const clearing = () => {
+const n = document.getElementById('notices');
+return !!n && (n.classList.contains('under-hero') || n.classList.contains('from-top'));
+};
+const step = () => {
+requestAnimationFrame(step);
+try {
+const world = D2ED.world;
+if (!world || !world.player || !Array.isArray(world.pickups) || !d2edEndPullOn() || !clearing()
+|| document.body.classList.contains('in-camp') || document.body.classList.contains('no-run')) { lastTime = null; return; }
+if (world !== lastWorld) { lastWorld = world; lastTime = null; }
+const t = world.time;
+const dt = lastTime === null || typeof t !== 'number' ? 0 : Math.min(0.1, Math.max(0, t - lastTime));
+lastTime = t;
+if (!dt) return;
+const pl = world.player, reach = (pl.radius || 16) + 16;
+for (const p of world.pickups) {
+if (p.dead || !p.item || p.flippy || p.dropped || p.discarded || arrived.has(p)) continue;
+if (p.loot === 'hide' || (p.loot === 'hidesell' && !world.sell)) continue;
+const s = p.sprite;
+if (!s || s.destroyed) continue;
+const ox = pl.x - p.x, oy = pl.y - p.y, c = Math.hypot(ox, oy) || 1;
+if (c <= reach) { arrived.add(p); continue; }
+const l = Math.min(c - reach * 0.5, Math.max(380, c * 2.5) * dt);
+const dx = ox / c * l, dy = oy / c * l;
+p.x += dx; p.y += dy;
+s.position.set(p.x, p.y);
+if (p.label && !p.label.destroyed) { p.label.x += dx; p.label.y += dy; if (typeof p.labelY === 'number') p.labelY += dy; }
+}
+} catch (e) { /* 遊戲結構改了就不吸，不影響遊戲 */ }
+};
+requestAnimationFrame(step);
+}
+if (!D2ZH_ONLINE) d2endPullInstall();   // 線上模式只翻譯
 // ====== 碎片感應：破碎之光的碎片位置 ======
 // 跟遊戲算碎片的方式一樣（build 20261027.4，keepSave-*.js 的 gc／cc／uc／_c）：
 // 每一幕最多一塊，下一塊是「已找到 + 1」。第 1 塊在第一幕，第 2～5 塊在第二～五幕，第 6～10 塊在惡夢／地獄任何一幕；恐懼層每層都可能有。
 // 用 world.light（這一局的種子）、幕、恐懼層、塊數、難度算出亂數：進入這一幕 at 秒後，碎片出現在「當下英雄位置」往 angle 方向 screens 個畫面（800×600）遠。
+// 已找到幾塊（讀存檔，兩秒內重複問用上次的值；讀不到回 null）
+let d2shardCountCache = { at: -Infinity, n: null };
+function d2shardCount() {
+const now = performance.now();
+if (now - d2shardCountCache.at < 2000) return d2shardCountCache.n;
+let n = null;
+try {
+const hc = /hard/i.test(localStorage.getItem('d2-survivors/mode/v1') || '');
+const save = JSON.parse(localStorage.getItem(hc ? 'd2-survivors/hc/v1' : 'd2-survivors/save/v1') || '{}');
+n = save?.light?.shards ?? 0;
+} catch (_) { /* 讀不到就不提示 */ }
+d2shardCountCache = { at: now, n };
+return n;
+}
+// 下一塊碎片在哪裡出現（照遊戲 saveTransfer 的 lx／sx：第 1 塊第一幕、第 2～5 塊第二～五幕、第 6～10 塊惡夢以上任何一幕且有怪物守護；恐懼層每一幕都可能）
+function d2shardNextText(n, short = false) {
+if (n === null || n === undefined) return '';
+if (n >= 10) return '十塊碎片都找到了。';
+const r = Math.max(0, Math.floor(n)) + 1;
+const where = r <= 5 ? `第${'一二三四五'[r - 1]}幕（任何難度）` : '惡夢或地獄難度的任何一幕';
+if (short) return `下一塊（第 ${r} 塊）在${where}${r >= 6 ? '，有怪物守護' : ''}。備註：恐懼層任何一幕都會出現碎片。`;
+const extra = r === 1 ? '，位置離你很近（約 1.5 個畫面）' : r >= 6 ? '，離你 3～5 個畫面，接近時會有怪物守護' : '，離你 3～5 個畫面';
+return `下一塊是第 ${r} 塊，會出現在${where}，進入那一幕後 25～200 秒（遊戲時間）出現${extra}。備註：恐懼層的任何一幕都會出現碎片。`;
+}
 function d2shardInstall() {
 const mix = (...v) => { let t = 2166136261; for (const n of v) { t ^= n >>> 0; t = Math.imul(t, 16777619); t ^= t >>> 13; t = Math.imul(t, 1540483477); t ^= t >>> 15; } return t >>> 0; };
 const rng = seed => { let t = seed >>> 0; return () => { t = t + 1831565813 >>> 0; let e = t; e = Math.imul(e ^ e >>> 15, e | 1); e ^= e + Math.imul(e ^ e >>> 7, e | 61); return ((e ^ e >>> 14) >>> 0) / 2 ** 32; }; };
@@ -5823,6 +7679,51 @@ const FLASH = 4000;   // 出現時光暈先亮起，再花幾秒退回平常的�
 // 等待時只記錄英雄位置，計畫算出來後，用遊戲「進入這一幕 at 秒」那一刻的位置算碎片在哪。
 const SETTLE = 15000;
 let state = { key: '', plan: null, spot: null, count: 0, checkedAt: 0, enteredAt: 0, log: [], ready: false };
+// 重新偵測位置：遊戲的碎片程式（Game-*.js 的 Lw.update）在碎片出現後每一格都算 Md(英雄, 碎片)＝Math.hypot((英雄x−碎片x)/800, (英雄y−碎片y)/600)。
+// 短暫包住 Math.hypot，把每次兩個參數的呼叫用當下英雄位置反推成「被量的那一點」：碎片那一點每格都一樣、英雄走動也不變，
+// 其他量測（怪物、技能）不是這個比例或會跟著動。量 3～10 秒取次數最多又不隨英雄移動的點，量完立刻還原 Math.hypot；找不到 10 秒後再試。
+const rawHypot = Math.hypot;
+let probe = null, probeRetryAt = 0;
+const shardProbe = now => {
+if (!probe) {
+if (now < probeRetryAt) return null;
+probe = { start: now, counts: new Map() };
+Math.hypot = function (a, b) {
+const r = rawHypot.apply(Math, arguments);
+const pb = probe;
+if (pb && arguments.length === 2) {
+try {
+const pl = D2ED.world && D2ED.world.player;
+if (pl && Number.isFinite(a) && Number.isFinite(b)) {
+const x = pl.x - a * 800, y = pl.y - b * 600;
+const k = Math.round(x / 4) + ',' + Math.round(y / 4);
+const c = pb.counts.get(k);
+if (c) {
+c.n++; c.x = x; c.y = y;
+const mx = pl.x - c.px, my = pl.y - c.py, m2 = mx * mx + my * my;
+if (m2 > c.moved) c.moved = m2;
+} else if (pb.counts.size < 20000) pb.counts.set(k, { n: 1, x, y, px: pl.x, py: pl.y, moved: 0 });
+}
+} catch (_) { /* 只是觀察，出錯就略過 */ }
+}
+return r;
+};
+return null;
+}
+const age = now - probe.start;
+if (age < 3000) return null;
+const pl = D2ED.world && D2ED.world.player;
+const near = c => pl && rawHypot((c.x - pl.x) / 800, (c.y - pl.y) / 600) < 12;
+const list = [...probe.counts.values()].filter(c => c.n >= 20 && c.moved >= 30 * 30 && near(c)).sort((a, b) => b.n - a.n);
+const best = list[0];
+// 英雄完全沒動時分不出來，再多量一會兒（最多 10 秒）
+if (!best && age < 10000) return null;
+Math.hypot = rawHypot;
+probe = null;
+if (!best) { probeRetryAt = now + 10000; return null; }
+return { x: best.x, y: best.y };
+};
+D2ED.shardDebug = () => ({ spot: state.spot, missed: !!state.missed, ready: state.ready, probing: !!probe });   // 測試用：看書籤算出的碎片位置
 // 給「書籤修改」面板顯示目前狀態（不透露方向），方便判斷為什麼沒有光暈
 D2ED.shardStatus = () => {
 const world = D2ED.world;
@@ -5835,7 +7736,7 @@ const key = `${world.light}:${world.act}:${world.difficulty}:${world.terror?.tie
 if (key === state.key && !state.ready) return `已找到 ${n} 塊：剛進入這一幕，${Math.max(1, Math.ceil((SETTLE - (performance.now() - state.enteredAt)) / 1000))} 秒後開始偵測`;
 if (key === state.key && n > state.count) return `已找到 ${n} 塊：這一幕的碎片已經撿到了`;
 if (!plan(world, n)) return `已找到 ${n} 塊：這一幕沒有碎片`;
-if (key === state.key && state.missed) return `已找到 ${n} 塊：這一幕的碎片在書籤開始偵測前就出現了，無法判斷位置，下一幕會正常提示`;
+if (key === state.key && state.missed) return `已找到 ${n} 塊：這一幕的碎片在書籤開始偵測前就出現了，正在重新偵測位置（英雄要移動才量得出來）`;
 if (key === state.key && state.spot) return `已找到 ${n} 塊：這一幕的碎片已經出現`;
 return `已找到 ${n} 塊：這一幕的碎片還沒出現`;
 };
@@ -5843,19 +7744,35 @@ setInterval(() => {
 let show = 0;
 try {
 const world = D2ED.world;
+// 重新偵測進行中卻已經不需要了（換了一幕、撿到了、關掉碎片感應、離開遊戲）：馬上還原 Math.hypot
+if (probe && (!d2edShardOn() || !state.missed || !world || document.body.classList.contains('no-run') || (d2shardCount() ?? 0) > state.count)) { Math.hypot = rawHypot; probe = null; }
+// 關掉碎片感應就忘掉這一幕：中途再打開時重新偵測（以前會沿用關掉前的紀錄，用「現在的位置」推算而指錯方向）
+if (!d2edShardOn()) state.key = '';
 if (!d2edShardOn() || !world || !world.player || document.body.classList.contains('no-run') || world.farm || world.tristram || document.body.classList.contains('in-camp')) return;
 const key = `${world.light}:${world.act}:${world.difficulty}:${world.terror?.tier ?? 0}`;
 const now = performance.now();
 const pl = world.player;
-if (key !== state.key) state = { key, plan: null, spot: null, count: found(), checkedAt: now, enteredAt: now, log: [], ready: false };
+const elapsed = world.time - world.actStart;
+// 「進入這一幕經過的時間」往回跳＝遊戲重新開始了這一幕。恐懼層按「繼續」會用同一個種子、同一幕、同一層重開，
+// 識別值跟上一局一模一樣，剛換局的那一下還會讀到上一局停住的時間（例如 80 秒），以前就被誤判成「開始偵測前就出現了」而整幕沒有光暈（玩家回報 V54）
+if (key !== state.key || elapsed < state.lastE - 3) state = { key, plan: null, spot: null, count: found(), checkedAt: now, enteredAt: now, log: [], ready: false };
+state.lastE = elapsed;
 if (!state.ready) {
-state.log.push({ e: world.time - world.actStart, x: pl.x, y: pl.y });
+state.log.push({ e: elapsed, x: pl.x, y: pl.y });
 if (now - state.enteredAt < SETTLE) return;
 state.ready = true;
 state.plan = state.count === null ? null : plan(world, state.count);
 // 開始偵測時這一幕已經過了碎片出現的時間（玩到一半才點書籤、重新整理、讀檔繼續、中途才打開碎片感應）：
 // 遊戲是用「出現那一刻」的英雄位置算碎片，書籤沒看到那一刻，用現在的位置推算會指錯地方，所以這一幕不提示
-if (state.plan && state.log.length && state.log[0].e >= state.plan.at) { state.plan = null; state.missed = true; }
+if (state.plan && state.log.length && state.log[0].e >= state.plan.at) { state.missedPlan = state.plan; state.plan = null; state.missed = true; }
+}
+// 錯過了也不放棄：從遊戲自己的距離量測反推碎片真正的位置（見下面 shardProbe），找到就照常顯示光暈
+if (state.missed && state.missedPlan && elapsed >= state.missedPlan.at && (d2shardCount() ?? 0) <= state.count) {
+const spot = shardProbe(now);
+if (spot) {
+state.plan = state.missedPlan; state.missedPlan = null; state.missed = false;
+state.spot = spot; state.spawnAt = now; state.log = [];
+}
 }
 const p = state.plan;
 if (!p) return;
@@ -5923,6 +7840,7 @@ if (p) {
 const zh = d2zhLang() === 'zh-Hant';
 const left = Math.ceil(p.at - (world.time - world.actStart));
 if (left > 0) text = `${zh ? '距離碎片出現' : 'Shard appears in'}\n${Math.floor(left / 60)}:${String(left % 60).padStart(2, '0')}`;
+else if (state.missed) text = zh ? '碎片已出現\n偵測位置中' : 'Shard is out\nlocating…';   // 沒看到出現那一刻，正在用 shardProbe 重新找位置
 else text = zh ? '碎片已出現!' : 'Shard is out!';
 ready = true;
 }
@@ -5988,5 +7906,5 @@ if (mapDot && !mapDot.destroyed) mapDot.visible = visible;
 }
 }, 33);
 }
-d2shardInstall();
+if (!D2ZH_ONLINE) d2shardInstall();   // 線上模式只翻譯
 })();
